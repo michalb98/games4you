@@ -27,6 +27,16 @@
                 return 'Database error';
             }
         }
+
+        function getFromTable($pdo, $select, $table) {
+            if ($pdo) {
+                $sth = $pdo->prepare("$select * FROM `$table`;");
+                $sth->execute();
+                return $sth->fetchAll(PDO::FETCH_NUM);                
+            } else {
+                return 'Database error';
+            }
+        }
     }
 
 ?>

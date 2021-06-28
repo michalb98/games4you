@@ -9,7 +9,6 @@
     $pdo = $db->creatrPDO();
     $games = $db->getAllFromTable($pdo, 'game');
 
-    //$grid->drawGamesGrid($games);
 
 ?>
 <!DOCTYPE html>
@@ -18,6 +17,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Michał Błaszczyk">
+    <meta name="description" content="Sklep internetowy z grami komputerowymi">
+    <link rel="icon" type="image/png" href="./img/web/fav.png">
     <title>Games4You - sklep z grami komputerowymi</title>
     <link rel="stylesheet" href="./css/main-style.css">
 </head>
@@ -42,20 +44,11 @@
 
     </nav>
     <main>
-        <a class="game" href="" title="Zobacz produkt ">
-            <div class="game-container">
-                <img class="game-cover" src="./img/covers/Days gone_1_cover.jpg" alt="Days gone">
-                <div class="game-info">
-                    <p class="game-title"></p>
-                    <p class="game-price"></p>
-                </div>
-                <div class="game-info-hover">
-                    <p class="game-title"></p>
-                    <p class="game-desc"></p>
-                    <p class="game-price"></p>
-                </div>
-            </div>
-        </a>
+        <?php
+
+            $grid->drawGamesGrid($games);
+
+        ?>
     </main>
     <footer>
         <div id="payment-method">
