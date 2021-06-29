@@ -135,7 +135,7 @@ footer {
     -ms-transition: transform 0.5s ease-in-out;
     -o-transition: transform 0.5s ease-in-out;
     box-sizing: border-box;
-    padding: 1vw 2vh;
+    padding: 2vh 1vw;
 }
 
 .game-info {
@@ -146,7 +146,7 @@ footer {
     position: absolute;
     bottom: 0;
     box-sizing: border-box;
-    padding: 1vw 2vh;
+    padding: 2vh 1vw;
     transition: transform 0.5s ease-in-out;
     -webkit-transition: transform 0.5s ease-in-out;
     -moz-transition: transform 0.5s ease-in-out;
