@@ -6,7 +6,7 @@
     $db = new Database();
     $grid = new Grid();
 
-    $pdo = $db->creatrPDO();
+    $pdo = $db->createPDO();
     $games = $db->getAllFromTable($pdo, 'game');
 
 

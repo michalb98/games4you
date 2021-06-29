@@ -7,7 +7,7 @@
         protected $db_pass = "";
         protected $db_name = "sklep";
 
-        function creatrPDO() {
+        function createPDO() {
             try {
                 $pdo = new PDO("mysql:dbname=$this->db_name;charset=utf8;host=$this->host", "$this->db_user", "$this->db_pass");
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
