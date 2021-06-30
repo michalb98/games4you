@@ -76,6 +76,7 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
     position: relative;
     width: 15vw;
     height: 40vh;

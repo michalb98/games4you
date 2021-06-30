@@ -3,14 +3,20 @@
     require_once('./php/Database.php');
     require_once('./php/Grid.php');
     require_once('./php/Admin.php');
+    require_once('./php/Form.php');
 
     $db = new Database();
     $grid = new Grid();
     $admin = new Admin();
+    $form = new Form();
 
     $pdo = $db->createPDO();
     $games = $db->getAllFromTable($pdo, 'game');
 
+    if(isset($_POST['title-admin-form'])) {
+        $form->getFormAdminData();
+        $form->initiateAddGameToTable($pdo);
+    }
 
 ?>
 <!DOCTYPE html>

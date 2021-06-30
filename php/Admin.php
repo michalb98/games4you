@@ -2,6 +2,7 @@
     require_once("Database.php");
 
     class Admin {
+
         protected $db;
 
         function drawSelectItems($table) {
@@ -14,7 +15,7 @@
 
         function drawAddGameForm() {
             $admin = new Admin();
-            echo '<form method="post" class="admin-form" id="admin-form-game">
+            echo '<form method="post" class="admin-form" id="admin-form-game" enctype="multipart/form-data">
             <h1 class="form-title-admin-form">Dodaj grę do sklepu</h1>
             <label for="title-admin-form" class="label-admin-form">
                 Tytuł gry
@@ -68,7 +69,7 @@
                 Okładka gry
             </label>
             <div id="cover-admin-form" class="image-upload-wrap">
-                <input class="file-upload-input" type="file" onchange="readURL(this);" accept="image/*">
+                <input class="file-upload-input" name="file-upload-input" type="file" onchange="readURL(this);" accept="image/*">
                 <div class="drag-text">
                     <h3>Przeciągnij i upuść plik lub wybierz obraz</h3>
                 </div>
@@ -81,6 +82,10 @@
             </div>
             <input type="submit" value="Dodaj grę" class="submit-admin-form">
         </form>';
+        }
+
+        function addGameToDatabase($title, $price_brutto, $price_netto, $short_desc, $desc, $quantity, $type, $version, $platform) {
+            
         }
 
     }

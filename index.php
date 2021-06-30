@@ -2,13 +2,13 @@
 
     require_once('./php/Database.php');
     require_once('./php/Grid.php');
+    require_once('./php/Image.php');
 
     $db = new Database();
     $grid = new Grid();
 
     $pdo = $db->createPDO();
     $games = $db->getAllFromTable($pdo, 'game');
-
 
 ?>
 <!DOCTYPE html>

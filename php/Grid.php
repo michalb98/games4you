@@ -7,7 +7,7 @@
             for ($row = 0; $row < $rows; $row++) {
                 echo '<a class="game" href="" title="Zobacz produkt '.$games[$row][1].'">
                         <div class="game-cover-container">
-                            <img class="game-cover" src="./img/covers/'.$games[$row][1].'_'.$games[$row][0].'_cover.jpg" alt="Days gone">
+                            <img class="game-cover" src="./img/covers/'.$games[$row][1].'_cover.webp" alt="'.$games[$row][1].'">
                         </div>
                         <div class="game-container">
                              <div class="game-info">
