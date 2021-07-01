@@ -22,32 +22,18 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Michał Błaszczyk">
-    <link rel="icon" type="image/png" href="./img/web/fav.png">
     <title>Games4You - panel administratora</title>
-    <link rel="stylesheet" href="./css/main-style.css">
     <link rel="stylesheet" href="./css/admin-style.css">
+    <?php
+        $grid->drawNecesseryHead();
+    ?>
 </head>
 <body>
-    <div id="main-header">
-        <a href="strona-glowna" title="Przejdź do strony głównej">
-            <div id="logo">
-                <img src="./img/web/logo.png" alt="Games4You">
-            </div>
-        </a>
-        <div id="search">
-            <input type="search" name="search">
-        </div>
-        <div id="account" class="icon-main-header">
-        
-        </div>
-        <div id="cart" class="icon-main-header">
-        
-        </div>
-    </div>
+    <?php
+
+        $grid->drawMainHeader();
+
+    ?>
     <nav id="categories-nav">
 
     </nav>
@@ -59,31 +45,14 @@
         ?>
         
     </main>
-    <footer>
-        <div id="payment-method">
-        
-        </div>
-        <div id="help">
+    <?php
 
-        </div>
-        <div id="contact">
-        
-        </div>
-        <div id="social-media">
-        
-        </div>
-    </footer>
+        $grid->drawFooter();
+
+    ?>
+    
     <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <script src="./js/previewCover.js"></script>
-    <script>
-        function showPriceNetto() {
-            let pb = parseFloat(document.getElementById('brutto-admin-form').value).toFixed(2);;
-            let pn = document.getElementById('netto-admin-form');
-
-            if(pb != null)
-                pn.value = parseFloat(pb/1.23).toFixed(2);
-
-        }
-    </script>
+    <script src="./js/autoNettoPrice.js"></script>
 </body>
 </html>

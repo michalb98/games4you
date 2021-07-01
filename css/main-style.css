@@ -2,22 +2,31 @@ html,
 body {
     margin: 0;
     padding: 0;
+    font-family: 'Oswald', sans-serif;
 }
 
 body {
-    background: -webkit-gradient(linear, left bottom, left top, from(#30cfd0), to(#330867));
     background: linear-gradient(to top, #30cfd0 0%, #330867 100%);
     background-attachment: fixed;
 }
 
 #main-header {
     width: 100%;
-    height: 8vh;
+    height: 12vh;
     background-color: rgba(0, 0, 0, 1);
     display: flex;
     justify-content: space-around;
     align-items: center;
     flex-direction: row;
+}
+
+#logo {
+    height: 12vh;
+}
+
+#logo img {
+    width: auto;
+    height: inherit;
 }
 
 #search,
@@ -35,10 +44,27 @@ body {
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
     background-color: #30cfd0;
+    cursor: pointer;
+    text-decoration: none;
+    color: #330867;
+}
+
+.icon {
+   display: block;
+   box-sizing: border-box;
+   margin-top: calc(50% - 0.8em);
+   margin-left: auto;
+   margin-right: auto;
+   text-align: center;
+   font-size: 1.4em;
 }
 
 #cart {
     background-color: #330867;
+}
+
+#cart i {
+    color: #30cfd0;
 }
 
 #categories-nav {
@@ -51,6 +77,7 @@ main {
     width: 80%;
     min-height: 80vh;
     height: auto;
+    flex-wrap: wrap;
     background-color: rgba(0, 0, 0, 0.5);
     margin-left: auto;
     margin-right: auto;
@@ -72,16 +99,27 @@ footer {
     margin-top: 2vh;
 }
 
+#sort {
+    width: 100%;
+    height: 8vh;
+    background-color: blue;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
 .game {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-wrap: wrap;
+    margin: 2vh 1vw;
     position: relative;
     width: 15vw;
     height: 40vh;
     transition: 1s box-shadow;
-    margin-top: 2vh;
     border: 1px solid black;
     box-sizing: border-box;
     color: white;
