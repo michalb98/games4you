@@ -25,9 +25,7 @@
 <body>
 
     <?php
-
         $grid->drawMainHeader();
-
     ?>
 
     <nav id="categories-nav">
@@ -36,15 +34,11 @@
     <main>
         <div id="sort"></div>
         <?php
-
             $grid->drawGamesGrid($games);
-
         ?>
     </main>
     <?php
-
-            $grid->drawFooter();
-
+        $grid->drawFooter();
     ?>
 </body>
 </html>

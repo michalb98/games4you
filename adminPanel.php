@@ -30,25 +30,19 @@
 </head>
 <body>
     <?php
-
         $grid->drawMainHeader();
-
     ?>
     <nav id="categories-nav">
 
     </nav>
     <main>
         <?php
-
             $admin->drawAddGameForm();
-
         ?>
         
     </main>
     <?php
-
         $grid->drawFooter();
-
     ?>
     
     <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
