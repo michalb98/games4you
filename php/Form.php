@@ -45,8 +45,8 @@
                 $_SESSION['short-desc-form-error'] = 'Podany krótki opis jest niepoprawny! Poprawna długość to od 50 do 250 znaków.';
                 $check = false;
             }
-            if($this->desc == '' || strlen($this->desc) < 50 || strlen($this->desc) > 1000) {
-                $_SESSION['desc-form-error'] = 'Podany opis jest niepoprawny! Poprawna długość to od 50 do 1000 znaków.';
+            if($this->desc == '' || strlen($this->desc) < 50 || strlen($this->desc) > 5000) {
+                $_SESSION['desc-form-error'] = 'Podany opis jest niepoprawny! Poprawna długość to od 50 do 5000 znaków.';
                 $check = false;
             }
             if($this->quantity == '' || $this->quantity < 1 || $this->quantity > 999) {

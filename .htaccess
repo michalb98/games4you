@@ -7,3 +7,4 @@ Deny from all
 RewriteEngine on
 RewriteRule strona-glowna index.php
 RewriteRule admin-panel adminPanel.php
+RewriteRule produkt product.php

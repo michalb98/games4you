@@ -40,6 +40,17 @@
             }
         }
 
+        function getGameData($pdo, $id) {
+            if ($pdo) {
+                $sth = $pdo->prepare('SELECT Title, Price_brutto, Short_description, Description, type.Type, version.Version, platform.Platform FROM game, platform, version, type WHERE game.ID_Game = '.$id.' AND
+                game.ID_Platform = platform.ID_Platform AND game.ID_Version = version.ID_Version AND game.ID_Type = type.ID_Type;');
+                $sth->execute();
+                return $sth->fetchAll(PDO::FETCH_NUM);                
+            } else {
+                return 'Database error';
+            }
+        }
+
         function addGameToTable($pdo, $title, $price_brutto, $price_netto, $short_desc, $desc, $quantity, $type, $version, $platform) {
             if ($pdo) {
                 try {
@@ -51,6 +62,17 @@
                 } catch(Exception $e) {
                     return $e->getMessage();
                 }
+            }
+        }
+
+        function getGameTitle($pdo, $id) {
+            if ($pdo) {
+                $sth = $pdo->prepare('SELECT title FROM game WHERE ID_Game='.$id.';');
+                $sth->execute();
+                $title = $sth->fetchAll(PDO::FETCH_NUM); 
+                return $title[0][0];            
+            } else {
+                return 'Database error';
             }
         }
 
