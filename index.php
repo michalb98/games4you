@@ -29,7 +29,16 @@
     ?>
 
     <nav id="categories-nav">
+        <?php
 
+            $type = $db->getAllFromTable($pdo, 'type');
+            $platform = $db->getAllFromTable($pdo, 'platform');
+            $version = $db->getAllFromTable($pdo, 'version');
+            $grid->drawNavCategories($type, 'Wybierz typ');
+            $grid->drawNavCategories($platform, 'Wybierz platformę');
+            $grid->drawNavCategories($version, 'Wybierz wersję');
+
+        ?>
     </nav>
     <main>
         <div id="sort"></div>

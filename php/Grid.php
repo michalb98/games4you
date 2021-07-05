@@ -72,6 +72,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">';
         }
 
+        function drawNavCategories($categorie, $title) {
+            $rows = count($categorie);
+            echo '<ol class="list-categories-nav">';
+            echo '<a href="#"><li class="first-list-categories-nav">'.$title.'</li></a>';
+            for ($row = 0; $row < $rows; $row++) {
+                echo '<a href="" title="'.$categorie[$row][1].'">
+                        <li>'.$categorie[$row][1].'</li>
+                    </a>';
+            }
+            echo '</ol>';
+        }
+
     }
 
 ?>

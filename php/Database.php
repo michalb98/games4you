@@ -44,7 +44,7 @@
             if ($pdo) {
                 try {
                     $sth = $pdo->prepare('INSERT INTO `game` VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
-                    $sth->execute([NULL, $title, $price_brutto, $price_netto, $short_desc, $desc, $quantity, $type, $version, $platform]);
+                    $sth->execute([NULL, $title, $price_netto, $price_brutto, $short_desc, $desc, $quantity, $type, $version, $platform]);
                     $db = new Database();
                     $db->addGameCover($title, $type, 80);
                     return 'Dodano grę';
