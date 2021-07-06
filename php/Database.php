@@ -4,11 +4,13 @@
 
     class Database {
 
+        //Zmiene do bazy danych
         protected $host = "localhost";
         protected $db_user = "root";
         protected $db_pass = "";
         protected $db_name = "sklep";
 
+        //Tworzy połączenie z bazą PDO, a następnie je zwraca
         function createPDO() {
             try {
                 $pdo = new PDO("mysql:dbname=$this->db_name;charset=utf8;host=$this->host", "$this->db_user", "$this->db_pass");
@@ -20,6 +22,7 @@
             }
         }
 
+        //Pobiera wszystkie dane z wybranej tabeli oraz je zwraca
         function getAllFromTable($pdo, $table) {
             if ($pdo) {
                 $sth = $pdo->prepare("SELECT * FROM `$table`;");
@@ -30,9 +33,10 @@
             }
         }
 
-        function getFromTable($pdo, $select, $table) {
+        //Pobiera wszystkie dane zawarte w zapytaniu do bazy, a następnie je zwraca
+        function getAllFromDatabase($pdo, $query) {
             if ($pdo) {
-                $sth = $pdo->prepare("$select * FROM `$table`;");
+                $sth = $pdo->prepare($query);
                 $sth->execute();
                 return $sth->fetchAll(PDO::FETCH_NUM);                
             } else {
@@ -40,6 +44,7 @@
             }
         }
 
+        //Wyszukuje danych wybranej gry, następnie je zwraca
         function getGameData($pdo, $id) {
             if ($pdo) {
                 $sth = $pdo->prepare('SELECT Title, Price_brutto, Short_description, Description, type.Type, version.Version, platform.Platform FROM game, platform, version, type WHERE game.ID_Game = '.$id.' AND
@@ -51,6 +56,7 @@
             }
         }
 
+        //Dodaje nową grę do bazy danych
         function addGameToTable($pdo, $title, $price_brutto, $price_netto, $short_desc, $desc, $quantity, $type, $version, $platform) {
             if ($pdo) {
                 try {
@@ -65,6 +71,7 @@
             }
         }
 
+        //Zwraca tytuł wybranej gry
         function getGameTitle($pdo, $id) {
             if ($pdo) {
                 $sth = $pdo->prepare('SELECT title FROM game WHERE ID_Game='.$id.';');
@@ -76,6 +83,7 @@
             }
         }
 
+        //Dodaje okładkę gry w wybranym formacie do folderu img/temp
         function addGameCover($title, $id) {
             $target_dir = "./img/temp/temp_cover.";
             $file = $_FILES["file-upload-input"]["name"];
@@ -83,35 +91,35 @@
             $uploadOk = 1;
             $imageFileType = strtolower(pathinfo($file, PATHINFO_EXTENSION));
 
-            // Check if image file is a actual image or fake image
+            //Sprawdza, czy wgrane zdjęcie jest zdjęciem
             $check = getimagesize($_FILES["file-upload-input"]["tmp_name"]);
             if($check == false) {
                 //error
                 $uploadOk = 0;
             }
 
-            // Check if file already exists
+            //Sprawdza, czy istnieje już plik tymczasowy
             if (file_exists($target_file)) {
                 //error
                 $uploadOk = 0;
             }
 
-            // Check file size
+            //Sprawdza wielkość obrazu
             if ($_FILES["file-upload-input"]["size"] > 500000) {
                 //error
                 $uploadOk = 0;
             }
 
-            // Allow certain file formats
+            //Sprawdza format zdjęcia
             if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
                 //error
                 $uploadOk = 0;
             }
 
-            // Check if $uploadOk is set to 0 by an error
+            //Sprawdza flagę
             if ($uploadOk == 0) {
                 //error
-                // if everything is ok, try to upload file
+                //Jeżeli wszystko przebiegło poprawnie wgrywa zdjęcie do folderu
             } else {
                 if (move_uploaded_file($_FILES["file-upload-input"]["tmp_name"], $target_file)) {
                     $image = new Image();

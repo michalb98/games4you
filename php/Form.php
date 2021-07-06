@@ -3,6 +3,7 @@
     require_once('./php/Database.php');
 
     class Form {
+        //Dane z formularza
         protected $title;
         protected $price_netto;
         protected $price_brutto;
@@ -13,6 +14,7 @@
         protected $version;
         protected $platform;
 
+        //Pobieranie danych z formularza
         function getFormAdminData() {
             $this->title = $_POST['title-admin-form'];
             $this->price_netto = $_POST['netto-admin-form'];
@@ -25,6 +27,7 @@
             $this->platform = $_POST['platform-admin-form'];
         }
 
+        //Sprawdza poprawność formularza
         function validateForm() {
             //flag
             $check = true;
@@ -72,6 +75,7 @@
                 return false;
         }
 
+        //Zapamiętuje wartości formularza
         function keepFormValue() {
             $_SESSION['title-value'] = $this->title;
             $_SESSION['price-netto-value'] = $this->price_netto;
@@ -84,6 +88,7 @@
             $_SESSION['platform-value'] = $this->platform;
         }
 
+        //Funkcja wywołuję funkcję oraz podaje wymagane dane
         function initiateAddGameToTable($pdo) {
             $db = new Database();
             $db->addGameToTable($pdo, $this->title, $this->price_brutto, $this->price_netto, $this->short_desc, $this->desc, $this->quantity, $this->type, $this->version, $this->platform);

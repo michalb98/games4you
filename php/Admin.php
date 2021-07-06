@@ -5,6 +5,7 @@
 
         protected $db;
 
+        //Funkcja wyświetla listę select w formularzu, jednocześnie sprawdza, czy jakaś opcja była zaznaczona. Jeżeli tak to ponownie zostaje zaznaczona
         function drawSelectItems($table, $selected) {
             $this->db = new Database();
             $pdo = $this->db->createPDO();
@@ -19,6 +20,7 @@
             }
         }
 
+        //Funkcja wyświetla formularz dodawania gry
         function drawAddGameForm() {
             $admin = new Admin();
             echo '<form method="post" class="admin-form" id="admin-form-game" enctype="multipart/form-data">

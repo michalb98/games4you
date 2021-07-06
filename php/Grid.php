@@ -4,6 +4,7 @@
 
     class Grid {
 
+        //Funkcja pobiera wszystkie dostępne gry, a następnie wyświetla odnośnik do wybranej gry 
         function drawGamesGrid($games) {
             $rows = count($games);
             for ($row = 0; $row < $rows; $row++) {
@@ -26,6 +27,30 @@
             }
         }
 
+        //Funkcja pobiera gry z danej kategorii, a następnie wyświetla odnośnik do wybranej gry 
+        function drawGamesResult($games) {
+            $rows = count($games);
+            for ($row = 0; $row < $rows; $row++) {
+                echo '<a class="game" href="produkt?id='.$games[$row][0].'" title="Zobacz produkt '.$games[$row][1].'">
+                        <div class="game-cover-container">
+                            <img class="game-cover" src="./img/covers/'.$games[$row][1].'_cover.webp" alt="'.$games[$row][1].'" onerror="if (this.src != `./img/error/error_cover.webp`) this.src = `./img/error/error_cover.webp`;">
+                        </div>
+                        <div class="game-container">
+                             <div class="game-info">
+                                 <p class="game-title">'.$games[$row][1].'</p>
+                                 <p class="game-price">'.$games[$row][2].' zł</p>
+                            </div>
+                            <div class="game-info-hover">
+                                <p class="game-title">'.$games[$row][1].'</p>
+                                <p class="game-desc">'.$games[$row][3].'</p>
+                                <p class="game-price">'.$games[$row][2].' zł</p>
+                            </div>
+                        </div>
+                     </a>'; 
+            }
+        }
+
+        //Funkcja wyświetla nagłówek strony
         function drawMainHeader() {
             echo '<div id="main-header">
         <a href="strona-glowna" title="Przejdź do strony głównej">
@@ -45,6 +70,7 @@
     </div>';
         }
 
+        //Funkcja wyświetla stopkę strony
         function drawFooter() {
             echo '<footer>
             <div id="payment-method">
@@ -80,6 +106,7 @@
         </footer>'; 
         }
 
+        //Funkcja zawiera wszystkie niezbędne znaczniki meta oraz link, które powtarzają się na każdej podstronie
         function drawNecesseryHead() {
             echo '<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -92,18 +119,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">';
         }
 
-        function drawNavCategories($categorie, $title) {
+        //Funkcja wyświetla listę wybranych kategorii. Wymaga wszystkich wymaganych kategorii, Tytułu który ma się wyświetlać na początku listy, oraz główną nazwę kategorii
+        function drawNavCategories($categorie, $title, $get) {
             $rows = count($categorie);
             echo '<ol class="list-categories-nav">';
             echo '<a href="#"><li class="first-list-categories-nav">'.$title.'</li></a>';
             for ($row = 0; $row < $rows; $row++) {
-                echo '<a href="" title="'.$categorie[$row][1].'">
+                echo '<a href="szukaj?'.$get.'='.$categorie[$row][1].'" title="'.$categorie[$row][1].'">
                         <li>'.$categorie[$row][1].'</li>
                     </a>';
             }
             echo '</ol>';
         }
 
+        //Funkcja wyświetla wszystkie informację na temat wybranej gry
         function drawGamePage($pdo, $id) {
             $db = new Database();
             $game = $db->getGameData($pdo, $id);

@@ -2,6 +2,7 @@
 
     class Image {
         
+        //Funkcja ma za zadanie przekonwertowanie zdjęcia z jpg, jpeg, png lub gif na webp
         function convertImageToWebp($source, $destination, $quality) {
 
             $extension = pathinfo($source, PATHINFO_EXTENSION);
@@ -23,9 +24,10 @@
                     //error
             }
 
+            //tworzy plik docelowy
             $file = fopen($destination, "w");
 
-            //remove temp_cover file 
+            //usuwa plik temp_cover 
             unlink($source);
 
             return imagewebp($image, $file, $quality);

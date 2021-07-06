@@ -8,14 +8,13 @@
     $grid = new Grid();
 
     $pdo = $db->createPDO();
-    $games = $db->getAllFromTable($pdo, 'game');
 
 ?>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta name="description" content="Sklep internetowy z grami komputerowymi">
-    <title>Games4You - <?php echo $db->getGameTitle($pdo, $_GET['id']) ?></title>
+    <title>Games4You - <?php if(isset($_GET['type'])) echo $_GET['type']; else if(isset($_GET['version'])) echo $_GET['version']; else if(isset($_GET['platform'])) echo $_GET['platform']; else echo 'Rezultat'; ?></title>
     <link rel="stylesheet" href="./css/game-page.css">
     <link rel="stylesheet" href="./css/fontello.css">
     <link rel="stylesheet" href="./css/fontello-codes.css">
@@ -44,7 +43,15 @@
     </nav>
     <main>
         <?php
-            $grid->drawGamePage($pdo, $_GET['id']);
+            if(isset($_GET['type'])) 
+                $data = $_GET['type']; 
+            else if(isset($_GET['version'])) 
+                $data = $_GET['version']; 
+            else if(isset($_GET['platform']))
+                $data = $_GET['platform'];
+
+            $games = $db->getAllFromDatabase($pdo, 'SELECT DISTINCT ID_Game, Title, Price_brutto, Short_description FROM game, type, version, platform WHERE game.ID_Type=type.ID_Type AND game.ID_Version=version.ID_Version AND game.ID_Platform=platform.ID_Platform AND (type.Type = "'.$data.'" OR version.Version = "'.$data.'" OR platform.Platform = "'.$data.'");');
+            $grid->drawGamesResult($games);
         ?>
     </main>
     <?php
