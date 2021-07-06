@@ -43,14 +43,8 @@
     </nav>
     <main>
         <?php
-            if(isset($_GET['type'])) 
-                $data = $_GET['type']; 
-            else if(isset($_GET['version'])) 
-                $data = $_GET['version']; 
-            else if(isset($_GET['platform']))
-                $data = $_GET['platform'];
-
-            $games = $db->getAllFromDatabase($pdo, 'SELECT DISTINCT ID_Game, Title, Price_brutto, Short_description FROM game, type, version, platform WHERE game.ID_Type=type.ID_Type AND game.ID_Version=version.ID_Version AND game.ID_Platform=platform.ID_Platform AND (type.Type = "'.$data.'" OR version.Version = "'.$data.'" OR platform.Platform = "'.$data.'");');
+            $get = $grid->getInfo($_GET);
+            $games = $db->getAllFromDatabase($pdo, 'SELECT DISTINCT ID_Game, Title, Price_brutto, Short_description FROM game, type, version, platform WHERE game.ID_Type=type.ID_Type AND game.ID_Version=version.ID_Version AND game.ID_Platform=platform.ID_Platform AND (type.Type LIKE "'.$get[0].'" AND version.Version LIKE "'.$get[1].'" AND platform.Platform LIKE "'.$get[2].'");');
             $grid->drawGamesResult($games);
         ?>
     </main>

@@ -146,13 +146,13 @@
                 </div>
                 <div id="info-game-page">
                     <div class="type-game-page">
-                    Typ: '.$game[0][4].'
+                    Typ: <a href="szukaj?type='.$game[0][4].'" title="Typ: '.$game[0][4].'">'.$game[0][4].'</a>
                     </div>
                     <div class="version-game-page">
-                    Wersja: '.$game[0][5].'
+                    Wersja: <a href="szukaj?version='.$game[0][5].'" title="Wersja: '.$game[0][5].'">'.$game[0][5].'</a>
                     </div>
                     <div class="platform-game-page">
-                    Platforma: '.$game[0][6].'
+                    Platforma: <a href="szukaj?platform='.$game[0][6].'" title="Platforma: '.$game[0][6].'">'.$game[0][6].'</a>
                     </div>
                 </div>
                 <div class="short-desc-game-page">
@@ -171,6 +171,13 @@
         </div>';
         }
 
+        //Funkcja pobiera całą tablicę GET, a następnie sprawdza, czy dana metoda istnieje
+        function getInfo($get){
+            (isset($get['type'])) ? $out[0] = $get['type'] : $out[0] = "%";
+            (isset($get['version'])) ? $out[1] = $get['version'] : $out[1] = "%";
+            (isset($get['platform'])) ? $out[2] = $get['platform'] : $out[2] = "%";           
+            return $out;
+        }
     }
 
 ?>
