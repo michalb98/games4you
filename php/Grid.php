@@ -4,6 +4,11 @@
 
     class Grid {
 
+        protected $sortOption = array(  array("Price_brutto DESC", "Cena malejąco"),
+                                        array("Price_brutto ASC", "Cena rosnąco"),
+                                        array("Title ASC", "Tytuł A-Z"),
+                                        array("Title DESC","Tytuł Z-A"));
+
         //Funkcja pobiera wszystkie dostępne gry, a następnie wyświetla odnośnik do wybranej gry 
         function drawGamesGrid($games) {
             $rows = count($games);
@@ -176,9 +181,28 @@
             (isset($get['type'])) ? $out[0] = $get['type'] : $out[0] = "%";
             (isset($get['version'])) ? $out[1] = $get['version'] : $out[1] = "%";
             (isset($get['platform'])) ? $out[2] = $get['platform'] : $out[2] = "%";
-            (isset($get['price-from'])) ? $out[3] = $get['price-from'] : $out[3] = "0"; 
-            (isset($get['price-to'])) ? $out[4] = $get['price-to']+0.01 : $out[4] = "999.99"; 
-            (isset($get['sort-by'])) ? $out[5] = $get['sort-by'] : $out[5] = "Title";            
+            (isset($get['price-from']) && $get['price-from'] > 0 && $get['price-from'] < 1000) ? $out[3] = $get['price-from'] : $out[3] = "0"; 
+            (isset($get['price-to']) && $get['price-to'] > 0 && $get['price-to'] < 1000) ? $out[4] = $get['price-to']+0.01 : $out[4] = "999.99"; 
+            if(isset($get['sort-by'])) {
+                switch($get['sort-by']) {
+                    case "Price_brutto DESC":
+                        $out[5] = "Price_brutto DESC";
+                    break;
+                    case "Price_brutto ASC":
+                        $out[5] = "Price_brutto ASC";
+                    break;
+                    case "Title ASC":
+                        $out[5] = "Title ASC";
+                    break;
+                    case "Title DESC":
+                        $out[5] = "Title DESC";
+                    break;
+                    default:
+                        $out[5] = "Title";
+                }
+            }
+            else 
+                $out[5] = "Title";            
             return $out;
         }
 
@@ -196,15 +220,15 @@
 
         function getTitlePage($get) {
             if(isset($get['type'])) 
-                ($get['type'] == "%") ? $out[0] = "Dowolny typ" : $out[0] = $get['type'];
+                ($get['type'] == "%") ? $out[0] = "Dowolny typ" : $out[0] = 'Typ: '.$get['type'];
             else 
                 $out[0] = "";
             if(isset($get['version'])) 
-                ($get['version'] == "%") ? $out[1] = "Dowolna wersja" : $out[1] = $get['version']; 
+                ($get['version'] == "%") ? $out[1] = "Dowolna wersja" : $out[1] = 'Wersja: '.$get['version']; 
             else 
                 $out[1] = "";
             if(isset($get['platform'])) 
-                ($get['platform'] == "%") ? $out[2] = "Dowolna platforma" : $out[2] = $get['platform']; 
+                ($get['platform'] == "%") ? $out[2] = "Dowolna platforma" : $out[2] = 'Platforma: '.$get['platform']; 
             else 
                 $out[2] = "";
             if(isset($get['price-from'])) 
@@ -215,23 +239,24 @@
                 $out[4] = 'Cena do: '.$get['price-to'].' zł'; 
             else 
                 $out[4] = "";
-            if(isset($get['sort-by'])) 
+            if(isset($get['sort-by'])) {
                 switch($get['sort-by']) {
                     case "Price_brutto DESC":
-                        $out[5] = "Cena malejąco";
+                        $out[5] = "Sortowanie: ".$this->sortOption[0][1];
                     break;
                     case "Price_brutto ASC":
-                        $out[5] = "Cena rosnąco";
+                        $out[5] = "Sortowanie: ".$this->sortOption[1][1];
                     break;
                     case "Title ASC":
-                        $out[5] = "Nazwa A-Z";
+                        $out[5] = "Sortowanie: ".$this->sortOption[2][1];
                     break;
                     case "Title DESC":
-                        $out[5] = "Nazwa Z-A";
+                        $out[5] = "Sortowanie: ".$this->sortOption[3][1];
                     break;
                     default:
                         $out[5] = "";
                 }
+            }
             else 
                 $out[5] = "";
             
@@ -255,22 +280,22 @@
                         $grid->drawSelectNav('version', 'Dowolna wersja');
             echo '</select>';
             echo '<label for="price-from" class="label-nav-form">
+                    Sortuj według:  
+                </label>';
+            echo '<select name="sort-by" class="select-nav-form">';
+                    $rows = sizeof($this->sortOption);
+                    for($i = 0; $i < $rows; $i++){
+                        echo '<option class="option-select-sort-form" value="'.$this->sortOption[$i][0].'">'.$this->sortOption[$i][1].'</option>';
+                    }
+            echo'</select>';
+            echo '<label for="price-from" class="label-nav-form">
                     Cena od:  
                 </label>';
-            echo '<input type="number" name="price-from" class="select-nav-form" value="'.$minPrice[0][0].'">';
+            echo '<input type="number" step="0.01" min="0.01" max="999.99" name="price-from" class="select-nav-form" value="'.$minPrice[0][0].'">';
             echo '<label for="price-from" class="label-nav-form">
                     Cena do:  
                 </label>';
-            echo '<input type="number" name="price-to" class="select-nav-form" value="'.$maxPrice[0][0].'">';
-            echo '<label for="price-from" class="label-nav-form">
-                    Sortuj według:  
-                </label>';
-            echo '<select name="sort-by" class="select-nav-form">
-                    <option class="option-select-sort-form" value="Price_brutto DESC">Cena malejąco</option>
-                    <option class="option-select-sort-form" value="Price_brutto ASC">Cena rosnąco</option>
-                    <option class="option-select-sort-form" value="Title ASC">Nazwa A-Z</option>
-                    <option class="option-select-sort-form" value="Title DESC">Nazwa Z-A</option>
-                </select>';
+            echo '<input type="number" step="0.01" min="0.01" max="999.99" name="price-to" class="select-nav-form" value="'.$maxPrice[0][0].'">';
             echo '<input class="submit-nav-form" type="submit" value="Wyszukaj">';
             echo '</form>';
         }
@@ -283,20 +308,20 @@
                 <label for="price-from" class="label-sort-form">
                     Cena od:
                 </label>
-                <input type="number" name="price-from" id="price-from" class="input-sort-form" value="'.$minPrice[0][0].'" step="0.01">
+                <input type="number" name="price-from" id="price-from" class="input-sort-form" value="'.$minPrice[0][0].'" step="0.01" min="0.01" max="999.99">
                 <label for="price-from" class="label-sort-form">
                     Cena do:
                 </label>
-                <input type="number" name="price-to" id="price-to" class="input-sort-form" value="'.$maxPrice[0][0].'" step="0.01">
+                <input type="number" name="price-to" id="price-to" class="input-sort-form" value="'.$maxPrice[0][0].'" step="0.01" min="0.01" max="999.99">
                 <label for="price-from" class="label-sort-form">
                     Sortuj według:
                 </label>
-                <select name="sort-by" id="sort-by" class="select-sort-form">
-                    <option class="option-select-sort-form" value="Price_brutto DESC">Cena malejąco</option>
-                    <option class="option-select-sort-form" value="Price_brutto ASC">Cena rosnąco</option>
-                    <option class="option-select-sort-form" value="Title ASC">Nazwa A-Z</option>
-                    <option class="option-select-sort-form" value="Title DESC">Nazwa Z-A</option>
-                </select>
+                <select name="sort-by" id="sort-by" class="select-sort-form">';
+                    $rows = sizeof($this->sortOption);
+                    for($i = 0; $i < $rows; $i++){
+                        echo '<option class="option-select-sort-form" value="'.$this->sortOption[$i][0].'">'.$this->sortOption[$i][1].'</option>';
+                    }
+                echo '</select>
                 <input type="submit" value="Sortuj" class="submit-sort-form">
             </form>
         </div>';

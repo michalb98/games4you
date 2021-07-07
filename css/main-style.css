@@ -307,7 +307,7 @@ footer {
 
 .option-select-sort-form {
     background-color: #000;
-    font-size: 1.7em;
+    font-size: 1.2em;
 }
 
 .game {
@@ -449,7 +449,8 @@ footer {
   
 #payment-method,
 #container-footer,
-#author {
+#author,
+.search-results {
     width: 80%;
     min-height: 6vh;
     height: auto;
@@ -472,6 +473,11 @@ footer {
     -o-border-radius: 10px;
     margin-top: 2vh;
     box-shadow: rgba(50, 50, 93, 1) 0px 50px 100px -20px, rgba(0, 0, 0, 1) 0px 30px 60px -30px;
+}
+
+.search-results {
+    height: 100%;
+    text-align: center;
 }
 
 #payment-method img {

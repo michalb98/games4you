@@ -1,5 +1,7 @@
 <?php
 
+    session_start();
+
     require_once('./php/Database.php');
     require_once('./php/Grid.php');
     require_once('./php/Image.php');
