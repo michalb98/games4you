@@ -175,8 +175,131 @@
         function getInfo($get){
             (isset($get['type'])) ? $out[0] = $get['type'] : $out[0] = "%";
             (isset($get['version'])) ? $out[1] = $get['version'] : $out[1] = "%";
-            (isset($get['platform'])) ? $out[2] = $get['platform'] : $out[2] = "%";           
+            (isset($get['platform'])) ? $out[2] = $get['platform'] : $out[2] = "%";
+            (isset($get['price-from'])) ? $out[3] = $get['price-from'] : $out[3] = "0"; 
+            (isset($get['price-to'])) ? $out[4] = $get['price-to']+0.01 : $out[4] = "999.99"; 
+            (isset($get['sort-by'])) ? $out[5] = $get['sort-by'] : $out[5] = "Title";            
             return $out;
+        }
+
+        //Funkcja wyświetla listę select w formularzu, jednocześnie sprawdza, czy jakaś opcja była zaznaczona. Jeżeli tak to ponownie zostaje zaznaczona
+        function drawSelectNav($table, $header) {
+            $this->db = new Database();
+            $pdo = $this->db->createPDO();
+            $type = $this->db->getAllFromTable($pdo, $table);
+            echo '<option value="%" class="option-select-nav-form">'.$header.'</option>';
+            for ($i = 0; $i < sizeof($type); $i++) {
+                echo '<option value="'.$type[$i][1].'" class="option-select-nav-form">';
+                echo $type[$i][1].'</option>';
+            }
+        }
+
+        function getTitlePage($get) {
+            if(isset($get['type'])) 
+                ($get['type'] == "%") ? $out[0] = "Dowolny typ" : $out[0] = $get['type'];
+            else 
+                $out[0] = "";
+            if(isset($get['version'])) 
+                ($get['version'] == "%") ? $out[1] = "Dowolna wersja" : $out[1] = $get['version']; 
+            else 
+                $out[1] = "";
+            if(isset($get['platform'])) 
+                ($get['platform'] == "%") ? $out[2] = "Dowolna platforma" : $out[2] = $get['platform']; 
+            else 
+                $out[2] = "";
+            if(isset($get['price-from'])) 
+                $out[3] = 'Cena od: '.$get['price-from'].' zł'; 
+            else 
+                $out[3] = "";
+            if(isset($get['price-to'])) 
+                $out[4] = 'Cena do: '.$get['price-to'].' zł'; 
+            else 
+                $out[4] = "";
+            if(isset($get['sort-by'])) 
+                switch($get['sort-by']) {
+                    case "Price_brutto DESC":
+                        $out[5] = "Cena malejąco";
+                    break;
+                    case "Price_brutto ASC":
+                        $out[5] = "Cena rosnąco";
+                    break;
+                    case "Title ASC":
+                        $out[5] = "Nazwa A-Z";
+                    break;
+                    case "Title DESC":
+                        $out[5] = "Nazwa Z-A";
+                    break;
+                    default:
+                        $out[5] = "";
+                }
+            else 
+                $out[5] = "";
+            
+            return $out;
+        }
+
+        function drawNavSearchAdvance($grid, $pdo, $db) {
+            $minPrice = $db->getAllFromDatabase($pdo, 'SELECT Price_brutto FROM `game` ORDER BY Price_brutto ASC LIMIT 1;');
+            $maxPrice = $db->getAllFromDatabase($pdo, 'SELECT Price_brutto FROM `game` ORDER BY Price_brutto DESC LIMIT 1;');
+            echo '<form method="GET" class="nav-form" action="szukaj">
+                    <h1 class="header-nav-form">Wyszukiwanie szczegółowe</h1>
+                    <select name="type" class="select-nav-form">';
+                        $grid->drawSelectNav('type', 'Dowolny typ');
+            echo '</select>';
+            echo '<form method="GET">
+                    <select name="platform" class="select-nav-form">';
+                        $grid->drawSelectNav('platform', 'Dowolna platforma');
+            echo '</select>';
+            echo '<form method="GET">
+                    <select name="version" class="select-nav-form">';
+                        $grid->drawSelectNav('version', 'Dowolna wersja');
+            echo '</select>';
+            echo '<label for="price-from" class="label-nav-form">
+                    Cena od:  
+                </label>';
+            echo '<input type="number" name="price-from" class="select-nav-form" value="'.$minPrice[0][0].'">';
+            echo '<label for="price-from" class="label-nav-form">
+                    Cena do:  
+                </label>';
+            echo '<input type="number" name="price-to" class="select-nav-form" value="'.$maxPrice[0][0].'">';
+            echo '<label for="price-from" class="label-nav-form">
+                    Sortuj według:  
+                </label>';
+            echo '<select name="sort-by" class="select-nav-form">
+                    <option class="option-select-sort-form" value="Price_brutto DESC">Cena malejąco</option>
+                    <option class="option-select-sort-form" value="Price_brutto ASC">Cena rosnąco</option>
+                    <option class="option-select-sort-form" value="Title ASC">Nazwa A-Z</option>
+                    <option class="option-select-sort-form" value="Title DESC">Nazwa Z-A</option>
+                </select>';
+            echo '<input class="submit-nav-form" type="submit" value="Wyszukaj">';
+            echo '</form>';
+        }
+
+        function drawSort($db, $pdo) {
+            $minPrice = $db->getAllFromDatabase($pdo, 'SELECT Price_brutto FROM `game` ORDER BY Price_brutto ASC LIMIT 1;');
+            $maxPrice = $db->getAllFromDatabase($pdo, 'SELECT Price_brutto FROM `game` ORDER BY Price_brutto DESC LIMIT 1;');
+            echo '<div id="sort">
+            <form method="GET" action="szukaj" class="sort-form">
+                <label for="price-from" class="label-sort-form">
+                    Cena od:
+                </label>
+                <input type="number" name="price-from" id="price-from" class="input-sort-form" value="'.$minPrice[0][0].'" step="0.01">
+                <label for="price-from" class="label-sort-form">
+                    Cena do:
+                </label>
+                <input type="number" name="price-to" id="price-to" class="input-sort-form" value="'.$maxPrice[0][0].'" step="0.01">
+                <label for="price-from" class="label-sort-form">
+                    Sortuj według:
+                </label>
+                <select name="sort-by" id="sort-by" class="select-sort-form">
+                    <option class="option-select-sort-form" value="Price_brutto DESC">Cena malejąco</option>
+                    <option class="option-select-sort-form" value="Price_brutto ASC">Cena rosnąco</option>
+                    <option class="option-select-sort-form" value="Title ASC">Nazwa A-Z</option>
+                    <option class="option-select-sort-form" value="Title DESC">Nazwa Z-A</option>
+                </select>
+                <input type="submit" value="Sortuj" class="submit-sort-form">
+            </form>
+        </div>';
         }
     }
 

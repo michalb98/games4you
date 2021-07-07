@@ -39,6 +39,7 @@
             $grid->drawNavCategories($type, 'Wybierz typ', 'type');
             $grid->drawNavCategories($platform, 'Wybierz platformę', 'platform');
             $grid->drawNavCategories($version, 'Wybierz wersję', 'version');
+            $grid->drawNavSearchAdvance($grid, $pdo, $db);  
 
         ?>
     </nav>

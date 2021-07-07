@@ -94,6 +94,20 @@
             $db->addGameToTable($pdo, $this->title, $this->price_brutto, $this->price_netto, $this->short_desc, $this->desc, $this->quantity, $this->type, $this->version, $this->platform);
         }
 
+        //Funkcja wyświetla listę select w formularzu, jednocześnie sprawdza, czy jakaś opcja była zaznaczona. Jeżeli tak to ponownie zostaje zaznaczona
+        function drawSelectItems($table, $selected) {
+            $this->db = new Database();
+            $pdo = $this->db->createPDO();
+            $type = $this->db->getAllFromTable($pdo, $table);
+            for ($i = 0; $i < sizeof($type); $i++) {
+                echo '<option value="'.$type[$i][0].'" class="option-select-admin-form" ';
+                    if ($type[$i][0] == $selected) 
+                        echo "selected>"; 
+                    else 
+                        echo '>';
+                echo $type[$i][1].'</option>';
+            }
+        }
     }
 
 ?>

@@ -8,7 +8,6 @@
     $grid = new Grid();
 
     $pdo = $db->createPDO();
-    $games = $db->getAllFromTable($pdo, 'game');
 
 ?>
 <!DOCTYPE html>
@@ -37,12 +36,15 @@
             $grid->drawNavCategories($type, 'Wybierz typ', 'type');
             $grid->drawNavCategories($platform, 'Wybierz platformę', 'platform');
             $grid->drawNavCategories($version, 'Wybierz wersję', 'version');
+            $grid->drawNavSearchAdvance($grid, $pdo, $db);  
 
         ?>
     </nav>
     <main>
-        <div id="sort"></div>
         <?php
+            $grid->drawSort($db, $pdo);
+
+            $games = $db->getAllFromDatabase($pdo, 'SELECT * FROM `game` ORDER BY Title;');
             $grid->drawGamesGrid($games);
         ?>
     </main>
