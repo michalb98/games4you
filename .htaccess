@@ -9,3 +9,5 @@ RewriteRule strona-glowna index.php
 RewriteRule admin-panel adminPanel.php
 RewriteRule produkt product.php
 RewriteRule szukaj search.php
+RewriteRule logowanie login.php
+RewriteRule rejestracja register.php

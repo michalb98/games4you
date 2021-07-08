@@ -69,7 +69,7 @@
         <a href="koszyk" title="Zobacz swój koszyk" id="cart" class="icon-main-header">
             <i class="icon-basket icon"></i>
         </a>
-        <a href="konto" title="Przejdź do swojego konta" id="account" class="icon-main-header">
+        <a href="logowanie" title="Przejdź do swojego konta" id="account" class="icon-main-header">
             <i class="icon-adult icon"></i>
         </a>
     </div>';
