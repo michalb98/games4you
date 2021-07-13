@@ -3,7 +3,7 @@
     require_once('./php/Database.php');
 
     class Form {
-        //Dane z formularza
+        //Dane z formularza Admin
         protected $title;
         protected $price_netto;
         protected $price_brutto;
@@ -14,17 +14,39 @@
         protected $version;
         protected $platform;
 
+        //Dane z formularza Login
+        protected $login;
+        protected $password;
+
+        //Dane z formularza rejestracji
+        protected $login_register;
+        protected $password_register;
+        protected $email_register;
+
         //Pobieranie danych z formularza
         function getFormAdminData() {
-            $this->title = $_POST['title-admin-form'];
-            $this->price_netto = $_POST['netto-admin-form'];
-            $this->price_brutto = $_POST['brutto-admin-form'];
-            $this->short_desc = $_POST['short-desc-admin-form'];
-            $this->desc = $_POST['desc-admin-form'];
-            $this->quantity = $_POST['quantity-admin-form'];
-            $this->type = $_POST['type-admin-form'];
-            $this->version = $_POST['version-admin-form'];
-            $this->platform = $_POST['platform-admin-form'];
+            $this->title = filter_var($_POST['title-admin-form'], FILTER_SANITIZE_STRING);
+            $this->price_netto = filter_var($_POST['netto-admin-form'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+            $this->price_brutto = filter_var($_POST['brutto-admin-form'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+            $this->short_desc = filter_var($_POST['short-desc-admin-form'], FILTER_SANITIZE_STRING);
+            $this->desc = filter_var($_POST['desc-admin-form'], FILTER_SANITIZE_STRING);
+            $this->quantity = filter_var($_POST['quantity-admin-form'], FILTER_SANITIZE_NUMBER_INT);
+            $this->type = filter_var($_POST['type-admin-form'], FILTER_SANITIZE_NUMBER_INT);
+            $this->version = filter_var($_POST['version-admin-form'], FILTER_SANITIZE_NUMBER_INT);
+            $this->platform = filter_var($_POST['platform-admin-form'], FILTER_SANITIZE_NUMBER_INT);
+        }
+
+        //Pobieranie danych z formularza logowania 
+        function getFormLoginData() {
+            $this->login = filter_var($_POST['login'], FILTER_SANITIZE_STRING);
+            $this->password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
+        }
+
+        //Pobieranie danych z formularza rejestracji 
+        function getFormRegisterData() {
+            $this->login_register = filter_var($_POST['login'], FILTER_SANITIZE_STRING);
+            $this->password_register = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
+            $this->email_register = filter_var($_POST['mail'], FILTER_SANITIZE_EMAIL);
         }
 
         //Sprawdza poprawność formularza
@@ -75,6 +97,64 @@
                 return false;
         }
 
+        //Sprawdza poprawność formularza logowania
+        function validateFormLogin($pdo, $db) {
+            //flag
+            $check = true;
+
+            $query = $this->login.' AND Passowrd = "'.$this->password.'"';           
+            $countIdUser = $db->countData($pdo, "ID_User", $query);
+
+            if($this->login == '' || $this->password == '' || $countIdUser < 1) {
+                $_SESSION['login-form-error'] = 'Podano błędne dane logowania.';
+                $check = false;
+            }
+
+            if($check)
+                return true;
+            else
+                return false;
+        }
+
+        //Sprawdza poprawność formularza rejestrowania
+        function validateFormRegister($pdo, $db) {
+            //flag
+            $check = true;
+
+            $countIdUser = $db->countData($pdo, "ID_User", $this->login_register);
+            $countEmail = $db->countData($pdo, "Email", $this->email_register);
+
+            if($this->login_register == '' || strlen($this->login_register) < 5 || strlen($this->login_register) > 50) {
+                $_SESSION['login-register-form-error'] = 'Popraw swój login! Login musi zawierać od 5 do 50 znaków.';
+                $check = false;
+            }
+
+            if($this->password_register == '' || strlen($this->password_register) < 5 || strlen($this->password_register) > 100) {
+                $_SESSION['password-register-form-error'] = 'Popraw swoje hasło! Hasło musi zawierać od 5 do 100 znaków.';
+                $check = false;
+            }
+
+            if(filter_var($this->email_register, FILTER_VALIDATE_EMAIL) === false || $this->email_register == '') {
+                $_SESSION['email-register-form-error'] = 'Popraw swój E-mail!';
+                $check = false;
+            }
+
+            if($countIdUser[0][0] > 0) {
+                $_SESSION['login-register-form-error'] = "Podany login już istnieje! Proszę wybrać inny.";
+                $check = false;
+            }
+
+            if($countEmail[0][0] > 0) {
+                $_SESSION['email-exist-register-form-error'] = 'Podany E-mail już istnieje w naszej bazie danych! Jeżeli nie pamiętasz hasła <a href="zapomnialem-hasla" title="Przypomnij hasło">przypomnij je</a> lub <a href="logowanie" title="Zaloguj się">Zaloguj się</a>.';
+                $check = false;
+            }
+
+            if($check)
+                return true;
+            else
+                return false;
+        }
+
         //Zapamiętuje wartości formularza
         function keepFormValue() {
             $_SESSION['title-value'] = $this->title;
@@ -88,10 +168,25 @@
             $_SESSION['platform-value'] = $this->platform;
         }
 
+        //Zapamiętuje wartości formularza logowania
+        function keepFormLoginValue() {
+            $_SESSION['login-value'] = $this->login;
+        }
+
+        //Zapamiętuje wartości formularza logowania
+        function keepFormRegisterValue() {
+            $_SESSION['login-value'] = $this->login_register;
+            $_SESSION['email-value'] = $this->email_register;
+        }
+
         //Funkcja wywołuję funkcję oraz podaje wymagane dane
         function initiateAddGameToTable($pdo) {
             $db = new Database();
             $db->addGameToTable($pdo, $this->title, $this->price_brutto, $this->price_netto, $this->short_desc, $this->desc, $this->quantity, $this->type, $this->version, $this->platform);
+        }
+
+        function login() {
+            $_SESSION['login'] = $this->login;
         }
 
     }

@@ -2,14 +2,27 @@
 
     session_start();
 
+    if(isset($_SESSION['login']))
+        header('Location: strona-glowna');
+
     require_once('./php/Database.php');
     require_once('./php/Grid.php');
-    require_once('./php/Image.php');
+    require_once('./php/Form.php');
 
     $db = new Database();
     $grid = new Grid();
+    $form = new Form();
 
     $pdo = $db->createPDO();
+
+    if(isset($_POST['login'])) {
+        $form->getFormRegisterData();
+        if($form->validateFormRegister($pdo, $db))
+            //$form->login();
+            echo '';
+        else
+            $form->keepFormRegisterValue();
+    }
 
 ?>
 <!DOCTYPE html>
@@ -29,22 +42,9 @@
         $grid->drawMainHeader();
     ?>
     <main>
-        <form method="POST" class="login-form">
-            <label for="login" class="label-login-form">
-                Login
-            </label>
-            <input type="text" name="login" id="login" class="text-login-form" placeholder="np. Adam123">
-            <label for="mail" class="label-login-form">
-                E-mail
-            </label>
-            <input type="email" name="mail" id="mail" class="text-login-form" placeholder="np. adam123@gmail.com">
-            <label for="password" class="label-login-form">
-                Hasło
-            </label>
-            <input type="password" name="password" id="password" class="text-login-form" placeholder="**********">
-            <input type="submit" value="Zarejestruj się" class="submit-login-form">
-            <p>Masz już konto? <a href="logowanie" title="Zaloguj się">Zaloguj się</a> już teraz!</p>
-        </form> 
+        <?php 
+            $grid->drawRegisterForm();
+        ?>
     </main>
     <?php
         $grid->drawFooter();

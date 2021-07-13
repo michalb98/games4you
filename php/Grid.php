@@ -326,6 +326,89 @@
             </form>
         </div>';
         }
+
+        function drawLoginForm() {
+            echo '<form method="POST" class="login-form">
+            <label for="login" class="label-login-form">
+                Login
+            </label>
+            <input type="text" name="login" id="login" class="text-login-form" placeholder="np. Adam123"';
+            if(isset($_SESSION['login-value'])) {
+                echo 'value="'.$_SESSION['login-value'].'"';
+                unset($_SESSION['login-value']);
+            }
+            echo'>';
+            echo '<label for="password" class="label-login-form">
+                Hasło
+            </label>
+            <input type="password" name="password" id="password" class="text-login-form" placeholder="**********">
+            <input type="submit" value="Zaloguj się" class="submit-login-form">';
+                if (isset($_SESSION['login-form-error'])) {
+                    echo '<span class="error">';    
+                    echo $_SESSION['login-form-error'];
+                    echo '</span>';
+                    unset($_SESSION['login-form-error']);
+                }            
+            echo'<p>Nie masz konta? <a href="rejestracja" title="Zarejestruj się">Zarejestruj się</a> już teraz!</p>
+            <p>Nie pamiętasz hasła? <a href="zapomnialem-hasla" title="Przypomnij hasło">Przypomnij hasło</a> i uzyskaj dostęp do swojego konta!</p>
+            </form> ';
+        }
+
+        function drawRegisterForm() {
+            echo '<form method="POST" class="login-form">
+            <label for="login" class="label-login-form">
+                Login
+            </label>
+            <input type="text" name="login" id="login" class="text-login-form" placeholder="np. Adam123"';
+            if(isset($_SESSION['login-value'])) {
+                echo 'value="'.$_SESSION['login-value'].'"';
+                unset($_SESSION['login-value']);
+            }
+            echo'>';
+
+                if(isset($_SESSION['login-register-form-error'])) {
+                    echo '<span class="error">';
+                    echo $_SESSION['login-register-form-error'];
+                    echo '</span>';
+                    unset($_SESSION['login-register-form-error']);
+                }
+            echo '<label for="mail" class="label-login-form">
+                E-mail
+            </label>
+            <input type="email" name="mail" id="mail" class="text-login-form" placeholder="np. adam123@gmail.com"';
+            if(isset($_SESSION['email-value'])) {
+                echo 'value="'.$_SESSION['email-value'].'"';
+                unset($_SESSION['email-value']);
+            }
+            echo'>';
+
+                if(isset($_SESSION['email-register-form-error'])) {
+                    echo '<span class="error">';
+                    echo $_SESSION['email-register-form-error'];
+                    echo '</span>';
+                    unset($_SESSION['email-register-form-error']);
+                }
+            echo '<label for="password" class="label-login-form">
+                Hasło
+            </label>
+            <input type="password" name="password" id="password" class="text-login-form" placeholder="**********">';
+                if(isset($_SESSION['password-register-form-error'])) {
+                    echo '<span class="error">';
+                    echo $_SESSION['password-register-form-error'];
+                    echo '</span>';
+                    unset($_SESSION['password-register-form-error']);
+                }
+            echo '<input type="submit" value="Zarejestruj się" class="submit-login-form">';
+
+                if(isset($_SESSION['email-exist-register-form-error'])) {
+                    echo '<span class="error">';
+                    echo $_SESSION['email-exist-register-form-error'];
+                    echo '</span>';
+                    unset($_SESSION['email-exist-register-form-error']);
+                }
+            echo '<p>Masz już konto? <a href="logowanie" title="Zaloguj się">Zaloguj się</a> już teraz!</p>
+        </form> ';
+        }
     }
 
 ?>

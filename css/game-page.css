@@ -11,12 +11,13 @@
 }
 
 .cover-game-page {
-    width: 30%;
+    max-width: 30%;
 }
 
 .cover-game-page img {
-    width: 100%;
+    width: auto;
     height: auto;
+    max-width: 100%;
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;

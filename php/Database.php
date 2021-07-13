@@ -83,8 +83,18 @@
             }
         }
 
-        //Dodaje okładkę gry w wybranym formacie do folderu img/temp
-        function addGameCover($title, $id) {
+        function countData($pdo, $row, $data) {
+            if ($pdo) {
+                $sth = $pdo->prepare('SELECT COUNT('.$row.') FROM `user` WHERE Login = "'.$data.'"');
+                $sth->execute();
+                return $sth->fetchAll(PDO::FETCH_NUM);                
+            } else {
+                return 'Database error';
+            }
+        }
+
+        //Dodaje okładkę gry w wybranym formacie do folderu img/covers
+        function addGameCover($title) {
             $target_dir = "./img/temp/temp_cover.";
             $file = $_FILES["file-upload-input"]["name"];
             $target_file = $target_dir . pathinfo($file, PATHINFO_EXTENSION);
