@@ -546,6 +546,7 @@ footer {
     letter-spacing: 1px;
     background: linear-gradient(180deg, #330867, rgba(0, 0, 0, 0.5));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -624,6 +625,7 @@ footer {
     letter-spacing: 1px;
     background: linear-gradient(180deg, #330867, rgba(0, 0, 0, 0.5));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
