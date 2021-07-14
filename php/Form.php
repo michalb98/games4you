@@ -1,7 +1,5 @@
 <?php
 
-    require_once('./php/Database.php');
-
     class Form {
         //Dane z formularza Admin
         protected $title;
@@ -102,10 +100,10 @@
             //flag
             $check = true;
 
-            $query = $this->login.' AND Passowrd = "'.$this->password.'"';           
+            $query = $this->login.'" AND Password = "'.hash("sha512", $this->password);         
             $countIdUser = $db->countData($pdo, "ID_User", $query);
 
-            if($this->login == '' || $this->password == '' || $countIdUser < 1) {
+            if($this->login == '' || $this->password == '' || $countIdUser[0][0] < 1) {
                 $_SESSION['login-form-error'] = 'Podano błędne dane logowania.';
                 $check = false;
             }
@@ -180,9 +178,13 @@
         }
 
         //Funkcja wywołuję funkcję oraz podaje wymagane dane
-        function initiateAddGameToTable($pdo) {
-            $db = new Database();
+        function initiateAddGameToTable($pdo, $db) {
             $db->addGameToTable($pdo, $this->title, $this->price_brutto, $this->price_netto, $this->short_desc, $this->desc, $this->quantity, $this->type, $this->version, $this->platform);
+        }
+
+        function initiateRegister($pdo, $db) {
+            $password_register_hash = hash("sha512", $this->password_register);
+            $db->register($pdo, $this->login_register, $password_register_hash, $this->email_register);
         }
 
         function login() {

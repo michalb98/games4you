@@ -71,6 +71,20 @@
             }
         }
 
+        //Dodaje nową grę do bazy danych
+        function register($pdo, $login, $password, $mail) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('INSERT INTO `user` VALUE (?, ?, ?, ?, ?)');
+                    $sth->execute([NULL, $mail, $login, $password, NULL]);
+                    $_SESSION['register'] = $login;
+                    header('Location: logowanie');
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
         //Zwraca tytuł wybranej gry
         function getGameTitle($pdo, $id) {
             if ($pdo) {

@@ -18,10 +18,9 @@
     if(isset($_POST['login'])) {
         $form->getFormRegisterData();
         if($form->validateFormRegister($pdo, $db))
-            //$form->login();
-            echo '';
+            $form->initiateRegister($pdo, $db);
         else
-            $form->keepFormRegisterValue();
+            $form->keepFormRegisterValue($pdo, $db);
     }
 
 ?>
