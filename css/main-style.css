@@ -22,6 +22,7 @@ body {
 
 #logo {
     height: 12vh;
+    -webkit-box-reflect: below -10vh linear-gradient(transparent, rgba(0,0,0,0.3));
 }
 
 #logo img {
@@ -33,12 +34,28 @@ body {
 #search > input {
     width: 60vw;
     height: 5vh;
+    font-size: 2.5vh;
 }
+
+#search > input {
+    background: linear-gradient(180deg, rgba(48, 207, 208, 0.5), rgba(51, 8, 103, 0.5));
+    background-color: #888;
+    padding-left: 1vw;
+    text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.5);
+    border-image-slice: 1;
+    border-width: 5px;
+    border-image-source: linear-gradient(0deg, #330867, #30cfd0);
+ }
+
+#search {
+    -webkit-box-reflect: below -1.5vh linear-gradient(transparent, rgba(0,0,0,0.3));
+ }
 
 .icon-main-header {
     width: 3em;
     height: 3em;
     border-radius: 50%;
+    display: flex;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
@@ -47,6 +64,36 @@ body {
     cursor: pointer;
     text-decoration: none;
     color: #330867;
+    transition: all 0.5s ease-in-out;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    -webkit-box-reflect: below -1.5em linear-gradient(transparent, rgba(0,0,0,0.3));
+}
+
+#account-container {
+    width: 3em;
+    height: 3em;
+    z-index: 1000;
+}
+
+#account-container .hide-icon-main-header {
+    display: none;
+    width: 6em;
+    height: 3em;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    color: #FFF;
+    text-decoration: none;
+    background-color: #330867;
+    box-sizing: border-box;
+    margin-left: -1.5em;
+}
+
+#account-container:hover .hide-icon-main-header {
+    display: flex;
 }
 
 .icon {
@@ -64,6 +111,22 @@ body {
 }
 
 #cart i {
+    color: #30cfd0;
+}
+
+#cart:hover {
+    background-color: #30cfd0;
+}
+
+#cart:hover i {
+    color: #330867;
+}
+
+.icon-main-header:hover {
+    background-color:#330867;
+}
+
+.icon-main-header:hover i {
     color: #30cfd0;
 }
 

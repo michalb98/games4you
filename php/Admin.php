@@ -174,8 +174,12 @@
                 <div class="image-title-wrap">
                     <button type="button" onclick="removeUpload()" class="remove-image">Usuń <span class="image-title"></span></button>
                 </div>
-            </div>
-            <input type="submit" value="Dodaj grę" class="submit-admin-form">
+            </div>';
+            if (isset($_SESSION['file-upload-error'])) {
+                echo '<span class="error">'.$_SESSION['file-upload-error'].'</span>';
+                unset($_SESSION['file-upload-error']);
+            }
+            echo '<input type="submit" value="Dodaj grę" class="submit-admin-form">
         </form>';
         }
 

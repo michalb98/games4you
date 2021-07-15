@@ -38,11 +38,6 @@
     ?>
     <main>
         <?php
-            if(isset($_SESSION['register'])) {
-                echo 'Witaj '.$_SESSION['register'].'!';
-                unset($_SESSION['register']);
-            }
-        
             $grid->drawLoginForm();
         ?>
     </main>

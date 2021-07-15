@@ -69,9 +69,12 @@
         <a href="koszyk" title="Zobacz swój koszyk" id="cart" class="icon-main-header">
             <i class="icon-basket icon"></i>
         </a>
-        <a href="logowanie" title="Przejdź do swojego konta" id="account" class="icon-main-header">
+        <div id="account-container">
+        <a href="logowanie" title="Zaloguj się do swojego konta" id="account" class="icon-main-header">
             <i class="icon-adult icon"></i>
         </a>
+        <a href="logout" title="Wyloguj się" class="hide-icon-main-header">Wyloguj się</a>
+        </div>
     </div>';
         }
 
@@ -328,8 +331,14 @@
         }
 
         function drawLoginForm() {
-            echo '<form method="POST" class="login-form">
-            <label for="login" class="label-login-form">
+            echo '<form method="POST" class="login-form">';
+            if(isset($_SESSION['register'])) {
+                echo '<label for="login" class="label-login-form">
+                Witaj '.$_SESSION['register'].'! <br> Zaloguj się po raz pierwszy.
+                </label>';
+                unset($_SESSION['register']);
+            }
+            echo'<label for="login" class="label-login-form">
                 Login
             </label>
             <input type="text" name="login" id="login" class="text-login-form" placeholder="np. Adam123"';

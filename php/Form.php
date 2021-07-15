@@ -95,6 +95,49 @@
                 return false;
         }
 
+        //Sprawdza poprawność okładki 
+        function validateGameCover($db) {
+            $target_dir = "./img/temp/temp_cover.";
+            $file = $_FILES["file-upload-input"]["name"];
+            $target_file = $target_dir . pathinfo($file, PATHINFO_EXTENSION);
+            $uploadOk = true;
+            $imageFileType = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+
+            //Sprawdza, czy wgrane zdjęcie jest zdjęciem
+            $check = getimagesize($_FILES["file-upload-input"]["tmp_name"]);
+            if($check == false) {
+                $_SESSION['file-upload-error'] = "Nierozpoznano formatu zdjęcia!";
+                $uploadOk = false;
+            }
+
+            //Sprawdza, czy istnieje już plik tymczasowy
+            if (file_exists($target_file)) {
+                $_SESSION['file-upload-error'] = "Błąd przetwarzaina spróbuj ponownoie!";
+                unlink($target_file);
+                $uploadOk = false;
+            }
+
+            //Sprawdza wielkość obrazu
+            if ($_FILES["file-upload-input"]["size"] > 500000) {
+                $_SESSION['file-upload-error'] = "Obraz jest zbyt duży!";
+                $uploadOk = false;
+            }
+
+            //Sprawdza format zdjęcia
+            if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
+                $_SESSION['file-upload-error'] = "Nierozpoznano formatu zdjęcia!";
+                $uploadOk = false;
+            }
+
+            //Sprawdza flagę
+            if($uploadOk) {
+                //Jeżeli wszystko przebiegło poprawnie wgrywa zdjęcie do folderu
+                $db->addGameCover($this->title, $target_file, $imageFileType);
+            } else {
+                return false;
+            }
+        }
+
         //Sprawdza poprawność formularza logowania
         function validateFormLogin($pdo, $db) {
             //flag

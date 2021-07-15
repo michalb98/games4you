@@ -107,50 +107,12 @@
             }
         }
 
-        //Dodaje okładkę gry w wybranym formacie do folderu img/covers
-        function addGameCover($title) {
-            $target_dir = "./img/temp/temp_cover.";
-            $file = $_FILES["file-upload-input"]["name"];
-            $target_file = $target_dir . pathinfo($file, PATHINFO_EXTENSION);
-            $uploadOk = 1;
-            $imageFileType = strtolower(pathinfo($file, PATHINFO_EXTENSION));
-
-            //Sprawdza, czy wgrane zdjęcie jest zdjęciem
-            $check = getimagesize($_FILES["file-upload-input"]["tmp_name"]);
-            if($check == false) {
-                //error
-                $uploadOk = 0;
-            }
-
-            //Sprawdza, czy istnieje już plik tymczasowy
-            if (file_exists($target_file)) {
-                //error
-                $uploadOk = 0;
-            }
-
-            //Sprawdza wielkość obrazu
-            if ($_FILES["file-upload-input"]["size"] > 500000) {
-                //error
-                $uploadOk = 0;
-            }
-
-            //Sprawdza format zdjęcia
-            if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
-                //error
-                $uploadOk = 0;
-            }
-
-            //Sprawdza flagę
-            if ($uploadOk == 0) {
-                //error
-                //Jeżeli wszystko przebiegło poprawnie wgrywa zdjęcie do folderu
+        function addGameCover($title, $target_file, $imageFileType) {
+            if (move_uploaded_file($_FILES["file-upload-input"]["tmp_name"], $target_file)) {
+                $image = new Image();
+                $image->convertImageToWebp('.\img\temp\temp_cover.'.$imageFileType, '.\img\covers\\'.$title.'_cover.webp', 80);
             } else {
-                if (move_uploaded_file($_FILES["file-upload-input"]["tmp_name"], $target_file)) {
-                    $image = new Image();
-                    $image->convertImageToWebp('.\img\temp\temp_cover.'.$imageFileType, '.\img\covers\\'.$title.'_cover.webp', 80);
-                } else {
-                    echo "Sorry, there was an error uploading your file.";
-                }
+                echo "Sorry, there was an error uploading your file.";
             }
         }
     }

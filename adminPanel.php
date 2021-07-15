@@ -15,8 +15,13 @@
 
     if(isset($_POST['title-admin-form'])) {
         $form->getFormAdminData();
-        if($form->validateForm())
-            $form->initiateAddGameToTable($pdo, $db);
+        if($form->validateForm()) {
+            if($form->validateGameCover($db)){
+                $form->initiateAddGameToTable($pdo, $db);
+            }
+            else
+                $form->keepFormValue();
+        }
         else
             $form->keepFormValue();
     }
