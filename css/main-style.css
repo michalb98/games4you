@@ -47,6 +47,10 @@ body {
     border-image-source: linear-gradient(0deg, #330867, #30cfd0);
  }
 
+ #search > input::placeholder {
+     color: #111;
+ }
+
 #search {
     -webkit-box-reflect: below -1.5vh linear-gradient(transparent, rgba(0,0,0,0.3));
  }
@@ -289,6 +293,7 @@ main {
     -ms-border-radius: 15px;
     -o-border-radius: 15px;
     box-shadow: rgba(50, 50, 93, 1) 0px 50px 100px -20px, rgba(0, 0, 0, 1) 0px 30px 60px -30px;
+    padding-bottom: 3vh;    
 }
 
 footer {
@@ -388,7 +393,7 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 2vh 1vw;
+    margin: 3vh 1vw;
     position: relative;
     width: 15vw;
     height: 40vh;
@@ -397,6 +402,7 @@ footer {
     box-sizing: border-box;
     color: white;
     text-decoration: none;
+    -webkit-box-reflect: below 0px linear-gradient(transparent 90%, rgba(0,0,0,0.3) 95%);
   }
 
 .game-cover-container {

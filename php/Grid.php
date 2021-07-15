@@ -64,7 +64,7 @@
             </div>
         </a>
         <div id="search">
-            <input type="search" name="search">
+            <input type="search" name="search" placeholder="Wpisz tytuł gry...">
         </div>
         <a href="koszyk" title="Zobacz swój koszyk" id="cart" class="icon-main-header">
             <i class="icon-basket icon"></i>
