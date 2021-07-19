@@ -92,7 +92,7 @@ body {
 
 #account-container .hide-icon-main-header {
     display: none;
-    width: 6em;
+    width: 9em;
     height: 3em;
     text-align: center;
     justify-content: center;
@@ -101,11 +101,22 @@ body {
     text-decoration: none;
     background-color: #330867;
     box-sizing: border-box;
-    margin-left: -1.5em;
+    margin-left: -3em;
+    border: 1px solid #30cfd0;
+    transition: all 0.25s ease-in-out;
+    -webkit-transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+    -ms-transition: all 0.25s ease-in-out;
+    -o-transition: all 0.25s ease-in-out;
 }
 
 #account-container:hover .hide-icon-main-header {
     display: flex;
+}
+
+.hide-icon-main-header:hover {
+    border-color: #30cfd0;
+    box-shadow: 0px 0px 0px 0.4em rgba(48, 207, 208, 0.75) inset;
 }
 
 .icon {
@@ -357,7 +368,6 @@ footer {
 }
 
 .submit-sort-form:hover {
-    /*background-color: rgba(48, 207, 208, 0.5);*/
     box-shadow: rgba(48, 207, 208, 0.5) 1vw 1vh inset, rgba(48, 207, 208, 0.5) -1vw -1vh inset;
 }
 

@@ -12,6 +12,9 @@
 
     $pdo = $db->createPDO();
 
+    if(isset($_SESSION['login']))
+        header('Location: strona-glowna');
+
     if(isset($_POST['login'])) {
         $form->getFormLoginData();
         if($form->validateFormLogin($pdo, $db))

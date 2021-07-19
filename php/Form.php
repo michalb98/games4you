@@ -232,6 +232,7 @@
 
         function login() {
             $_SESSION['login'] = $this->login;
+            header('Location: strona-glowna');
         }
 
     }

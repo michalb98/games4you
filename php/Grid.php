@@ -69,12 +69,22 @@
         <a href="koszyk" title="Zobacz swój koszyk" id="cart" class="icon-main-header">
             <i class="icon-basket icon"></i>
         </a>
-        <div id="account-container">
-        <a href="logowanie" title="Zaloguj się do swojego konta" id="account" class="icon-main-header">
-            <i class="icon-adult icon"></i>
-        </a>
-        <a href="logout" title="Wyloguj się" class="hide-icon-main-header">Wyloguj się</a>
-        </div>
+        <div id="account-container">';
+            if(isset($_SESSION['login'])) {
+                echo '<a href="konto" title="Zobacz swoje konto" id="account" class="icon-main-header">
+                        <i class="icon-adult icon"></i>
+                    </a>
+                    <a href="konto" title="Zobacz swoje konto" class="hide-icon-main-header">Moje konto</a>
+                    <a href="logout" title="Wyloguj się" class="hide-icon-main-header">Wyloguj się</a>';
+            } else {
+                echo '<a href="login" title="Zaloguj się" id="account" class="icon-main-header">
+                        <i class="icon-adult icon"></i>
+                    </a>
+                    <a href="logowanie" title="Zaloguj się" class="hide-icon-main-header">Zaloguj się</a>
+                    <a href="rejestracja" title="Zarejestruj się" class="hide-icon-main-header">Zarejestruj się</a>';
+            }
+            
+        echo '</div>
     </div>';
         }
 
