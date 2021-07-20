@@ -15,16 +15,26 @@
 
     $pdo = $db->createPDO();
 
+    //Dodawanie gry do koszyka
     if(isset($_GET['id'])){
         if(isset($_SESSION['game-cart'])) {
-            $_SESSION['game-cart'] .= ",".$_GET['id'];
-            header('Location: koszyk');
+            $id = explode(',', $_SESSION['game-cart']);
+            for($i = 0; $i < sizeof($id); $i++){
+                if($id[$i] == $_GET['id']) {
+                    unset($_GET['id']);
+                    break;
+                }
+            }
+            if(isset($_GET['id']))
+                $_SESSION['game-cart'] .= ",".$_GET['id'];
+            
         } else {
             $_SESSION['game-cart'] = $_GET['id'];
             header('Location: koszyk');
         }
     } 
 
+    //usuwanie gry z kosza
     if(isset($_GET['remove']) && isset($_SESSION['game-cart'])){
         $id = explode(',', $_SESSION['game-cart']);
         $temp = '';

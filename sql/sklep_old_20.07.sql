@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 20 Lip 2021, 19:58
+-- Czas generowania: 15 Lip 2021, 21:52
 -- Wersja serwera: 10.4.19-MariaDB
 -- Wersja PHP: 8.0.7
 
@@ -172,28 +172,6 @@ CREATE TABLE `game_tags` (
 INSERT INTO `game_tags` (`ID_Game_tags`, `ID_Game`, `ID_Tag`) VALUES
 (1, 1, 8),
 (2, 1, 17);
-
--- --------------------------------------------------------
-
---
--- Struktura tabeli dla tabeli `payment_method`
---
-
-CREATE TABLE `payment_method` (
-  `ID_Payment_method` int(2) NOT NULL,
-  `Payment_method` varchar(100) COLLATE utf8_polish_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
-
---
--- Zrzut danych tabeli `payment_method`
---
-
-INSERT INTO `payment_method` (`ID_Payment_method`, `Payment_method`) VALUES
-(1, 'Mastercard'),
-(2, 'Visa'),
-(3, 'Paysafecard'),
-(4, 'Skrill'),
-(5, 'PayPal');
 
 -- --------------------------------------------------------
 
@@ -412,12 +390,6 @@ ALTER TABLE `game_tags`
   ADD KEY `ID_Tag` (`ID_Tag`);
 
 --
--- Indeksy dla tabeli `payment_method`
---
-ALTER TABLE `payment_method`
-  ADD PRIMARY KEY (`ID_Payment_method`);
-
---
 -- Indeksy dla tabeli `platform`
 --
 ALTER TABLE `platform`
@@ -492,12 +464,6 @@ ALTER TABLE `game`
 --
 ALTER TABLE `game_tags`
   MODIFY `ID_Game_tags` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT dla tabeli `payment_method`
---
-ALTER TABLE `payment_method`
-  MODIFY `ID_Payment_method` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT dla tabeli `platform`
