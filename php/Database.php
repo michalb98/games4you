@@ -71,7 +71,7 @@
             }
         }
 
-        //Dodaje nową grę do bazy danych
+        //Dodaje nowego użytkownika do bazy danych
         function register($pdo, $login, $password, $mail) {
             if ($pdo) {
                 try {

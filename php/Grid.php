@@ -66,9 +66,15 @@
         <div id="search">
             <input type="search" name="search" placeholder="Wpisz tytuł gry...">
         </div>
-        <a href="koszyk" title="Zobacz swój koszyk" id="cart" class="icon-main-header">
-            <i class="icon-basket icon"></i>
-        </a>
+        <a ';
+        if(isset($_SESSION['login'])) { 
+        echo 'href="koszyk" title="Zobacz swój koszyk" id="cart" class="icon-main-header">
+            <i class="icon-basket icon"></i>';
+        } else {
+            echo 'href="logowanie" title="Zaloguj się, aby móc kupować gry" id="cart" class="icon-main-header">
+            <i class="icon-basket icon"></i>';
+        }
+        echo'</a>
         <div id="account-container">';
             if(isset($_SESSION['login'])) {
                 echo '<a href="konto" title="Zobacz swoje konto" id="account" class="icon-main-header">
@@ -77,7 +83,7 @@
                     <a href="konto" title="Zobacz swoje konto" class="hide-icon-main-header">Moje konto</a>
                     <a href="logout" title="Wyloguj się" class="hide-icon-main-header">Wyloguj się</a>';
             } else {
-                echo '<a href="login" title="Zaloguj się" id="account" class="icon-main-header">
+                echo '<a href="logowanie" title="Zaloguj się" id="account" class="icon-main-header">
                         <i class="icon-adult icon"></i>
                     </a>
                     <a href="logowanie" title="Zaloguj się" class="hide-icon-main-header">Zaloguj się</a>
@@ -179,9 +185,9 @@
                 <div class="price-game-page">
                 '.$game[0][1].' zł
                 </div>
-                <div class="buy-game">
-                    Kup grę
-                </div>
+                <a href="koszyk?id='.$id.'" title="Dodaj grę do koszyka" class="buy-game">
+                    <span>Dodaj grę do koszyka</span>
+                </a>
             </div>
         </div>
         <div id="desc-game-page">
