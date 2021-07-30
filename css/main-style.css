@@ -695,6 +695,22 @@ footer {
     -o-border-radius: 5px;
 }
 
+#game-in-cart {
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    z-index: 10000;
+    background-color: rgba(48, 207, 208, 0.5);
+    width: 1em;
+    height: 1em;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .error {
     color: #B02818;
 }

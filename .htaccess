@@ -13,3 +13,4 @@ RewriteRule logowanie login.php
 RewriteRule logout logout.php
 RewriteRule rejestracja register.php
 RewriteRule koszyk cart.php
+RewriteRule konto account.php

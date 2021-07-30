@@ -70,6 +70,11 @@
         if(isset($_SESSION['login'])) { 
         echo 'href="koszyk" title="Zobacz swój koszyk" id="cart" class="icon-main-header">
             <i class="icon-basket icon"></i>';
+            if(isset($_SESSION['game-cart'])) { 
+                $games = explode(',', $_SESSION['game-cart']);
+                $countGames = sizeof($games);
+                echo '<div id="game-in-cart">'.$countGames.'</div>';
+            }
         } else {
             echo 'href="logowanie" title="Zaloguj się, aby móc kupować gry" id="cart" class="icon-main-header">
             <i class="icon-basket icon"></i>';
