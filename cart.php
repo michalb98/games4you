@@ -87,20 +87,20 @@
         </div>
         <div id="cart-payment-container">
             <div class="cart-payment-discount-code">
-                <label for="discount-code">
+                <label for="discount-code" class="label-login-form">
                     Kod promocyjny:
                 </label>
                 <input type="text" name="discount-code">
                 <input type="submit" value="Zastosuj">
             </div>
             <div class="cart-payment-total-price">
-                <label for="total-price">
+                <label for="total-price" class="label-login-form">
                     Do zapłaty:
                 </label>
                 <span id="total-price">99.99 zł</span>
             </div>
             <div class="cart-payment-method">
-                <label for="payment-method">
+                <label for="payment-method" class="label-login-form">
                     Motoda płatnośći:
                 </label>
                 <select name="payment-method">

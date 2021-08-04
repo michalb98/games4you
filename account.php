@@ -19,6 +19,7 @@
     <title>Games4You - konto <?php echo $_SESSION['login']; ?></title>
     <link rel="stylesheet" href="./css/fontello.css">
     <link rel="stylesheet" href="./css/fontello-codes.css">
+    <link rel="stylesheet" href="./css/account.css">
     <?php
         $grid->drawNecesseryHead();
     ?>
@@ -43,9 +44,21 @@
         ?>
     </nav>
     <main>
-        <?php
-            
-        ?>
+        <nav id="nav-account">
+            <a href="?account=ustawienia" title="" class="a-account">Ustawienia konta</a>
+            <a href="?account=historia" title="" class="a-account">Historia zakupów</a>
+            <a href="?account=ocena" title="" class="a-account">Oceny gier</a>
+            <a href="?account=zwrot" title="" class="a-account">Zwrot gry</a>
+            <a href="?account=kontakt" title="" class="a-account">Kontakt</a>
+            <a href="?account=usunkonto" title="" class="a-account error">Usuń konto</a>
+        </nav>
+        <aside id="aside-account">
+            <h1 class="account-text">Konto użytkownika: darx12311</h1>
+            <form method="post">
+                login
+                <input type="text" name="login">
+            </form>
+        </aside>
     </main>
     <?php
         $grid->drawFooter();
