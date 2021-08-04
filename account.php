@@ -54,9 +54,54 @@
         </nav>
         <aside id="aside-account">
             <h1 class="account-text">Konto użytkownika: darx12311</h1>
-            <form method="post">
-                login
-                <input type="text" name="login">
+            <form method="post" class="form-account">
+                <label for="email" class="label">
+                    E-mail
+                </label>
+                <input type="email" name="email" id="email" class="input-account" value="darx12311@gmail.com">
+                <label for="password" class="label">
+                    Hasło
+                </label>
+                <input type="password" name="password" id="password" class="input-account" placeholder="********">
+                <label for="name" class="label">
+                    Imię
+                </label>
+                <input type="text" name="name" id="name" class="input-account" placeholder="Adam" value="">
+                <label for="surname" class="label">
+                    Nazwisko
+                </label>
+                <input type="text" name="surname" id="surname" class="input-account" placeholder="Nowak" value="">
+                <label for="surname" class="label">
+                    Nazwisko
+                </label>
+                <input type="text" name="surname" id="surname" class="input-account" placeholder="Nowak" value="">
+                <label for="country" class="label">
+                    Kraj
+                </label>
+                <select class="select-account input-account" name="country" id="country">
+                    <option>Polska</option>
+                </select>
+                <label for="city" class="label">
+                    Miasto
+                </label>
+                <input type="text" name="city" id="city" class="input-account" placeholder="Warszawa" value="">
+                <label for="postal-code" class="label">
+                    Kod pocztowy
+                </label>
+                <input type="text" name="postal-code" id="postal-code" class="input-account" placeholder="00-001" value="">
+                <label for="street" class="label">
+                    Ulica
+                </label>
+                <input type="text" name="street" id="street" class="input-account" placeholder="Świętokrzyska" value="">
+                <label for="street-number" class="label">
+                    Numer ulicy
+                </label>
+                <input type="text" name="street-number" id="street-number" class="input-account" placeholder="75" value="">
+                <label for="house-number" class="label">
+                    Numer mieszkania
+                </label>
+                <input type="text" name="house-number" id="house-number" class="input-account" placeholder="3C" value="">
+                <input type="submit" value="Zapisz zmiany" class="submit-account">
             </form>
         </aside>
     </main>
