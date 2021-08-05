@@ -115,6 +115,27 @@
                 echo "Sorry, there was an error uploading your file.";
             }
         }
+
+        function getUserMail($pdo, $login){
+            if ($pdo) {
+                $sth = $pdo->prepare('SELECT Email FROM user WHERE `Login` = "'.$login.'";');
+                $sth->execute();
+                $mail = $sth->fetchAll(PDO::FETCH_NUM); 
+                return $mail[0][0];            
+            } else {
+                return 'Database error';
+            }
+        }
+
+        function getUserAdditionalData($pdo, $login) {
+            if ($pdo) {
+                $sth = $pdo->prepare('SELECT Name, Surname, Country, City, Postal_code, Street, Street_number, House_number FROM additional_data, countries, user WHERE additional_data.ID_Country=countries.ID_Country AND user.ID_Additional_data = additional_data.ID_Additional_data AND `Login` = "'.$login.'";');
+                $sth->execute(); 
+                return $sth->fetchAll(PDO::FETCH_NUM);            
+            } else {
+                return 'Database error';
+            }
+        }
     }
 
 ?>

@@ -5,9 +5,11 @@
     require_once('./php/Database.php');
     require_once('./php/Grid.php');
     require_once('./php/Image.php');
+    require_once('./php/Account.php');
 
     $db = new Database();
     $grid = new Grid();
+    $account = new Account();
 
     $pdo = $db->createPDO();
 
@@ -16,7 +18,7 @@
 <html lang="pl">
 <head>
     <meta name="description" content="Sklep internetowy z grami komputerowymi">
-    <title>Games4You - konto <?php echo $_SESSION['login']; ?></title>
+    <title><?php $account->setAccountTitle(isset($_GET['account']) ? $_GET['account'] : '', $_SESSION['login']) ?></title>
     <link rel="stylesheet" href="./css/fontello.css">
     <link rel="stylesheet" href="./css/fontello-codes.css">
     <link rel="stylesheet" href="./css/account.css">
@@ -45,64 +47,30 @@
     </nav>
     <main>
         <nav id="nav-account">
-            <a href="?account=ustawienia" title="" class="a-account">Ustawienia konta</a>
-            <a href="?account=historia" title="" class="a-account">Historia zakupów</a>
-            <a href="?account=ocena" title="" class="a-account">Oceny gier</a>
-            <a href="?account=zwrot" title="" class="a-account">Zwrot gry</a>
-            <a href="?account=kontakt" title="" class="a-account">Kontakt</a>
-            <a href="?account=usunkonto" title="" class="a-account error">Usuń konto</a>
+            <?php
+                $account->drawAccountNav();
+            ?>
         </nav>
         <aside id="aside-account">
-            <h1 class="account-text">Konto użytkownika: darx12311</h1>
-            <form method="post" class="form-account">
-                <label for="email" class="label">
-                    E-mail
-                </label>
-                <input type="email" name="email" id="email" class="input-account" value="darx12311@gmail.com">
-                <label for="password" class="label">
-                    Hasło
-                </label>
-                <input type="password" name="password" id="password" class="input-account" placeholder="********">
-                <label for="name" class="label">
-                    Imię
-                </label>
-                <input type="text" name="name" id="name" class="input-account" placeholder="Adam" value="">
-                <label for="surname" class="label">
-                    Nazwisko
-                </label>
-                <input type="text" name="surname" id="surname" class="input-account" placeholder="Nowak" value="">
-                <label for="surname" class="label">
-                    Nazwisko
-                </label>
-                <input type="text" name="surname" id="surname" class="input-account" placeholder="Nowak" value="">
-                <label for="country" class="label">
-                    Kraj
-                </label>
-                <select class="select-account input-account" name="country" id="country">
-                    <option>Polska</option>
-                </select>
-                <label for="city" class="label">
-                    Miasto
-                </label>
-                <input type="text" name="city" id="city" class="input-account" placeholder="Warszawa" value="">
-                <label for="postal-code" class="label">
-                    Kod pocztowy
-                </label>
-                <input type="text" name="postal-code" id="postal-code" class="input-account" placeholder="00-001" value="">
-                <label for="street" class="label">
-                    Ulica
-                </label>
-                <input type="text" name="street" id="street" class="input-account" placeholder="Świętokrzyska" value="">
-                <label for="street-number" class="label">
-                    Numer ulicy
-                </label>
-                <input type="text" name="street-number" id="street-number" class="input-account" placeholder="75" value="">
-                <label for="house-number" class="label">
-                    Numer mieszkania
-                </label>
-                <input type="text" name="house-number" id="house-number" class="input-account" placeholder="3C" value="">
-                <input type="submit" value="Zapisz zmiany" class="submit-account">
-            </form>
+            <?php
+                $countries = $db->getAllFromTable($pdo, 'countries');
+                $additionalData = $db->getUserAdditionalData($pdo, $_SESSION['login']);
+                $mail = $db->getUserMail($pdo, $_SESSION['login']);
+                
+                $account->setData($mail, $additionalData[0][0], $additionalData[0][1], $additionalData[0][2], $additionalData[0][3], $additionalData[0][4], $additionalData[0][5], $additionalData[0][6], $additionalData[0][7], $_SESSION['login']);
+
+                if(isset($_GET['account'])) {
+                    switch ($_GET['account']) {
+                        case "ustawienia":
+                            $account->drawAccountSettings($countries);
+                        break;
+                        default:
+                            $account->drawAccountSettings($countries);
+                    }
+                } else {
+                    $account->drawAccountSettings($countries);
+                }
+            ?>
         </aside>
     </main>
     <?php

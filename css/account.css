@@ -68,6 +68,7 @@
     position: relative;
     font-size: 1.5em;
     text-shadow: 2px 4px 3px #000;
+    color: #30cfd0;
 }
 
 .label::after {
@@ -120,4 +121,14 @@
     color: #30cfd0;
     background-color: rgba(0, 0, 0, 0.75);
     border-bottom: 4px #330867 solid;
+}
+
+.select-account {
+    appearance: none;
+    text-align-last: center;
+}
+
+.select-account option {
+    background-color: #000;
+    color: #FFF;
 }

@@ -291,7 +291,7 @@
             $minPrice = $db->getAllFromDatabase($pdo, 'SELECT Price_brutto FROM `game` ORDER BY Price_brutto ASC LIMIT 1;');
             $maxPrice = $db->getAllFromDatabase($pdo, 'SELECT Price_brutto FROM `game` ORDER BY Price_brutto DESC LIMIT 1;');
             echo '<form method="GET" class="nav-form" action="szukaj">
-                    <h1 class="header-nav-form">Wyszukiwanie szczegółowe</h1>
+                    <a href="#" class="header-nav-form">Wyszukiwanie szczegółowe</a>
                     <select name="type" class="select-nav-form">';
                         $grid->drawSelectNav('type', 'Dowolny typ');
             echo '</select>';

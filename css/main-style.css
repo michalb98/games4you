@@ -187,6 +187,7 @@ body {
     -ms-transition: all 0.25s ease-in-out;
     -o-transition: all 0.25s ease-in-out;
     text-align-last: center;
+    text-decoration: none;
 }
 
 .submit-nav-form {
