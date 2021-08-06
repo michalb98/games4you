@@ -1,6 +1,8 @@
 <?php
 
     session_start();
+    
+    isset($_SESSION['login']) ? : header('Location: logowanie');
 
     require_once('./php/Database.php');
     require_once('./php/Grid.php');
@@ -12,6 +14,18 @@
     $account = new Account();
 
     $pdo = $db->createPDO();
+
+    if(isset($_POST['email'])) {
+        $account->setData($_POST['email'], null, null, null, null, null, null, null, null, $_SESSION['login'], null, null);
+        $account->chcekFormAccountSettings();
+    } else {
+        $additionalData = $db->getUserAdditionalData($pdo, $_SESSION['login']);
+        $mail = $db->getUserMail($pdo, $_SESSION['login']);
+                    
+        $account->setData($mail, $additionalData[0][0], $additionalData[0][1], $additionalData[0][2], $additionalData[0][3], $additionalData[0][4], $additionalData[0][5], $additionalData[0][6], $additionalData[0][7], $_SESSION['login'], null, null);    
+    }
+
+    
 
 ?>
 <!DOCTYPE html>
@@ -54,11 +68,7 @@
         <aside id="aside-account">
             <?php
                 $countries = $db->getAllFromTable($pdo, 'countries');
-                $additionalData = $db->getUserAdditionalData($pdo, $_SESSION['login']);
-                $mail = $db->getUserMail($pdo, $_SESSION['login']);
                 
-                $account->setData($mail, $additionalData[0][0], $additionalData[0][1], $additionalData[0][2], $additionalData[0][3], $additionalData[0][4], $additionalData[0][5], $additionalData[0][6], $additionalData[0][7], $_SESSION['login']);
-
                 if(isset($_GET['account'])) {
                     switch ($_GET['account']) {
                         case "ustawienia":

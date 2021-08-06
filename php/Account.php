@@ -2,19 +2,21 @@
 
     class Account {
 
-        protected $mail, $name, $suranme,$selectedCountry, $city, $postalCode, $street, $streetNumber, $houseNumber, $user;
+        protected $mail, $name, $suranme,$selectedCountry, $city, $postalCode, $street, $streetNumber, $houseNumber, $user, $passwordNew, $password;
         
-        function setData($mail, $name, $suranme, $selectedCountry, $city, $postalCode, $street, $streetNumber, $houseNumber, $user) {
-            $this->mail = $mail;
-            $this->name = $name;
-            $this->suranme = $suranme;
-            $this->selectedCountry = $selectedCountry;
-            $this->city = $city;
-            $this->postalCode = $postalCode;
-            $this->street = $street;
-            $this->streetNumber = $streetNumber;
-            $this->houseNumber = $houseNumber;
-            $this->user = $user;
+        function setData($mail, $name, $suranme, $selectedCountry, $city, $postalCode, $street, $streetNumber, $houseNumber, $user, $passwordNew, $password) {
+            $this->mail =  filter_var($mail, FILTER_SANITIZE_EMAIL);
+            $this->name =  filter_var($name, FILTER_SANITIZE_STRING);
+            $this->suranme = filter_var($suranme, FILTER_SANITIZE_STRING);
+            $this->selectedCountry = filter_var($selectedCountry, FILTER_SANITIZE_STRING);
+            $this->city = filter_var($city, FILTER_SANITIZE_STRING);
+            $this->postalCode = filter_var($postalCode, FILTER_SANITIZE_STRING);
+            $this->street = filter_var($street, FILTER_SANITIZE_STRING);
+            $this->streetNumber = filter_var($streetNumber, FILTER_SANITIZE_STRING);
+            $this->houseNumber = filter_var($houseNumber, FILTER_SANITIZE_STRING);
+            $this->user = filter_var($user, FILTER_SANITIZE_STRING);
+            $this->passwordNew = filter_var($passwordNew, FILTER_SANITIZE_STRING);
+            $this->password = filter_var($password, FILTER_SANITIZE_STRING);
         }
 
         function setAccountTitle($get, $login) {
@@ -58,10 +60,10 @@
                     E-mail
                 </label>
                 <input type="email" name="email" id="email" class="input-account" placeholder="a.nowak@gmail.com" value="'.$this->mail.'">
-                <label for="password" class="label">
-                    Hasło
+                <label for="new-password" class="label">
+                    Nowe hasło
                 </label>
-                <input type="password" name="password" id="password" class="input-account" placeholder="********">
+                <input type="password" name="new-password" id="new-password" class="input-account" placeholder="********">
                 <label for="name" class="label">
                     Imię
                 </label>
@@ -102,8 +104,30 @@
                     Numer mieszkania
                 </label>
                 <input type="text" name="house-number" id="house-number" class="input-account" placeholder="3C" value="'.$this->houseNumber.'">
-                <input type="submit" value="Zapisz zmiany" class="submit-account">
-            </form>';
+                <label for="password" class="label">
+                    Hasło
+                </label>
+                <input type="password" name="password" id="password" class="input-account" placeholder="********">
+                <input type="submit" value="Zapisz zmiany" class="submit-account">';
+                if(isset($_SESSION['error'])) {
+                    echo $_SESSION['error'];
+                    unset($_SESSION['error']);
+                } 
+            echo '</form>';
+        }
+
+        function getValueFromAccountSettingsForm($post) {
+            (strlen($_POST['email']) == 0) ? $mail = $this->mail : $mail = $_POST['email'];
+        }
+
+        function chcekFormAccountSettings() {
+            try {
+                !(filter_var($this->mail, FILTER_VALIDATE_EMAIL) === false || strlen($this->mail) > 250 || strlen($this->mail) < 6)  ? : throw new Exception('Popraw swój E-mail!');
+                !(($this->passwordNew == $this->password || strlen($this->password) > 250 || strlen($this->mail) < 6) && $_POST['new-password'] != '' )  ? : throw new Exception('Popraw swoje nowe hasło!');
+            } catch (Exception $e) {
+                $_SESSION['error'] = $e->getMessage();
+            }
+             
         }
     }
 
