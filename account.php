@@ -16,8 +16,10 @@
     $pdo = $db->createPDO();
 
     if(isset($_POST['email'])) {
-        $account->setData($_POST['email'], null, null, null, null, null, null, null, null, $_SESSION['login'], null, null);
-        $account->chcekFormAccountSettings();
+        $account->getValueFromAccountSettingsForm($account);
+        $account->setData($_POST['email'], $_POST['name'], $_POST['surname'], $_POST['country'], $_POST['city'], $_POST['postal-code'], $_POST['street'], $_POST['street-number'], $_POST['house-number'], $_SESSION['login'], $_POST['new-password'], $_POST['password']);
+        !($account->chcekFormAccountSettings($db, $pdo, $_SESSION['login'])) ? : $db->updateUserSettings($pdo, $_SESSION['login'], $account->getMail());
+        
     } else {
         $additionalData = $db->getUserAdditionalData($pdo, $_SESSION['login']);
         $mail = $db->getUserMail($pdo, $_SESSION['login']);

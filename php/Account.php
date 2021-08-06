@@ -2,12 +2,12 @@
 
     class Account {
 
-        protected $mail, $name, $suranme,$selectedCountry, $city, $postalCode, $street, $streetNumber, $houseNumber, $user, $passwordNew, $password;
+        protected $mail, $name, $surname, $selectedCountry, $city, $postalCode, $street, $streetNumber, $houseNumber, $user, $passwordNew, $password;
         
-        function setData($mail, $name, $suranme, $selectedCountry, $city, $postalCode, $street, $streetNumber, $houseNumber, $user, $passwordNew, $password) {
+        function setData($mail, $name, $surname, $selectedCountry, $city, $postalCode, $street, $streetNumber, $houseNumber, $user, $passwordNew, $password) {
             $this->mail =  filter_var($mail, FILTER_SANITIZE_EMAIL);
             $this->name =  filter_var($name, FILTER_SANITIZE_STRING);
-            $this->suranme = filter_var($suranme, FILTER_SANITIZE_STRING);
+            $this->surname = filter_var($surname, FILTER_SANITIZE_STRING);
             $this->selectedCountry = filter_var($selectedCountry, FILTER_SANITIZE_STRING);
             $this->city = filter_var($city, FILTER_SANITIZE_STRING);
             $this->postalCode = filter_var($postalCode, FILTER_SANITIZE_STRING);
@@ -71,7 +71,7 @@
                 <label for="surname" class="label">
                     Nazwisko
                 </label>
-                <input type="text" name="surname" id="surname" class="input-account" placeholder="Nowak" value="'.$this->suranme.'">
+                <input type="text" name="surname" id="surname" class="input-account" placeholder="Nowak" value="'.$this->surname.'">
                 <label for="country" class="label">
                     Kraj
                 </label>
@@ -110,24 +110,79 @@
                 <input type="password" name="password" id="password" class="input-account" placeholder="********">
                 <input type="submit" value="Zapisz zmiany" class="submit-account">';
                 if(isset($_SESSION['error'])) {
-                    echo $_SESSION['error'];
+                    echo '<span class="error">'.$_SESSION['error'].'</span>';
                     unset($_SESSION['error']);
                 } 
             echo '</form>';
         }
 
-        function getValueFromAccountSettingsForm($post) {
+        function getValueFromAccountSettingsForm($account) {
             (strlen($_POST['email']) == 0) ? $mail = $this->mail : $mail = $_POST['email'];
+            (strlen($_POST['name']) == 0) ? $name = $this->name : $name = $_POST['name'];
+            (strlen($_POST['surname']) == 0) ? $surname = $this->surname : $surname = $_POST['surname'];
+            (strlen($_POST['country']) == 0) ? $country = $this->selectedCountrycountry : $country = $_POST['country'];
+            (strlen($_POST['city']) == 0) ? $city = $this->city : $city = $_POST['city'];
+            (strlen($_POST['postal-code']) == 0) ? $postalCode = $this->postalCode : $postalCode = $_POST['postal-code'];
+            (strlen($_POST['street']) == 0) ? $street = $this->street : $street = $_POST['street'];
+            (strlen($_POST['street-number']) == 0) ? $streetNumber = $this->streetNumber : $streetNumber = $_POST['street-number'];
+            (strlen($_POST['house-number']) == 0) ? $houseNumber = $this->houseNumber : $houseNumber = $_POST['house-number'];
+            $account->setData($mail, $name, $surname, $country, $city, $postalCode, $street, $streetNumber, $houseNumber, $this->user, $this->passwordNew, $this->password);
         }
 
-        function chcekFormAccountSettings() {
+        function chcekFormAccountSettings($db, $pdo, $login) {
             try {
                 !(filter_var($this->mail, FILTER_VALIDATE_EMAIL) === false || strlen($this->mail) > 250 || strlen($this->mail) < 6)  ? : throw new Exception('Popraw swój E-mail!');
-                !(($this->passwordNew == $this->password || strlen($this->password) > 250 || strlen($this->mail) < 6) && $_POST['new-password'] != '' )  ? : throw new Exception('Popraw swoje nowe hasło!');
+                !((hash("sha512",$this->passwordNew) == hash("sha512", $_POST['password']) || strlen($this->passwordNew) > 250 || strlen($this->passwordNew) < 6) && $_POST['new-password'] != '' )  ? : throw new Exception('Popraw swoje nowe hasło!');
+                !((strlen($this->name) > 250 || strlen($this->name) < 3) && $_POST['name'] != '' )  ? : throw new Exception('Popraw swoje imię!');
+                !((strlen($this->surname) > 250 || strlen($this->surname) < 2) && $_POST['surname'] != '' )  ? : throw new Exception('Popraw swoje nazwisko!');
+                !((strlen($this->city) > 250 || strlen($this->city) < 2) && $_POST['city'] != '' )  ? : throw new Exception('Popraw swoje misto!');
+                !((strlen($this->postalCode) > 8 || strlen($this->postalCode) < 6) && $_POST['postal-code'] != '' )  ? : throw new Exception('Popraw swój kod pocztowy!');
+                !((strlen($this->street) > 250 || strlen($this->street) < 2) && $_POST['street'] != '' )  ? : throw new Exception('Popraw swoją ulice!');
+                !((strlen($this->streetNumber) > 6 || strlen($this->streetNumber) < 1) && $_POST['street-number'] != '' )  ? : throw new Exception('Popraw swój numer ulicy!');
+                !((strlen($this->houseNumber) > 6 || strlen($this->houseNumber) < 1) && $_POST['house-number'] != '' )  ? : throw new Exception('Popraw swój numer mieszkania!');
+                (hash("sha512", $_POST['password']) == $db->getUserPasswordHash($pdo, $login))  ? : throw new Exception('Niepoprawne hasło! Musisz podać swoje akutalne hasło, aby zapisać zmiany.');
+                return true;
             } catch (Exception $e) {
                 $_SESSION['error'] = $e->getMessage();
+                return false;
             }
              
+        }
+
+        function getMail() {
+            return $this->mail;
+        }
+
+        function getName() {
+            return $this->name;
+        }
+
+        function getSurname() {
+            return $this->surname;
+        }
+
+        function getPostalCode() {
+            return $this->postalCode;
+        }
+
+        function getCity() {
+            return $this->city;
+        }
+
+        function getStreet() {
+            return $this->street;
+        }
+
+        function getStreetNumber() {
+            return $this->streetNumberber;
+        }
+
+        function getHouseNumber() {
+            return $this->houseNumber;
+        }
+
+        function getSelectedCountry () {
+            return $this->selectedCountry;
         }
     }
 

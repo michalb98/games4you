@@ -136,6 +136,28 @@
                 return 'Database error';
             }
         }
+
+        function getUserPasswordHash($pdo, $login) {
+            if ($pdo) {
+                $sth = $pdo->prepare('SELECT `Password` FROM user WHERE `Login` = "'.$login.'";');
+                $sth->execute(); 
+                $password = $sth->fetchAll(PDO::FETCH_NUM); 
+                return $password[0][0];           
+            } else {
+                return 'Database error';
+            }
+        }
+
+        function updateUserSettings($pdo, $login, $mail) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('UPDATE `user` SET Email=? WHERE `Login` = "'.$login.'"');
+                    $sth->execute([$mail]);
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
     }
 
 ?>
