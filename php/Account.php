@@ -15,7 +15,7 @@
             $this->streetNumber = filter_var($streetNumber, FILTER_SANITIZE_STRING);
             $this->houseNumber = filter_var($houseNumber, FILTER_SANITIZE_STRING);
             $this->user = filter_var($user, FILTER_SANITIZE_STRING);
-            $this->passwordNew = filter_var($passwordNew, FILTER_SANITIZE_STRING);
+            $this->passwordNew = hash("sha512", $passwordNew);
             $this->password = filter_var($password, FILTER_SANITIZE_STRING);
         }
 
@@ -75,8 +75,7 @@
                 <label for="country" class="label">
                     Kraj
                 </label>
-                <select class="select-account input-account" name="country" id="country">
-                    <option>Wybierz swój kraj...</option>';
+                <select class="select-account input-account" name="country" id="country">';
                     for($i = 0; $i<sizeof($countries); $i++) {
                         if($countries[$i][1] == $this->selectedCountry)
                             echo '<option selected>'.$countries[$i][1].'</option>';
@@ -126,13 +125,14 @@
             (strlen($_POST['street']) == 0) ? $street = $this->street : $street = $_POST['street'];
             (strlen($_POST['street-number']) == 0) ? $streetNumber = $this->streetNumber : $streetNumber = $_POST['street-number'];
             (strlen($_POST['house-number']) == 0) ? $houseNumber = $this->houseNumber : $houseNumber = $_POST['house-number'];
-            $account->setData($mail, $name, $surname, $country, $city, $postalCode, $street, $streetNumber, $houseNumber, $this->user, $this->passwordNew, $this->password);
+            (strlen($_POST['new-password']) == 0) ? $passwordNew = $this->passwordNew : $passwordNew = hash("sha512", $_POST['new-password']);
+            $account->setData($mail, $name, $surname, $country, $city, $postalCode, $street, $streetNumber, $houseNumber, $this->user, $passwordNew, $this->password);
         }
 
         function chcekFormAccountSettings($db, $pdo, $login) {
             try {
                 !(filter_var($this->mail, FILTER_VALIDATE_EMAIL) === false || strlen($this->mail) > 250 || strlen($this->mail) < 6)  ? : throw new Exception('Popraw swój E-mail!');
-                !((hash("sha512",$this->passwordNew) == hash("sha512", $_POST['password']) || strlen($this->passwordNew) > 250 || strlen($this->passwordNew) < 6) && $_POST['new-password'] != '' )  ? : throw new Exception('Popraw swoje nowe hasło!');
+                !(($this->passwordNew == hash("sha512", $_POST['password']) || strlen($this->passwordNew) > 250 || strlen($this->passwordNew) < 6) && $_POST['new-password'] != '' )  ? : throw new Exception('Popraw swoje nowe hasło!');
                 !((strlen($this->name) > 250 || strlen($this->name) < 3) && $_POST['name'] != '' )  ? : throw new Exception('Popraw swoje imię!');
                 !((strlen($this->surname) > 250 || strlen($this->surname) < 2) && $_POST['surname'] != '' )  ? : throw new Exception('Popraw swoje nazwisko!');
                 !((strlen($this->city) > 250 || strlen($this->city) < 2) && $_POST['city'] != '' )  ? : throw new Exception('Popraw swoje misto!');
@@ -174,7 +174,7 @@
         }
 
         function getStreetNumber() {
-            return $this->streetNumberber;
+            return $this->streetNumber;
         }
 
         function getHouseNumber() {
@@ -183,6 +183,10 @@
 
         function getSelectedCountry () {
             return $this->selectedCountry;
+        }
+
+        function getNewPassword() {
+            return $this->passwordNew;
         }
     }
 

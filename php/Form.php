@@ -163,7 +163,7 @@
             $check = true;
 
             $countIdUser = $db->countData($pdo, "ID_User", $this->login_register);
-            $countEmail = $db->countData($pdo, "Email", $this->email_register);
+            $countEmail = $db->countEmail($pdo, $this->email_register);
 
             if($this->login_register == '' || strlen($this->login_register) < 5 || strlen($this->login_register) > 50) {
                 $_SESSION['login-register-form-error'] = 'Popraw swój login! Login musi zawierać od 5 do 50 znaków.';
@@ -227,7 +227,7 @@
 
         function initiateRegister($pdo, $db) {
             $password_register_hash = hash("sha512", $this->password_register);
-            $db->register($pdo, $this->login_register, $password_register_hash, $this->email_register);
+            $db->register($pdo, $this->login_register, $password_register_hash, $this->email_register, $db);
         }
 
         function login() {

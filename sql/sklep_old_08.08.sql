@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 07 Sie 2021, 14:36
+-- Czas generowania: 20 Lip 2021, 19:58
 -- Wersja serwera: 10.4.19-MariaDB
 -- Wersja PHP: 8.0.7
 
@@ -32,40 +32,31 @@ CREATE TABLE `additional_data` (
   `ID_Country` int(3) DEFAULT NULL,
   `Name` varchar(200) COLLATE utf8_polish_ci DEFAULT NULL,
   `Surname` varchar(200) COLLATE utf8_polish_ci DEFAULT NULL,
-  `Postal_code` varchar(7) COLLATE utf8_polish_ci DEFAULT NULL,
+  `Postal_code` int(5) DEFAULT NULL,
   `City` varchar(200) COLLATE utf8_polish_ci DEFAULT NULL,
   `Street` varchar(200) COLLATE utf8_polish_ci DEFAULT NULL,
   `Street_number` varchar(5) COLLATE utf8_polish_ci DEFAULT NULL,
   `House_number` varchar(5) COLLATE utf8_polish_ci DEFAULT NULL,
-  `Email` varchar(250) COLLATE utf8_polish_ci NOT NULL
+  `NIP` varchar(11) COLLATE utf8_polish_ci DEFAULT NULL,
+  `Phone_number` varchar(20) COLLATE utf8_polish_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
-
---
--- Zrzut danych tabeli `additional_data`
---
-
-INSERT INTO `additional_data` (`ID_Additional_data`, `ID_Country`, `Name`, `Surname`, `Postal_code`, `City`, `Street`, `Street_number`, `House_number`, `Email`) VALUES
-(1, 30, 'Michał', 'Błaszczyk', '99-300', 'Kutno', 'Łokietka', '6', '60', 'darx12311@gmail.com'),
-(5, 0, '', '', '', '', '', '', '', 'test@test.test'),
-(6, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'test2@test.test');
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `countries`
+-- Struktura tabeli dla tabeli `country`
 --
 
-CREATE TABLE `countries` (
+CREATE TABLE `country` (
   `ID_Country` int(3) NOT NULL,
   `Country` varchar(250) COLLATE utf8_polish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
--- Zrzut danych tabeli `countries`
+-- Zrzut danych tabeli `country`
 --
 
-INSERT INTO `countries` (`ID_Country`, `Country`) VALUES
-(0, 'Wybierz swój kraj...'),
+INSERT INTO `country` (`ID_Country`, `Country`) VALUES
 (1, 'Albania'),
 (2, 'Andora'),
 (3, 'Austria'),
@@ -345,6 +336,7 @@ INSERT INTO `type` (`ID_Type`, `Type`) VALUES
 
 CREATE TABLE `user` (
   `ID_User` int(7) NOT NULL,
+  `Email` varchar(250) COLLATE utf8_polish_ci NOT NULL,
   `Login` varchar(100) COLLATE utf8_polish_ci NOT NULL,
   `Password` varchar(512) COLLATE utf8_polish_ci NOT NULL,
   `ID_Additional_data` int(7) DEFAULT NULL
@@ -354,10 +346,8 @@ CREATE TABLE `user` (
 -- Zrzut danych tabeli `user`
 --
 
-INSERT INTO `user` (`ID_User`, `Login`, `Password`, `ID_Additional_data`) VALUES
-(1, 'darx12311', '84f3773a2f6d75b4f2318d4ec8c826b311ab69679f2e4aafc1e8e74593e5a734ae60248895b4891e75584e35b40d1e1eace5f284cc18bdb826b0cb43d0cfca4b', 1),
-(6, 'test1', 'cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e', 5),
-(7, 'test2', '84f3773a2f6d75b4f2318d4ec8c826b311ab69679f2e4aafc1e8e74593e5a734ae60248895b4891e75584e35b40d1e1eace5f284cc18bdb826b0cb43d0cfca4b', 6);
+INSERT INTO `user` (`ID_User`, `Email`, `Login`, `Password`, `ID_Additional_data`) VALUES
+(1, 'darx12311@gmail.com', 'darx12311', '84f3773a2f6d75b4f2318d4ec8c826b311ab69679f2e4aafc1e8e74593e5a734ae60248895b4891e75584e35b40d1e1eace5f284cc18bdb826b0cb43d0cfca4b', NULL);
 
 -- --------------------------------------------------------
 
@@ -390,13 +380,12 @@ INSERT INTO `version` (`ID_Version`, `Version`) VALUES
 -- Indeksy dla tabeli `additional_data`
 --
 ALTER TABLE `additional_data`
-  ADD PRIMARY KEY (`ID_Additional_data`),
-  ADD KEY `ID_Country` (`ID_Country`);
+  ADD PRIMARY KEY (`ID_Additional_data`);
 
 --
--- Indeksy dla tabeli `countries`
+-- Indeksy dla tabeli `country`
 --
-ALTER TABLE `countries`
+ALTER TABLE `country`
   ADD PRIMARY KEY (`ID_Country`);
 
 --
@@ -462,8 +451,7 @@ ALTER TABLE `type`
 -- Indeksy dla tabeli `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`ID_User`),
-  ADD KEY `ID_Additional_data` (`ID_Additional_data`);
+  ADD PRIMARY KEY (`ID_User`);
 
 --
 -- Indeksy dla tabeli `version`
@@ -479,13 +467,13 @@ ALTER TABLE `version`
 -- AUTO_INCREMENT dla tabeli `additional_data`
 --
 ALTER TABLE `additional_data`
-  MODIFY `ID_Additional_data` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `ID_Additional_data` int(7) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT dla tabeli `countries`
+-- AUTO_INCREMENT dla tabeli `country`
 --
-ALTER TABLE `countries`
-  MODIFY `ID_Country` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+ALTER TABLE `country`
+  MODIFY `ID_Country` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT dla tabeli `discount_code`
@@ -545,7 +533,7 @@ ALTER TABLE `type`
 -- AUTO_INCREMENT dla tabeli `user`
 --
 ALTER TABLE `user`
-  MODIFY `ID_User` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `ID_User` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT dla tabeli `version`
@@ -556,12 +544,6 @@ ALTER TABLE `version`
 --
 -- Ograniczenia dla zrzutów tabel
 --
-
---
--- Ograniczenia dla tabeli `additional_data`
---
-ALTER TABLE `additional_data`
-  ADD CONSTRAINT `additional_data_ibfk_1` FOREIGN KEY (`ID_Country`) REFERENCES `countries` (`ID_Country`);
 
 --
 -- Ograniczenia dla tabeli `game`
@@ -577,12 +559,6 @@ ALTER TABLE `game`
 ALTER TABLE `game_tags`
   ADD CONSTRAINT `game_tags_ibfk_1` FOREIGN KEY (`ID_Game`) REFERENCES `game` (`ID_Game`),
   ADD CONSTRAINT `game_tags_ibfk_2` FOREIGN KEY (`ID_Tag`) REFERENCES `tag` (`ID_Tag`);
-
---
--- Ograniczenia dla tabeli `user`
---
-ALTER TABLE `user`
-  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`ID_Additional_data`) REFERENCES `additional_data` (`ID_Additional_data`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -18,7 +18,13 @@
     if(isset($_POST['email'])) {
         $account->getValueFromAccountSettingsForm($account);
         $account->setData($_POST['email'], $_POST['name'], $_POST['surname'], $_POST['country'], $_POST['city'], $_POST['postal-code'], $_POST['street'], $_POST['street-number'], $_POST['house-number'], $_SESSION['login'], $_POST['new-password'], $_POST['password']);
-        !($account->chcekFormAccountSettings($db, $pdo, $_SESSION['login'])) ? : $db->updateUserSettings($pdo, $_SESSION['login'], $account->getMail());
+        if($account->chcekFormAccountSettings($db, $pdo, $_SESSION['login'])) {
+            $db->updateUserAdditionalSettings($pdo, $_SESSION['login'], $db->getIdCountry($pdo, $account->getSelectedCountry()), $account->getName(), $account->getSurname(), $account->getPostalCode(), $account->getCity(), $account->getStreet(), $account->getStreetNumber(), $account->getHouseNumber(), $account->getMail());
+            if(isset($_POST['new-password'])) {
+                $db->updateUserSettings($pdo, $_SESSION['login'], $account->getNewPassword());
+            }
+        }
+         
         
     } else {
         $additionalData = $db->getUserAdditionalData($pdo, $_SESSION['login']);
@@ -70,7 +76,7 @@
         <aside id="aside-account">
             <?php
                 $countries = $db->getAllFromTable($pdo, 'countries');
-                
+
                 if(isset($_GET['account'])) {
                     switch ($_GET['account']) {
                         case "ustawienia":

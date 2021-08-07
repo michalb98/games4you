@@ -71,12 +71,39 @@
             }
         }
 
-        //Dodaje nowego użytkownika do bazy danych
-        function register($pdo, $login, $password, $mail) {
+        function createAdditionalData($pdo, $mail) {
             if ($pdo) {
                 try {
-                    $sth = $pdo->prepare('INSERT INTO `user` VALUE (?, ?, ?, ?, ?)');
-                    $sth->execute([NULL, $mail, $login, $password, NULL]);
+                    $sth = $pdo->prepare('INSERT INTO `additional_data` VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+                    $sth->execute([NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, $mail]);
+                    return true;
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        function getAdditionalDataId($pdo, $mail) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('SELECT `ID_Additional_data` FROM `additional_data` WHERE `Email`="'.$mail.'";');
+                    $sth->execute();
+                    $id = $sth->fetchAll(PDO::FETCH_NUM);
+                    return $id[0][0];
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        //Dodaje nowego użytkownika do bazy danych
+        function register($pdo, $login, $password, $mail, $db) {
+            if ($pdo) {
+                try {
+                    $db->createAdditionalData($pdo, $mail);
+                    $id = $db->getAdditionalDataId($pdo, $mail);
+                    $sth = $pdo->prepare('INSERT INTO `user` VALUE (?, ?, ?, ?)');
+                    $sth->execute([NULL, $login, $password, $id]);
                     $_SESSION['register'] = $login;
                     header('Location: logowanie');
                 } catch(Exception $e) {
@@ -107,6 +134,16 @@
             }
         }
 
+        function countEmail($pdo, $mail) {
+            if ($pdo) {
+                $sth = $pdo->prepare('SELECT COUNT(Email) FROM `additional_data` WHERE `Email` = "'.$mail.'"');
+                $sth->execute();
+                return $sth->fetchAll(PDO::FETCH_NUM);                
+            } else {
+                return 'Database error';
+            }
+        }
+
         function addGameCover($title, $target_file, $imageFileType) {
             if (move_uploaded_file($_FILES["file-upload-input"]["tmp_name"], $target_file)) {
                 $image = new Image();
@@ -118,7 +155,7 @@
 
         function getUserMail($pdo, $login){
             if ($pdo) {
-                $sth = $pdo->prepare('SELECT Email FROM user WHERE `Login` = "'.$login.'";');
+                $sth = $pdo->prepare('SELECT Email FROM user, additional_data WHERE user.ID_Additional_data=additional_data.ID_Additional_data AND `Login` = "'.$login.'";');
                 $sth->execute();
                 $mail = $sth->fetchAll(PDO::FETCH_NUM); 
                 return $mail[0][0];            
@@ -129,7 +166,7 @@
 
         function getUserAdditionalData($pdo, $login) {
             if ($pdo) {
-                $sth = $pdo->prepare('SELECT Name, Surname, Country, City, Postal_code, Street, Street_number, House_number FROM additional_data, countries, user WHERE additional_data.ID_Country=countries.ID_Country AND user.ID_Additional_data = additional_data.ID_Additional_data AND `Login` = "'.$login.'";');
+                $sth = $pdo->prepare('SELECT Name, Surname, Country, City, Postal_code, Street, Street_number, House_number, Email FROM additional_data, countries, user WHERE additional_data.ID_Country=countries.ID_Country AND user.ID_Additional_data = additional_data.ID_Additional_data AND `Login` = "'.$login.'";');
                 $sth->execute(); 
                 return $sth->fetchAll(PDO::FETCH_NUM);            
             } else {
@@ -148,11 +185,33 @@
             }
         }
 
-        function updateUserSettings($pdo, $login, $mail) {
+        function updateUserSettings($pdo, $login, $password) {
             if ($pdo) {
                 try {
-                    $sth = $pdo->prepare('UPDATE `user` SET Email=? WHERE `Login` = "'.$login.'"');
-                    $sth->execute([$mail]);
+                    $sth = $pdo->prepare('UPDATE `user` SET `Password`=? WHERE `Login` = "'.$login.'"');
+                    $sth->execute([$password]);
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        function getIdCountry($pdo, $country) {
+            if ($pdo && $country != "Wybierz swój kraj...") {
+                $sth = $pdo->prepare('SELECT `ID_Country` FROM countries WHERE `Country` = "'.$country.'";');
+                $sth->execute(); 
+                $idCountry = $sth->fetchAll(PDO::FETCH_NUM); 
+                return $idCountry[0][0];           
+            } else {
+                return 'Database error';
+            }
+        }
+
+        function updateUserAdditionalSettings($pdo, $login, $idCountry, $name, $surname, $postalCode, $city, $street, $streetNumber, $houseNumber, $mail) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('UPDATE `additional_data`, `user` SET `ID_Country`=?, `Name`=?, `Surname`=?, `Postal_code`=?, `City`=?, `Street`=?, `Street_number`=?, `House_number`=?, `Email`=? WHERE user.ID_Additional_data=additional_data.ID_Additional_data AND `Login` = "'.$login.'"');
+                    $sth->execute([$idCountry, $name, $surname, $postalCode, $city, $street, $streetNumber, $houseNumber, $mail]);
                 } catch(Exception $e) {
                     return $e->getMessage();
                 }
