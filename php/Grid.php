@@ -175,13 +175,13 @@
                 </div>
                 <div id="info-game-page">
                     <div class="type-game-page">
-                    Typ: <a href="szukaj?type='.$game[0][4].'" title="Typ: '.$game[0][4].'">'.$game[0][4].'</a>
+                    Typ: <a href="type='.$game[0][4].'" title="Typ: '.$game[0][4].'">'.$game[0][4].'</a>
                     </div>
                     <div class="version-game-page">
-                    Wersja: <a href="szukaj?version='.$game[0][5].'" title="Wersja: '.$game[0][5].'">'.$game[0][5].'</a>
+                    Wersja: <a href="?version='.$game[0][5].'" title="Wersja: '.$game[0][5].'">'.$game[0][5].'</a>
                     </div>
                     <div class="platform-game-page">
-                    Platforma: <a href="szukaj?platform='.$game[0][6].'" title="Platforma: '.$game[0][6].'">'.$game[0][6].'</a>
+                    Platforma: <a href="?platform='.$game[0][6].'" title="Platforma: '.$game[0][6].'">'.$game[0][6].'</a>
                     </div>
                 </div>
                 <div class="short-desc-game-page">

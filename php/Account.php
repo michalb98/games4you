@@ -16,7 +16,7 @@
             $this->houseNumber = filter_var($houseNumber, FILTER_SANITIZE_STRING);
             $this->user = filter_var($user, FILTER_SANITIZE_STRING);
             $this->passwordNew = hash("sha512", $passwordNew);
-            $this->password = filter_var($password, FILTER_SANITIZE_STRING);
+            $this->password = hash("sha512", $password);
         }
 
         function setAccountTitle($get, $login) {
@@ -132,6 +132,7 @@
         function chcekFormAccountSettings($db, $pdo, $login) {
             try {
                 !(filter_var($this->mail, FILTER_VALIDATE_EMAIL) === false || strlen($this->mail) > 250 || strlen($this->mail) < 6)  ? : throw new Exception('Popraw swój E-mail!');
+                (($db->countEmail($pdo, $this->mail) == 0) || ($db->getUserMail($pdo, $_SESSION['login'])) == $this->mail) ? : throw new Exception('Podany E-mail już istnieje!');
                 !(($this->passwordNew == hash("sha512", $_POST['password']) || strlen($this->passwordNew) > 250 || strlen($this->passwordNew) < 6) && $_POST['new-password'] != '' )  ? : throw new Exception('Popraw swoje nowe hasło!');
                 !((strlen($this->name) > 250 || strlen($this->name) < 3) && $_POST['name'] != '' )  ? : throw new Exception('Popraw swoje imię!');
                 !((strlen($this->surname) > 250 || strlen($this->surname) < 2) && $_POST['surname'] != '' )  ? : throw new Exception('Popraw swoje nazwisko!');
@@ -187,6 +188,10 @@
 
         function getNewPassword() {
             return $this->passwordNew;
+        }
+
+        function getPassword() {
+            return $this->password;
         }
     }
 

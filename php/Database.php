@@ -138,7 +138,8 @@
             if ($pdo) {
                 $sth = $pdo->prepare('SELECT COUNT(Email) FROM `additional_data` WHERE `Email` = "'.$mail.'"');
                 $sth->execute();
-                return $sth->fetchAll(PDO::FETCH_NUM);                
+                $countMail = $sth->fetchAll(PDO::FETCH_NUM); 
+                return $countMail[0][0];               
             } else {
                 return 'Database error';
             }

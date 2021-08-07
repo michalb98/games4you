@@ -20,7 +20,7 @@
         $account->setData($_POST['email'], $_POST['name'], $_POST['surname'], $_POST['country'], $_POST['city'], $_POST['postal-code'], $_POST['street'], $_POST['street-number'], $_POST['house-number'], $_SESSION['login'], $_POST['new-password'], $_POST['password']);
         if($account->chcekFormAccountSettings($db, $pdo, $_SESSION['login'])) {
             $db->updateUserAdditionalSettings($pdo, $_SESSION['login'], $db->getIdCountry($pdo, $account->getSelectedCountry()), $account->getName(), $account->getSurname(), $account->getPostalCode(), $account->getCity(), $account->getStreet(), $account->getStreetNumber(), $account->getHouseNumber(), $account->getMail());
-            if(isset($_POST['new-password'])) {
+            if($_POST['new-password'] != "" && strlen($_POST['new-password']) > 6 ) {
                 $db->updateUserSettings($pdo, $_SESSION['login'], $account->getNewPassword());
             }
         }
@@ -76,6 +76,9 @@
         <aside id="aside-account">
             <?php
                 $countries = $db->getAllFromTable($pdo, 'countries');
+
+                if(($db->countEmail($pdo, $account->getMail()) == 0) && ($db->getUserMail($pdo, $_SESSION['login'])) != $account->getMail())
+                    echo $_POST['email'];
 
                 if(isset($_GET['account'])) {
                     switch ($_GET['account']) {

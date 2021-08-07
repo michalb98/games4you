@@ -185,7 +185,7 @@
                 $check = false;
             }
 
-            if($countEmail[0][0] > 0) {
+            if($countEmail > 0) {
                 $_SESSION['email-exist-register-form-error'] = 'Podany E-mail już istnieje w naszej bazie danych! Jeżeli nie pamiętasz hasła <a href="zapomnialem-hasla" title="Przypomnij hasło">przypomnij je</a> lub <a href="logowanie" title="Zaloguj się">Zaloguj się</a>.';
                 $check = false;
             }

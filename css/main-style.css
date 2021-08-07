@@ -650,8 +650,11 @@ footer {
     bottom: -2vh;
 }
 
-.text-login-form {
-    background-color: transparent;
+.text-login-form,
+.text-login-form:active,
+.text-login-form:checked,
+.text-login-form:focus {
+    background-color: transparent !important;
     border: none;
     border-bottom: 2px solid black;
     width: 20vw;
@@ -661,7 +664,17 @@ footer {
     margin-top: 2vh;
     color: white;
     outline: none;
+    appearance: none;
     box-shadow: rgba(50, 50, 93, 0.5) 0px 50px 100px -20px, rgba(0, 0, 0, 1) 0px 30px 60px -30px;
+}
+
+/* Usuwa kolor tła z autouzupełnienia */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: #FFF;
 }
 
 .submit-login-form {
