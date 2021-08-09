@@ -1,3 +1,4 @@
+/* Ustawienia konta */
 #nav-account {
     width: 20%;
     height: 60vh;
@@ -131,4 +132,78 @@
 .select-account option {
     background-color: #000;
     color: #FFF;
+}
+
+/* Histtoria zamówień */
+
+.order-container {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    margin-top: 2vh;
+    padding: 2vh 1vw;
+    box-sizing: border-box;
+}
+
+.order-container:last-child {
+    margin-bottom: 2vh;
+}
+
+.order-number,
+.order-data {
+    text-align: center;
+    font-size: 1.5em;
+    border-bottom: 2px solid #330867;
+    padding: 1vh 0.5vw;
+    box-sizing: border-box;
+}
+
+.order-data {
+    border-bottom: 2px solid #30cfd0;
+}
+
+.order-game {
+    height: 15vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid;
+    border-image-slice: 1;
+    border-width: 1px;
+    border-image-source: linear-gradient(to left, #30cfd0, #330867);
+    margin-top: 2vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+}
+
+.order-game-cover {
+    height: 100%;
+    width: auto;
+}
+
+.order-game-cover img {
+    height: 100%;
+    width: auto;
+}
+
+.order-game-title,
+.order-game-quantity,
+.order-game-price {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-size: 1.5em;
+}
+
+.order-game-title {
+    width: 50%;
+}
+
+.order-game-quantity {
+    width: 10%;
+}
+
+.order-game-price {
+    width: 20%;
 }

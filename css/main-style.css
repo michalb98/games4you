@@ -725,6 +725,12 @@ input:-webkit-autofill:active {
     align-items: center;
 }
 
+.text-alert {
+    width: 100%;
+    text-align: center;
+    font-size: 2em;
+}
+
 .error {
     color: #B02818;
 }

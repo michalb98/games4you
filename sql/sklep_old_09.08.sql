@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 09 Sie 2021, 20:37
+-- Czas generowania: 07 Sie 2021, 14:36
 -- Wersja serwera: 10.4.19-MariaDB
 -- Wersja PHP: 8.0.7
 
@@ -46,8 +46,8 @@ CREATE TABLE `additional_data` (
 
 INSERT INTO `additional_data` (`ID_Additional_data`, `ID_Country`, `Name`, `Surname`, `Postal_code`, `City`, `Street`, `Street_number`, `House_number`, `Email`) VALUES
 (1, 30, 'Michał', 'Błaszczyk', '99-300', 'Kutno', 'Łokietka', '6', '60', 'darx12311@gmail.com'),
-(5, 0, '', '', '', '', '', '', '9', 'test@test.test'),
-(6, 30, '', '', '', '', '', '', '', 'test2@test.test');
+(5, 0, '', '', '', '', '', '', '', 'test@test.test'),
+(6, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'test2@test.test');
 
 -- --------------------------------------------------------
 
@@ -165,20 +165,6 @@ INSERT INTO `game` (`ID_Game`, `Title`, `Price_netto`, `Price_brutto`, `Short_de
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `game_rating`
---
-
-CREATE TABLE `game_rating` (
-  `ID_Game_rating` int(9) NOT NULL,
-  `ID_Game` int(6) NOT NULL,
-  `ID_User` int(7) NOT NULL,
-  `Rating` int(1) NOT NULL,
-  `Description_rating` varchar(500) COLLATE utf8_polish_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
-
--- --------------------------------------------------------
-
---
 -- Struktura tabeli dla tabeli `game_tags`
 --
 
@@ -195,27 +181,6 @@ CREATE TABLE `game_tags` (
 INSERT INTO `game_tags` (`ID_Game_tags`, `ID_Game`, `ID_Tag`) VALUES
 (1, 1, 8),
 (2, 1, 17);
-
--- --------------------------------------------------------
-
---
--- Struktura tabeli dla tabeli `orders`
---
-
-CREATE TABLE `orders` (
-  `ID_Order` int(9) NOT NULL,
-  `ID_Transaction` int(9) NOT NULL,
-  `Order_number` varchar(256) COLLATE utf8_polish_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
-
---
--- Zrzut danych tabeli `orders`
---
-
-INSERT INTO `orders` (`ID_Order`, `ID_Transaction`, `Order_number`) VALUES
-(1, 1, '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b'),
-(2, 2, '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b'),
-(3, 2, 'd4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35');
 
 -- --------------------------------------------------------
 
@@ -337,21 +302,10 @@ CREATE TABLE `transaction` (
   `ID_Transaction` int(9) NOT NULL,
   `ID_Game` int(6) NOT NULL,
   `ID_User` int(7) NOT NULL,
-  `ID_Discount_code` int(9) DEFAULT NULL,
   `Price_netto` float(5,2) NOT NULL,
   `Price_brutto` float(5,2) NOT NULL,
-  `Quantity` int(2) NOT NULL,
-  `Data` date NOT NULL,
   `Show_key` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
-
---
--- Zrzut danych tabeli `transaction`
---
-
-INSERT INTO `transaction` (`ID_Transaction`, `ID_Game`, `ID_User`, `ID_Discount_code`, `Price_netto`, `Price_brutto`, `Quantity`, `Data`, `Show_key`) VALUES
-(1, 38, 1, NULL, 162.59, 199.99, 1, '2021-08-09', 0),
-(2, 1, 1, NULL, 109.00, 169.00, 1, '2021-08-09', 0);
 
 -- --------------------------------------------------------
 
@@ -402,7 +356,7 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`ID_User`, `Login`, `Password`, `ID_Additional_data`) VALUES
 (1, 'darx12311', '84f3773a2f6d75b4f2318d4ec8c826b311ab69679f2e4aafc1e8e74593e5a734ae60248895b4891e75584e35b40d1e1eace5f284cc18bdb826b0cb43d0cfca4b', 1),
-(6, 'test1', '84f3773a2f6d75b4f2318d4ec8c826b311ab69679f2e4aafc1e8e74593e5a734ae60248895b4891e75584e35b40d1e1eace5f284cc18bdb826b0cb43d0cfca4b', 5),
+(6, 'test1', 'cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e', 5),
 (7, 'test2', '84f3773a2f6d75b4f2318d4ec8c826b311ab69679f2e4aafc1e8e74593e5a734ae60248895b4891e75584e35b40d1e1eace5f284cc18bdb826b0cb43d0cfca4b', 6);
 
 -- --------------------------------------------------------
@@ -461,27 +415,12 @@ ALTER TABLE `game`
   ADD KEY `ID_Version` (`ID_Version`);
 
 --
--- Indeksy dla tabeli `game_rating`
---
-ALTER TABLE `game_rating`
-  ADD PRIMARY KEY (`ID_Game_rating`),
-  ADD KEY `ID_Game` (`ID_Game`),
-  ADD KEY `ID_User` (`ID_User`);
-
---
 -- Indeksy dla tabeli `game_tags`
 --
 ALTER TABLE `game_tags`
   ADD PRIMARY KEY (`ID_Game_tags`),
   ADD KEY `ID_Game` (`ID_Game`),
   ADD KEY `ID_Tag` (`ID_Tag`);
-
---
--- Indeksy dla tabeli `orders`
---
-ALTER TABLE `orders`
-  ADD PRIMARY KEY (`ID_Order`),
-  ADD KEY `ID_Transaction` (`ID_Transaction`);
 
 --
 -- Indeksy dla tabeli `payment_method`
@@ -511,10 +450,7 @@ ALTER TABLE `tag`
 -- Indeksy dla tabeli `transaction`
 --
 ALTER TABLE `transaction`
-  ADD PRIMARY KEY (`ID_Transaction`),
-  ADD KEY `ID_Game` (`ID_Game`),
-  ADD KEY `ID_User` (`ID_User`),
-  ADD KEY `ID_Discount_code` (`ID_Discount_code`);
+  ADD PRIMARY KEY (`ID_Transaction`);
 
 --
 -- Indeksy dla tabeli `type`
@@ -564,22 +500,10 @@ ALTER TABLE `game`
   MODIFY `ID_Game` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
--- AUTO_INCREMENT dla tabeli `game_rating`
---
-ALTER TABLE `game_rating`
-  MODIFY `ID_Game_rating` int(9) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT dla tabeli `game_tags`
 --
 ALTER TABLE `game_tags`
   MODIFY `ID_Game_tags` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT dla tabeli `orders`
---
-ALTER TABLE `orders`
-  MODIFY `ID_Order` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT dla tabeli `payment_method`
@@ -609,7 +533,7 @@ ALTER TABLE `tag`
 -- AUTO_INCREMENT dla tabeli `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `ID_Transaction` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID_Transaction` int(9) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT dla tabeli `type`
@@ -648,32 +572,11 @@ ALTER TABLE `game`
   ADD CONSTRAINT `game_ibfk_3` FOREIGN KEY (`ID_Version`) REFERENCES `version` (`ID_Version`);
 
 --
--- Ograniczenia dla tabeli `game_rating`
---
-ALTER TABLE `game_rating`
-  ADD CONSTRAINT `game_rating_ibfk_1` FOREIGN KEY (`ID_Game`) REFERENCES `game` (`ID_Game`),
-  ADD CONSTRAINT `game_rating_ibfk_2` FOREIGN KEY (`ID_User`) REFERENCES `user` (`ID_User`);
-
---
 -- Ograniczenia dla tabeli `game_tags`
 --
 ALTER TABLE `game_tags`
   ADD CONSTRAINT `game_tags_ibfk_1` FOREIGN KEY (`ID_Game`) REFERENCES `game` (`ID_Game`),
   ADD CONSTRAINT `game_tags_ibfk_2` FOREIGN KEY (`ID_Tag`) REFERENCES `tag` (`ID_Tag`);
-
---
--- Ograniczenia dla tabeli `orders`
---
-ALTER TABLE `orders`
-  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`ID_Transaction`) REFERENCES `transaction` (`ID_Transaction`);
-
---
--- Ograniczenia dla tabeli `transaction`
---
-ALTER TABLE `transaction`
-  ADD CONSTRAINT `transaction_ibfk_1` FOREIGN KEY (`ID_Game`) REFERENCES `game` (`ID_Game`),
-  ADD CONSTRAINT `transaction_ibfk_2` FOREIGN KEY (`ID_User`) REFERENCES `user` (`ID_User`),
-  ADD CONSTRAINT `transaction_ibfk_3` FOREIGN KEY (`ID_Discount_code`) REFERENCES `discount_code` (`ID_Discount_code`);
 
 --
 -- Ograniczenia dla tabeli `user`

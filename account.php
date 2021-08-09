@@ -8,6 +8,7 @@
     require_once('./php/Grid.php');
     require_once('./php/Image.php');
     require_once('./php/Account.php');
+    require_once('./php/Order.php');
 
     $db = new Database();
     $grid = new Grid();
@@ -43,7 +44,7 @@
     <title><?php $account->setAccountTitle(isset($_GET['account']) ? $_GET['account'] : '', $_SESSION['login']) ?></title>
     <link rel="stylesheet" href="./css/fontello.css">
     <link rel="stylesheet" href="./css/fontello-codes.css">
-    <link rel="stylesheet" href="./css/account.css">
+    <link rel="stylesheet" href="./css/account-style.css">
     <?php
         $grid->drawNecesseryHead();
     ?>
@@ -84,6 +85,10 @@
                     switch ($_GET['account']) {
                         case "ustawienia":
                             $account->drawAccountSettings($countries);
+                        break;
+                        case "historia":
+                            $order = new Order();
+                            $order->drawOrders($pdo, $db);
                         break;
                         default:
                             $account->drawAccountSettings($countries);

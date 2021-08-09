@@ -218,6 +218,56 @@
                 }
             }
         }
+
+        function getOrdersNumbers($pdo, $login) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('SELECT DISTINCT Order_number FROM orders, `transaction`, user WHERE orders.ID_Transaction=`transaction`.ID_Transaction AND `transaction`.ID_User=user.ID_User AND user.Login = "'.$login.'";');
+                    $sth->execute(); 
+                    return $sth->fetchAll(PDO::FETCH_NUM);
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        function getOrders($pdo, $login, $orderNumber) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('SELECT game.ID_Game, game.Title, game.Price_brutto, orders.Order_number, `transaction`.Quantity, `transaction`.`Data` FROM game, user, additional_data, `transaction`, orders WHERE orders.ID_Transaction=`transaction`.ID_Transaction AND `transaction`.ID_Game=game.ID_Game AND `transaction`.ID_User=user.ID_User AND user.ID_Additional_data=additional_data.ID_Additional_data AND user.Login = "'.$login.'" AND orders.Order_number = "'.$orderNumber.'";');
+                    $sth->execute(); 
+                    return $sth->fetchAll(PDO::FETCH_NUM);
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        function getOrderValue($pdo, $orderNumber) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('SELECT SUM(`transaction`.Price_brutto) FROM `transaction`, orders WHERE orders.ID_Transaction=`transaction`.ID_Transaction AND orders.Order_number = "'.$orderNumber.'";');
+                    $sth->execute(); 
+                    $sum = $sth->fetchAll(PDO::FETCH_NUM);
+                    return $sum[0][0];
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        function getOrderGameValue($pdo, $orderNumber) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('SELECT SUM(`transaction`.Quantity) FROM `transaction`, orders WHERE orders.ID_Transaction=`transaction`.ID_Transaction AND orders.Order_number = "'.$orderNumber.'";');
+                    $sth->execute(); 
+                    $sum = $sth->fetchAll(PDO::FETCH_NUM);
+                    return $sum[0][0];
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
     }
 
 ?>
