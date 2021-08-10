@@ -165,6 +165,7 @@
         function drawGamePage($pdo, $id) {
             $db = new Database();
             $game = $db->getGameData($pdo, $id);
+            $rating = $db->getGameRating($pdo, $id);
             echo '<div id="container-game-page">
             <div class="cover-game-page">
                 <img src="./img/covers/'.$game[0][0].'_cover.webp" alt="'.$game[0][0].'" onerror="if (this.src != `./img/error/error_cover.webp`) this.src = `./img/error/error_cover.webp`";>
@@ -175,15 +176,49 @@
                 </div>
                 <div id="info-game-page">
                     <div class="type-game-page">
-                    Typ: <a href="type='.$game[0][4].'" title="Typ: '.$game[0][4].'">'.$game[0][4].'</a>
+                        Typ: <a href="type='.$game[0][4].'" title="Typ: '.$game[0][4].'">'.$game[0][4].'</a>
                     </div>
                     <div class="version-game-page">
-                    Wersja: <a href="?version='.$game[0][5].'" title="Wersja: '.$game[0][5].'">'.$game[0][5].'</a>
+                        Wersja: <a href="?version='.$game[0][5].'" title="Wersja: '.$game[0][5].'">'.$game[0][5].'</a>
                     </div>
                     <div class="platform-game-page">
-                    Platforma: <a href="?platform='.$game[0][6].'" title="Platforma: '.$game[0][6].'">'.$game[0][6].'</a>
-                    </div>
-                </div>
+                        Platforma: <a href="?platform='.$game[0][6].'" title="Platforma: '.$game[0][6].'">'.$game[0][6].'</a>
+                    </div>';
+                    if($rating) {
+                        echo '<div class="rating-game-page">';
+                        echo 'Ocena: '.$rating;
+                        echo '<input type="radio" class="star" id="star-5" name="star" disabled ';
+                            if($rating >= 4.5)
+                                echo " checked";
+                        echo '>
+                        <label class="label-star" for="star-5"></label>
+                        <input type="radio" class="star" id="star-4" name="star" disabled';
+
+                        if($rating < 4.5 && $rating >= 3.5)
+                            echo " checked";
+                        echo '>
+                        <label class="label-star" for="star-4"></label>
+                        <input type="radio" class="star" id="star-3" name="star" disabled';
+
+                        if($rating < 3.5 && $rating >= 2.5)
+                            echo " checked";
+                        echo '>
+                        <label class="label-star" for="star-3"></label>
+                        <input type="radio" class="star" id="star-2" name="star" disabled';
+
+                        if($rating < 2.5 && $rating >= 1.5)
+                            echo " checked";
+                        echo '>
+                        <label class="label-star" for="star-2"></label>
+                        <input type="radio" class="star" id="star-1" name="star" disabled';
+
+                        if($rating < 1.5)
+                            echo " checked";
+                        echo '>
+                        <label class="label-star" for="star-1"></label>';
+                        echo '</div>';
+                    }
+                echo'</div>
                 <div class="short-desc-game-page">
                 '.$game[0][2].'
                 </div>

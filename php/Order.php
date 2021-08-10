@@ -33,9 +33,9 @@
                             <div class="order-game-cover">
                                 <img src="./img/covers/'.$this->gameData[$i][1].'_cover.webp" alt="'.$this->gameData[$i][1].'">
                             </div>
-                            <div class="order-game-title">
+                            <a href="produkt?id='.$this->gameData[$i][0].'" title="Zobacz grę '.$this->gameData[0][1].'" class="order-game-title">
                                 '.$this->gameData[$i][1].'
-                            </div>
+                            </a>
                             <div class="order-game-quantity">
                                 Ilość: 
                                 '.$this->gameData[$i][4].'

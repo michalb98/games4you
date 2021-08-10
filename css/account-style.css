@@ -194,10 +194,37 @@
     align-items: center;
     height: 100%;
     font-size: 1.5em;
+    text-decoration: none;
+    color: #FFF;
+}
+
+.order-game-title {
+    position: relative;
+}
+
+.order-game-title:hover::after {
+    content: '';
+    position: absolute;
+    display: block;
+    bottom: 35%;
+    width: inherit;
+    height: 4px;
+    background: linear-gradient(45deg, #30cfd0 0%, #330867 100%);
+    animation: loadingBar 0.25s ease-in-out;
+    -webkit-animation: loadingBar 0.25s ease-in-out;
+}
+
+@keyframes loadingBar {
+    from {
+        width: 0%;
+    } to {
+        width: inherit;
+    }
 }
 
 .order-game-title {
     width: 50%;
+    cursor: pointer;
 }
 
 .order-game-quantity {
@@ -206,4 +233,132 @@
 
 .order-game-price {
     width: 20%;
+}
+
+/* Ocena gier */
+.game-rating-container {
+    width: 90%;
+    height: 15vh;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid;
+    border-image-slice: 1;
+    border-width: 1px;
+    border-image-source: linear-gradient(to left, #30cfd0, #330867);
+    margin-top: 2vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+}
+
+.game-rating-container:last-child {
+    margin-bottom: 2vh;
+}
+
+.game-rating {
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-size: 1.5em;
+}
+
+.form-star {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 0 1vw;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row-reverse;
+}
+
+.star {
+    display: none;
+}
+
+.label-star::before {
+    content: '\2606';
+    position: absolute;
+    color: gold;
+    font-size: 1.8em;
+    top: calc(50% - 0.2em);
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    cursor: pointer;
+    text-shadow: 1px 2px 0px brown;
+}
+
+.star:checked ~ .label-star::before,
+.star:hover ~ .label-star::before {
+    content: '\2605';
+}
+
+.star:disabled:hover ~ .label-star::before {
+    content: '\2606' !important;
+    cursor: default;
+}
+
+.star:disabled:checked ~ .label-star::before {
+    content: '\2605' !important;
+}
+
+.star:checked ~ .label-star::before {
+    cursor: default;
+}
+
+.submit-rating {
+    width: 4vw;
+    height: 6vh;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.5);
+    font-size: 0.8em;
+    color: #FFF;
+    border: none;
+    border: 1px solid #000;
+    transition: border 0.25s ease-in-out;
+    -webkit-transition: border 0.25s ease-in-out;
+    -moz-transition: border 0.25s ease-in-out;
+    -ms-transition: border 0.25s ease-in-out;
+    -o-transition: border 0.25s ease-in-out;
+}
+
+.submit-rating:hover {
+    border: 1px solid gold;
+}
+
+/* Zwrot gry */
+.form-return {
+    width: 40%;
+    height: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.game-return-submit {
+    background-color: rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    color: #FFF;
+    border: none;
+    width: 8vw;
+    height: 6vh;
+    border: 1px solid black;
+    font-size: 1.3em;
+    transition: border-color 0.25s ease-in-out;
+    -webkit-transition: border-color 0.25s ease-in-out;
+    -moz-transition: border-color 0.25s ease-in-out;
+    -ms-transition: border-color 0.25s ease-in-out;
+    -o-transition: border-color 0.25s ease-in-out;
+}
+
+.game-return-submit:hover {
+    border-color: red;
 }

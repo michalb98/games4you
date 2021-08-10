@@ -165,6 +165,17 @@
             }
         }
 
+        function getUserId($pdo, $login){
+            if ($pdo) {
+                $sth = $pdo->prepare('SELECT ID_User FROM user WHERE `Login` = "'.$login.'";');
+                $sth->execute();
+                $idUser = $sth->fetchAll(PDO::FETCH_NUM); 
+                return $idUser[0][0];            
+            } else {
+                return 'Database error';
+            }
+        }
+
         function getUserAdditionalData($pdo, $login) {
             if ($pdo) {
                 $sth = $pdo->prepare('SELECT Name, Surname, Country, City, Postal_code, Street, Street_number, House_number, Email FROM additional_data, countries, user WHERE additional_data.ID_Country=countries.ID_Country AND user.ID_Additional_data = additional_data.ID_Additional_data AND `Login` = "'.$login.'";');
@@ -234,7 +245,7 @@
         function getOrders($pdo, $login, $orderNumber) {
             if ($pdo) {
                 try {
-                    $sth = $pdo->prepare('SELECT game.ID_Game, game.Title, game.Price_brutto, orders.Order_number, `transaction`.Quantity, `transaction`.`Data` FROM game, user, additional_data, `transaction`, orders WHERE orders.ID_Transaction=`transaction`.ID_Transaction AND `transaction`.ID_Game=game.ID_Game AND `transaction`.ID_User=user.ID_User AND user.ID_Additional_data=additional_data.ID_Additional_data AND user.Login = "'.$login.'" AND orders.Order_number = "'.$orderNumber.'";');
+                    $sth = $pdo->prepare('SELECT game.ID_Game, game.Title, `transaction`.`Price_brutto`, orders.Order_number, `transaction`.Quantity, `transaction`.`Data` FROM game, user, additional_data, `transaction`, orders WHERE orders.ID_Transaction=`transaction`.ID_Transaction AND `transaction`.ID_Game=game.ID_Game AND `transaction`.ID_User=user.ID_User AND user.ID_Additional_data=additional_data.ID_Additional_data AND user.Login = "'.$login.'" AND orders.Order_number = "'.$orderNumber.'";');
                     $sth->execute(); 
                     return $sth->fetchAll(PDO::FETCH_NUM);
                 } catch(Exception $e) {
@@ -263,6 +274,88 @@
                     $sth->execute(); 
                     $sum = $sth->fetchAll(PDO::FETCH_NUM);
                     return $sum[0][0];
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        function getGamesToRating($pdo, $login) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('SELECT DISTINCT game.ID_Game, game.Title FROM `transaction`, game, user WHERE transaction.ID_Game=game.ID_Game AND transaction.ID_User=user.ID_User AND user.Login = "'.$login.'";');
+                    $sth->execute(); 
+                    return $sth->fetchAll(PDO::FETCH_NUM);
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        function checkGameToRating($pdo, $login, $idGame) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('SELECT Rating FROM `game_rating`, user, game WHERE game_rating.ID_User=user.ID_User AND game_rating.ID_Game=game.ID_Game AND user.Login = "'.$login.'" AND game.ID_Game = "'.$idGame.'";');
+                    $sth->execute(); 
+                    $rating = $sth->fetchAll(PDO::FETCH_NUM);
+                    if(empty($rating)) {
+                        return false;
+                    } else {
+                        return $rating[0][0];
+                    }
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        function insertGameRating($pdo, $idGame, $idUser, $rating) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('INSERT INTO `game_rating` VALUE (?, ?, ?, ?)');
+                    $sth->execute([NULL, $idGame, $idUser, $rating]);
+                    return 'Oceniono grę';
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        function getGameRating($pdo, $idGame) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('SELECT ROUND(AVG(game_rating.Rating),2) FROM `game_rating` WHERE game_rating.ID_Game= '.$idGame.';');
+                    $sth->execute(); 
+                    $rating = $sth->fetchAll(PDO::FETCH_NUM);
+                    if(empty($rating)) {
+                        return false;
+                    } else {
+                        return $rating[0][0];
+                    }
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        function checkGamesToReturn($pdo, $login) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('SELECT game.ID_Game, game.Title, orders.Order_number FROM `transaction`, orders, user, game WHERE orders.ID_Transaction=`transaction`.ID_Transaction AND `transaction`.ID_User=user.ID_User AND `transaction`.ID_Game=game.ID_Game AND `transaction`.Show_key=0 AND user.Login="'.$login.'";');
+                    $sth->execute(); 
+                    return $sth->fetchAll(PDO::FETCH_NUM);
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        function checkGameToReturn($pdo, $gameId, $orderNumber) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('SELECT `transaction`.Show_key FROM `transaction`, orders WHERE orders.ID_Transaction=`transaction`.ID_Transaction AND `transaction`.ID_Game='.$gameId.' AND orders.Order_number = "'.$orderNumber.'";');
+                    $sth->execute(); 
+                    return $sth->fetchAll(PDO::FETCH_NUM);
                 } catch(Exception $e) {
                     return $e->getMessage();
                 }

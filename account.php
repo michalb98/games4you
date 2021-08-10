@@ -9,6 +9,8 @@
     require_once('./php/Image.php');
     require_once('./php/Account.php');
     require_once('./php/Order.php');
+    require_once('./php/Rating.php');
+    require_once('./php/ReturnGame.php');
 
     $db = new Database();
     $grid = new Grid();
@@ -16,6 +18,7 @@
 
     $pdo = $db->createPDO();
 
+    //Zmiana danych 
     if(isset($_POST['email'])) {
         $account->getValueFromAccountSettingsForm($account);
         $account->setData($_POST['email'], $_POST['name'], $_POST['surname'], $_POST['country'], $_POST['city'], $_POST['postal-code'], $_POST['street'], $_POST['street-number'], $_POST['house-number'], $_SESSION['login'], $_POST['new-password'], $_POST['password']);
@@ -24,9 +27,7 @@
             if($_POST['new-password'] != "" && strlen($_POST['new-password']) > 6 ) {
                 $db->updateUserSettings($pdo, $_SESSION['login'], $account->getNewPassword());
             }
-        }
-         
-        
+        }       
     } else {
         $additionalData = $db->getUserAdditionalData($pdo, $_SESSION['login']);
         $mail = $db->getUserMail($pdo, $_SESSION['login']);
@@ -34,7 +35,11 @@
         $account->setData($mail, $additionalData[0][0], $additionalData[0][1], $additionalData[0][2], $additionalData[0][3], $additionalData[0][4], $additionalData[0][5], $additionalData[0][6], $additionalData[0][7], $_SESSION['login'], null, null);    
     }
 
-    
+    //Ocena gry
+    if(isset($_POST['rating-game-id'])) {
+        $rating = new Rating();
+        $rating->ratingGame($pdo, $db, $_POST['rating-game-id'], $db->getUserId($pdo, $_SESSION['login']), $_POST['star']);
+    }
 
 ?>
 <!DOCTYPE html>
@@ -78,9 +83,6 @@
             <?php
                 $countries = $db->getAllFromTable($pdo, 'countries');
 
-                if(($db->countEmail($pdo, $account->getMail()) == 0) && ($db->getUserMail($pdo, $_SESSION['login'])) != $account->getMail())
-                    echo $_POST['email'];
-
                 if(isset($_GET['account'])) {
                     switch ($_GET['account']) {
                         case "ustawienia":
@@ -89,6 +91,14 @@
                         case "historia":
                             $order = new Order();
                             $order->drawOrders($pdo, $db);
+                        break;
+                        case "ocena":
+                            $rating = new Rating();
+                            $rating->drawRating($db, $pdo, $_SESSION['login'], $rating);
+                        break;
+                        case "zwrot":
+                            $returnGame = new ReturnGame();
+                            $returnGame->drawReturnGame($db, $pdo, $_SESSION['login']);
                         break;
                         default:
                             $account->drawAccountSettings($countries);

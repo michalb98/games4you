@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 10 Sie 2021, 20:35
+-- Czas generowania: 09 Sie 2021, 20:37
 -- Wersja serwera: 10.4.19-MariaDB
 -- Wersja PHP: 8.0.7
 
@@ -46,7 +46,7 @@ CREATE TABLE `additional_data` (
 
 INSERT INTO `additional_data` (`ID_Additional_data`, `ID_Country`, `Name`, `Surname`, `Postal_code`, `City`, `Street`, `Street_number`, `House_number`, `Email`) VALUES
 (1, 30, 'Michał', 'Błaszczyk', '99-300', 'Kutno', 'Łokietka', '6', '60', 'darx12311@gmail.com'),
-(5, 0, '', '', '', '', '', '', '', 'test@test.test'),
+(5, 0, '', '', '', '', '', '', '9', 'test@test.test'),
 (6, 30, '', '', '', '', '', '', '', 'test2@test.test');
 
 -- --------------------------------------------------------
@@ -172,15 +172,9 @@ CREATE TABLE `game_rating` (
   `ID_Game_rating` int(9) NOT NULL,
   `ID_Game` int(6) NOT NULL,
   `ID_User` int(7) NOT NULL,
-  `Rating` int(1) NOT NULL
+  `Rating` int(1) NOT NULL,
+  `Description_rating` varchar(500) COLLATE utf8_polish_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
-
---
--- Zrzut danych tabeli `game_rating`
---
-
-INSERT INTO `game_rating` (`ID_Game_rating`, `ID_Game`, `ID_User`, `Rating`) VALUES
-(1, 38, 1, 5);
 
 -- --------------------------------------------------------
 
@@ -407,7 +401,6 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`ID_User`, `Login`, `Password`, `ID_Additional_data`) VALUES
-(0, 'Użytkownik usunięty', '', NULL),
 (1, 'darx12311', '84f3773a2f6d75b4f2318d4ec8c826b311ab69679f2e4aafc1e8e74593e5a734ae60248895b4891e75584e35b40d1e1eace5f284cc18bdb826b0cb43d0cfca4b', 1),
 (6, 'test1', '84f3773a2f6d75b4f2318d4ec8c826b311ab69679f2e4aafc1e8e74593e5a734ae60248895b4891e75584e35b40d1e1eace5f284cc18bdb826b0cb43d0cfca4b', 5),
 (7, 'test2', '84f3773a2f6d75b4f2318d4ec8c826b311ab69679f2e4aafc1e8e74593e5a734ae60248895b4891e75584e35b40d1e1eace5f284cc18bdb826b0cb43d0cfca4b', 6);
@@ -574,7 +567,7 @@ ALTER TABLE `game`
 -- AUTO_INCREMENT dla tabeli `game_rating`
 --
 ALTER TABLE `game_rating`
-  MODIFY `ID_Game_rating` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `ID_Game_rating` int(9) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT dla tabeli `game_tags`
@@ -628,7 +621,7 @@ ALTER TABLE `type`
 -- AUTO_INCREMENT dla tabeli `user`
 --
 ALTER TABLE `user`
-  MODIFY `ID_User` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `ID_User` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT dla tabeli `version`
