@@ -79,7 +79,7 @@
                 if(isset($_SESSION['game-cart']) && $_SESSION['game-cart'] != '') {
                     $id = explode(",", $_SESSION['game-cart']);
                     for($i = 0; $i < sizeof($id); $i++) {
-                        $gc->drawGameCart($pdo, $id[$i], $db, $i);
+                        $gc->drawGameCart($pdo, $id[$i], $db, $i, $grid);
                     }
                 } else 
                     $gc->emptyCart();

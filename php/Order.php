@@ -7,7 +7,7 @@
         protected $ordersCount;
         protected $orderValue, $gamesValue;
     
-        function drawOrders($pdo, $db) {
+        function drawOrders($pdo, $db, $grid) {
             $this->orders = $db->getOrdersNumbers($pdo, $_SESSION['login']);
             $this->ordersCount = sizeof($this->orders);
             if($this->ordersCount == 0) 
@@ -30,10 +30,10 @@
                         $this->gameData = $db->getOrders($pdo, $_SESSION['login'], $this->orders[$j][0]);
                         echo '                  
                         <div class="order-game">
-                            <div class="order-game-cover">
-                                <img src="./img/covers/'.$this->gameData[$i][1].'_cover.webp" alt="'.$this->gameData[$i][1].'">
-                            </div>
-                            <a href="produkt?id='.$this->gameData[$i][0].'" title="Zobacz grę '.$this->gameData[0][1].'" class="order-game-title">
+                            <div class="order-game-cover">';
+                                $grid->drawCoverGame($this->gameData[$i][1]);
+                            echo '</div>
+                            <a href="produkt?id='.$this->gameData[$i][0].'" title="Zobacz grę '.$this->gameData[$i][1].'" class="order-game-title">
                                 '.$this->gameData[$i][1].'
                             </a>
                             <div class="order-game-quantity">

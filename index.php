@@ -47,7 +47,7 @@
             $grid->drawSort($db, $pdo);
 
             $games = $db->getAllFromDatabase($pdo, 'SELECT * FROM `game` ORDER BY Title;');
-            $grid->drawGamesGrid($games);
+            $grid->drawGamesGrid($games, $grid);
         ?>
     </main>
     <?php

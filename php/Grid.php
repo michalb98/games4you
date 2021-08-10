@@ -1,8 +1,6 @@
 <?php
 
-    require_once('./php/Database.php');
-
-    class Grid {
+    class Grid extends Database{
 
         protected $sortOption = array(  array("Price_brutto DESC", "Cena malejąco"),
                                         array("Price_brutto ASC", "Cena rosnąco"),
@@ -10,13 +8,13 @@
                                         array("Title DESC","Tytuł Z-A"));
 
         //Funkcja pobiera wszystkie dostępne gry, a następnie wyświetla odnośnik do wybranej gry 
-        function drawGamesGrid($games) {
+        function drawGamesGrid($games, $grid) {
             $rows = count($games);
             for ($row = 0; $row < $rows; $row++) {
                 echo '<a class="game" href="produkt?id='.$games[$row][0].'" title="Zobacz produkt '.$games[$row][1].'">
-                        <div class="game-cover-container">
-                            <img class="game-cover" src="./img/covers/'.$games[$row][1].'_cover.webp" alt="'.$games[$row][1].'" onerror="if (this.src != `./img/error/error_cover.webp`) this.src = `./img/error/error_cover.webp`;">
-                        </div>
+                        <div class="game-cover-container">';
+                            echo $grid->drawCoverGame($games[$row][1]);
+                        echo '</div>
                         <div class="game-container">
                              <div class="game-info">
                                  <p class="game-title">'.$games[$row][1].'</p>
@@ -473,6 +471,10 @@
                 }
             echo '<p>Masz już konto? <a href="logowanie" title="Zaloguj się">Zaloguj się</a> już teraz!</p>
         </form> ';
+        }
+
+        function drawCoverGame($title) {
+            echo '<img class="game-cover" src="./img/covers/'.$title.'_cover.webp" alt="'.$title.'" onerror="if (this.src != `./img/error/error_cover.webp`) this.src = `./img/error/error_cover.webp`;">';
         }
     }
 

@@ -6,12 +6,12 @@
             echo '<h1 class="cart-text">Twój koszyk jest pusty.</h1>';
         }
 
-        function drawGameCart($pdo, $id, $db, $classNumber) {
+        function drawGameCart($pdo, $id, $db, $classNumber, $grid) {
             $gameData = $db->getGameData($pdo, $id);
             echo '<div class="game-cart-container">
-            <div class="game-cart-cover">
-                <img src="./img/covers/'.$gameData[0][0].'_cover.webp" alt="'.$gameData[0][0].'">
-            </div>
+            <div class="game-cart-cover">';
+                $grid->drawCoverGame($gameData[0][0]);
+            echo '</div>
             <a href="produkt?id='.$id.'" title="Zobacz grę w sklepie" class="game-cart-title">
                 '.$gameData[0][0].'
             </a>

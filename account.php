@@ -90,15 +90,15 @@
                         break;
                         case "historia":
                             $order = new Order();
-                            $order->drawOrders($pdo, $db);
+                            $order->drawOrders($pdo, $db, $grid);
                         break;
                         case "ocena":
                             $rating = new Rating();
-                            $rating->drawRating($db, $pdo, $_SESSION['login'], $rating);
+                            $rating->drawRating($db, $pdo, $_SESSION['login'], $rating, $grid);
                         break;
                         case "zwrot":
                             $returnGame = new ReturnGame();
-                            $returnGame->drawReturnGame($db, $pdo, $_SESSION['login']);
+                            $returnGame->drawReturnGame($db, $pdo, $_SESSION['login'], $grid);
                         break;
                         default:
                             $account->drawAccountSettings($countries);
