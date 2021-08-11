@@ -11,10 +11,14 @@
     require_once('./php/Order.php');
     require_once('./php/Rating.php');
     require_once('./php/ReturnGame.php');
+    require_once('./php/Contact.php');
+    require_once('./php/DeleteAccount.php');
+    require_once('./php/GameKey.php');
 
     $db = new Database();
     $grid = new Grid();
     $account = new Account();
+    $contact = new Contact();
 
     $pdo = $db->createPDO();
 
@@ -39,6 +43,15 @@
     if(isset($_POST['rating-game-id'])) {
         $rating = new Rating();
         $rating->ratingGame($pdo, $db, $_POST['rating-game-id'], $db->getUserId($pdo, $_SESSION['login']), $_POST['star']);
+    }
+
+    //Kontakt
+    if(isset($_POST['description-issue'])) {
+        $contact->setValueContact($_POST['mail'], $_POST['issue'], $_POST['description-issue']);
+        if($contact->validateFormContact()) {
+            header('Location: ?account=kontakt');
+        }
+            
     }
 
 ?>
@@ -88,6 +101,13 @@
                         case "ustawienia":
                             $account->drawAccountSettings($countries);
                         break;
+                        case "klucze":
+                            $gameKey = new GameKey();
+                            $gameKey->drawGameKey($db, $pdo, $_SESSION['login'], $grid);
+                        break;
+                        case "kody":
+                            
+                        break;
                         case "historia":
                             $order = new Order();
                             $order->drawOrders($pdo, $db, $grid);
@@ -99,6 +119,15 @@
                         case "zwrot":
                             $returnGame = new ReturnGame();
                             $returnGame->drawReturnGame($db, $pdo, $_SESSION['login'], $grid);
+                        break;
+                        case "kontakt":
+                            if(!isset($_POST['description-issue']))
+                                $contact->setValueContact($account->getMail(), NULL, NULL);
+                            $contact->drawContactForm($db, $pdo);
+                        break;
+                        case "usunkonto":
+                            $deleteAccount = new DeleteAccount();
+                            $deleteAccount->drawDeleteAccount($_SESSION['login']);
                         break;
                         default:
                             $account->drawAccountSettings($countries);

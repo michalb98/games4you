@@ -361,6 +361,18 @@
                 }
             }
         }
+
+        function getIssue($pdo) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('SELECT Issue FROM `issue`;');
+                    $sth->execute(); 
+                    return $sth->fetchAll(PDO::FETCH_NUM);
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
     }
 
 ?>

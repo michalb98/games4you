@@ -46,6 +46,8 @@
 
         function drawAccountNav() {
             echo '<a href="?account=ustawienia" title="Ustawienia konta" class="a-account">Ustawienia konta</a>
+            <a href="?account=klucze" title="Twoje klucze" class="a-account">Twoje klucze</a>
+            <a href="?account=kody" title="Twoje kody rabatowe" class="a-account">Twoje kody rabatowe</a>
             <a href="?account=historia" title="Historia zakupów" class="a-account">Historia zakupów</a>
             <a href="?account=ocena" title="Oceny gier" class="a-account">Oceny gier</a>
             <a href="?account=zwrot" title="Zwrot gry" class="a-account">Zwrot gry</a>
