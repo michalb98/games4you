@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 11 Sie 2021, 18:59
+-- Czas generowania: 10 Sie 2021, 20:35
 -- Wersja serwera: 10.4.19-MariaDB
 -- Wersja PHP: 8.0.7
 
@@ -201,30 +201,6 @@ CREATE TABLE `game_tags` (
 INSERT INTO `game_tags` (`ID_Game_tags`, `ID_Game`, `ID_Tag`) VALUES
 (1, 1, 8),
 (2, 1, 17);
-
--- --------------------------------------------------------
-
---
--- Struktura tabeli dla tabeli `issue`
---
-
-CREATE TABLE `issue` (
-  `ID_Issue` int(2) NOT NULL,
-  `Issue` varchar(250) COLLATE utf8_polish_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
-
---
--- Zrzut danych tabeli `issue`
---
-
-INSERT INTO `issue` (`ID_Issue`, `Issue`) VALUES
-(1, 'Problem z produktem'),
-(2, 'Problem ze zwrotem'),
-(3, 'Problem z kontem'),
-(5, 'Błąd na stronie'),
-(6, 'Kod rabatowy'),
-(7, 'Pytanie'),
-(8, 'Inny problem');
 
 -- --------------------------------------------------------
 
@@ -508,12 +484,6 @@ ALTER TABLE `game_tags`
   ADD KEY `ID_Tag` (`ID_Tag`);
 
 --
--- Indeksy dla tabeli `issue`
---
-ALTER TABLE `issue`
-  ADD PRIMARY KEY (`ID_Issue`);
-
---
 -- Indeksy dla tabeli `orders`
 --
 ALTER TABLE `orders`
@@ -611,12 +581,6 @@ ALTER TABLE `game_rating`
 --
 ALTER TABLE `game_tags`
   MODIFY `ID_Game_tags` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT dla tabeli `issue`
---
-ALTER TABLE `issue`
-  MODIFY `ID_Issue` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT dla tabeli `orders`
