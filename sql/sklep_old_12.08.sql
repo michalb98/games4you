@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 12 Sie 2021, 17:41
+-- Czas generowania: 11 Sie 2021, 18:59
 -- Wersja serwera: 10.4.19-MariaDB
 -- Wersja PHP: 8.0.7
 
@@ -126,13 +126,6 @@ CREATE TABLE `discount_code` (
   `Value` float(5,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
---
--- Zrzut danych tabeli `discount_code`
---
-
-INSERT INTO `discount_code` (`ID_Discount_code`, `Code`, `Valid_from`, `Valid_to`, `Value`) VALUES
-(6, '0fb84bba0eda74aa025e16ff6af46112', '2021-08-12', '2021-11-12', 169.00);
-
 -- --------------------------------------------------------
 
 --
@@ -168,28 +161,6 @@ INSERT INTO `game` (`ID_Game`, `Title`, `Price_netto`, `Price_brutto`, `Short_de
 (40, 'Ghost of Tsushima', 243.89, 299.99, 'Odkrywaj piękno Tsushimy w tej osadzonej w otwartym świecie przygodowej grze akcji stworzonej przez Sucker Punch Productions i PlayStation Studios, dostępnej na PS5 i PS4.', 'Rok 1274. Na kontynencie azjatyckim praktycznie niepodzielnie rządzi imperium mongolskie. Jego władcy łakomym okiem spoglądają na bogactwa feudalnej Japonii. Chan Kubilaj decyduje się w końcu na dokonanie inwazji. Jej pierwszym celem jest położona dokładnie pośrodku Cieśniny Koreańskiej wyspa Cuszima. Podczas ataku wojska mongolskie masakrują większość samurajów mieszkających na wyspie. Głównemu bohaterowi gry – Jinowi Sakai – cudem udaje się przetrwać tragiczną w skutkach bitwę. Od tego momentu głównym celem protagonisty staje się powstrzymanie Mongołów. Jednak aby tego dokonać, będzie musiał zapomnieć o samurajskich tradycjach.', 25, 3, 4, 9),
 (42, 'Gears 5', 81.29, 99.99, 'Piąta część popularnego cyklu TPS-ów, w której wcielamy się w znaną z Gears of War 4 Kait Diaz. Protagonistka wyrusza w podróż do odległego zakątka planety Sera, by rozwikłać zagadkę trapiących ją koszmarów.', 'Akcja Gears 5 toczy się po wydarzeniach przedstawionych w czwartej części serii. W roli głównej obsadzono Kait Diaz, która w towarzystwie Delmonta Walkera udaje się w długą podróż przez malownicze, ale i pełne niebezpieczeństw zakątki planety Sera. Protagonistka zamierza dowiedzieć się więcej na temat pochodzenia Szarańczy (ang. Locust) i odkryć źródło trapiących ją koszmarów, w których, jak wierzy, kryje się jakaś wiadomość. Jedną z głównych osi fabularnych jest również uruchomienie Młota Świtu, czyli potężnej broni energetycznej atakującej z orbity.', 50, 2, 2, 8),
 (43, 'Resident Evil Village', 203.24, 249.99, 'Oto survival horror, jakiego jeszcze nie było — ósma odsłona legendarnej serii Resident Evil. Realistyczna grafika, pierwszoosobowa akcja i mistrzowska fabuła sprawią, że poczucie zagrożenia będzie rzeczywiste jak nigdy.', 'Rok 1274. Na kontynencie azjatyckim praktycznie niepodzielnie rządzi imperium mongolskie. Jego władcy łakomym okiem spoglądają na bogactwa feudalnej Japonii. Chan Kubilaj decyduje się w końcu na dokonanie inwazji. Jej pierwszym celem jest położona dokładnie pośrodku Cieśniny Koreańskiej wyspa Cuszima. Podczas ataku wojska mongolskie masakrują większość samurajów mieszkających na wyspie. Głównemu bohaterowi gry – Jinowi Sakai – cudem udaje się przetrwać tragiczną w skutkach bitwę. Od tego momentu głównym celem protagonisty staje się powstrzymanie Mongołów. Jednak aby tego dokonać, będzie musiał zapomnieć o samurajskich tradycjach.', 20, 7, 1, 1);
-
--- --------------------------------------------------------
-
---
--- Struktura tabeli dla tabeli `game_key`
---
-
-CREATE TABLE `game_key` (
-  `ID_Game_key` int(9) NOT NULL,
-  `ID_Game` int(6) NOT NULL,
-  `Game_key` varchar(200) COLLATE utf8_polish_ci NOT NULL,
-  `Key_bought` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
-
---
--- Zrzut danych tabeli `game_key`
---
-
-INSERT INTO `game_key` (`ID_Game_key`, `ID_Game`, `Game_key`, `Key_bought`) VALUES
-(1, 38, 'RTAMT-DTC65-8EA6B', 1),
-(2, 1, 'RTAMT-DTC65-8EA6C', 1),
-(3, 2, 'ATAMT-DTC65-8EA6B', 1);
 
 -- --------------------------------------------------------
 
@@ -273,8 +244,8 @@ CREATE TABLE `orders` (
 
 INSERT INTO `orders` (`ID_Order`, `ID_Transaction`, `Order_number`) VALUES
 (1, 1, '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b'),
-(3, 2, 'd4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35'),
-(4, 3, '202108123');
+(2, 2, '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b'),
+(3, 2, 'd4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35');
 
 -- --------------------------------------------------------
 
@@ -333,17 +304,10 @@ INSERT INTO `platform` (`ID_Platform`, `Platform`) VALUES
 --
 
 CREATE TABLE `returns` (
-  `ID_Return` int(9) NOT NULL,
+  `ID_Returns` int(9) NOT NULL,
   `ID_Transaction` int(9) NOT NULL,
   `ID_Discount_code` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
-
---
--- Zrzut danych tabeli `returns`
---
-
-INSERT INTO `returns` (`ID_Return`, `ID_Transaction`, `ID_Discount_code`) VALUES
-(1, 2, 6);
 
 -- --------------------------------------------------------
 
@@ -402,9 +366,7 @@ INSERT INTO `tag` (`ID_Tag`, `Tag`) VALUES
 CREATE TABLE `transaction` (
   `ID_Transaction` int(9) NOT NULL,
   `ID_Game` int(6) NOT NULL,
-  `ID_Game_key` int(9) NOT NULL,
   `ID_User` int(7) NOT NULL,
-  `ID_Return` int(9) DEFAULT NULL,
   `ID_Discount_code` int(9) DEFAULT NULL,
   `Price_netto` float(5,2) NOT NULL,
   `Price_brutto` float(5,2) NOT NULL,
@@ -417,10 +379,9 @@ CREATE TABLE `transaction` (
 -- Zrzut danych tabeli `transaction`
 --
 
-INSERT INTO `transaction` (`ID_Transaction`, `ID_Game`, `ID_Game_key`, `ID_User`, `ID_Return`, `ID_Discount_code`, `Price_netto`, `Price_brutto`, `Quantity`, `Data`, `Show_key`) VALUES
-(1, 38, 1, 1, NULL, NULL, 162.59, 199.99, 1, '2021-08-09', 0),
-(2, 1, 2, 1, 1, 6, 109.00, 169.00, 1, '2021-08-09', 0),
-(3, 2, 3, 1, NULL, NULL, 40.64, 49.99, 1, '2021-08-12', 1);
+INSERT INTO `transaction` (`ID_Transaction`, `ID_Game`, `ID_User`, `ID_Discount_code`, `Price_netto`, `Price_brutto`, `Quantity`, `Data`, `Show_key`) VALUES
+(1, 38, 1, NULL, 162.59, 199.99, 1, '2021-08-09', 0),
+(2, 1, 1, NULL, 109.00, 169.00, 1, '2021-08-09', 0);
 
 -- --------------------------------------------------------
 
@@ -531,13 +492,6 @@ ALTER TABLE `game`
   ADD KEY `ID_Version` (`ID_Version`);
 
 --
--- Indeksy dla tabeli `game_key`
---
-ALTER TABLE `game_key`
-  ADD PRIMARY KEY (`ID_Game_key`),
-  ADD KEY `ID_Game` (`ID_Game`);
-
---
 -- Indeksy dla tabeli `game_rating`
 --
 ALTER TABLE `game_rating`
@@ -582,9 +536,7 @@ ALTER TABLE `platform`
 -- Indeksy dla tabeli `returns`
 --
 ALTER TABLE `returns`
-  ADD PRIMARY KEY (`ID_Return`),
-  ADD KEY `ID_Discount_code` (`ID_Discount_code`),
-  ADD KEY `ID_Transaction` (`ID_Transaction`);
+  ADD PRIMARY KEY (`ID_Returns`);
 
 --
 -- Indeksy dla tabeli `tag`
@@ -599,9 +551,7 @@ ALTER TABLE `transaction`
   ADD PRIMARY KEY (`ID_Transaction`),
   ADD KEY `ID_Game` (`ID_Game`),
   ADD KEY `ID_User` (`ID_User`),
-  ADD KEY `ID_Discount_code` (`ID_Discount_code`),
-  ADD KEY `ID_Game_key` (`ID_Game_key`),
-  ADD KEY `ID_Return` (`ID_Return`);
+  ADD KEY `ID_Discount_code` (`ID_Discount_code`);
 
 --
 -- Indeksy dla tabeli `type`
@@ -642,19 +592,13 @@ ALTER TABLE `countries`
 -- AUTO_INCREMENT dla tabeli `discount_code`
 --
 ALTER TABLE `discount_code`
-  MODIFY `ID_Discount_code` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `ID_Discount_code` int(9) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT dla tabeli `game`
 --
 ALTER TABLE `game`
   MODIFY `ID_Game` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
-
---
--- AUTO_INCREMENT dla tabeli `game_key`
---
-ALTER TABLE `game_key`
-  MODIFY `ID_Game_key` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT dla tabeli `game_rating`
@@ -678,7 +622,7 @@ ALTER TABLE `issue`
 -- AUTO_INCREMENT dla tabeli `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `ID_Order` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID_Order` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT dla tabeli `payment_method`
@@ -696,7 +640,7 @@ ALTER TABLE `platform`
 -- AUTO_INCREMENT dla tabeli `returns`
 --
 ALTER TABLE `returns`
-  MODIFY `ID_Return` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID_Returns` int(9) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT dla tabeli `tag`
@@ -708,7 +652,7 @@ ALTER TABLE `tag`
 -- AUTO_INCREMENT dla tabeli `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `ID_Transaction` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID_Transaction` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT dla tabeli `type`
@@ -747,12 +691,6 @@ ALTER TABLE `game`
   ADD CONSTRAINT `game_ibfk_3` FOREIGN KEY (`ID_Version`) REFERENCES `version` (`ID_Version`);
 
 --
--- Ograniczenia dla tabeli `game_key`
---
-ALTER TABLE `game_key`
-  ADD CONSTRAINT `game_key_ibfk_1` FOREIGN KEY (`ID_Game`) REFERENCES `game` (`ID_Game`);
-
---
 -- Ograniczenia dla tabeli `game_rating`
 --
 ALTER TABLE `game_rating`
@@ -773,21 +711,12 @@ ALTER TABLE `orders`
   ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`ID_Transaction`) REFERENCES `transaction` (`ID_Transaction`);
 
 --
--- Ograniczenia dla tabeli `returns`
---
-ALTER TABLE `returns`
-  ADD CONSTRAINT `returns_ibfk_1` FOREIGN KEY (`ID_Discount_code`) REFERENCES `discount_code` (`ID_Discount_code`),
-  ADD CONSTRAINT `returns_ibfk_2` FOREIGN KEY (`ID_Transaction`) REFERENCES `transaction` (`ID_Transaction`);
-
---
 -- Ograniczenia dla tabeli `transaction`
 --
 ALTER TABLE `transaction`
   ADD CONSTRAINT `transaction_ibfk_1` FOREIGN KEY (`ID_Game`) REFERENCES `game` (`ID_Game`),
   ADD CONSTRAINT `transaction_ibfk_2` FOREIGN KEY (`ID_User`) REFERENCES `user` (`ID_User`),
-  ADD CONSTRAINT `transaction_ibfk_3` FOREIGN KEY (`ID_Discount_code`) REFERENCES `discount_code` (`ID_Discount_code`),
-  ADD CONSTRAINT `transaction_ibfk_4` FOREIGN KEY (`ID_Game_key`) REFERENCES `game_key` (`ID_Game_key`),
-  ADD CONSTRAINT `transaction_ibfk_5` FOREIGN KEY (`ID_Return`) REFERENCES `returns` (`ID_Return`);
+  ADD CONSTRAINT `transaction_ibfk_3` FOREIGN KEY (`ID_Discount_code`) REFERENCES `discount_code` (`ID_Discount_code`);
 
 --
 -- Ograniczenia dla tabeli `user`
