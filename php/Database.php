@@ -246,7 +246,7 @@
         function getOrdersNumbers($pdo, $login) {
             if ($pdo) {
                 try {
-                    $sth = $pdo->prepare('SELECT DISTINCT Order_number FROM orders, `transaction`, user WHERE orders.ID_Transaction=`transaction`.ID_Transaction AND `transaction`.ID_User=user.ID_User AND user.Login = "'.$login.'";');
+                    $sth = $pdo->prepare('SELECT DISTINCT Order_number FROM orders, `transaction`, user WHERE orders.ID_Transaction=`transaction`.ID_Transaction AND `transaction`.ID_User=user.ID_User AND user.Login = "'.$login.'"  ORDER BY `orders`.`Order_number` ASC;');
                     $sth->execute(); 
                     return $sth->fetchAll(PDO::FETCH_NUM);
                 } catch(Exception $e) {
@@ -379,7 +379,7 @@
         function checkGameToReturn($pdo, $gameId, $idTransaction) {
             if ($pdo) {
                 try {
-                    $sth = $pdo->prepare('SELECT `transaction`.Show_key FROM `transaction`, orders WHERE orders.ID_Transaction=`transaction`.ID_Transaction AND  `transaction`.ID_Game='.$gameId.' AND `transaction`.ID_Return IS NULL AND `transaction`.ID_Transactionr = "'.$idTransaction.'";');
+                    $sth = $pdo->prepare('SELECT `transaction`.Show_key FROM `transaction`, orders WHERE orders.ID_Transaction=`transaction`.ID_Transaction AND  `transaction`.ID_Game='.$gameId.' AND `transaction`.ID_Return IS NULL AND `transaction`.ID_Transaction = "'.$idTransaction.'";');
                     $sth->execute(); 
                     return $sth->fetchAll(PDO::FETCH_NUM);
                 } catch(Exception $e) {
