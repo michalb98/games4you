@@ -21,7 +21,7 @@
         protected $password_register;
         protected $email_register;
 
-        //Pobieranie danych z formularza
+        //Pobieranie danych z formularza oraz sanityzacjia
         function getFormAdminData() {
             $this->title = filter_var($_POST['title-admin-form'], FILTER_SANITIZE_STRING);
             $this->price_netto = filter_var($_POST['netto-admin-form'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);

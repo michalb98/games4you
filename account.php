@@ -14,11 +14,14 @@
     require_once('./php/Contact.php');
     require_once('./php/DeleteAccount.php');
     require_once('./php/GameKey.php');
+    require_once('./php/DiscountCode.php');
 
     $db = new Database();
     $grid = new Grid();
     $account = new Account();
     $contact = new Contact();
+    $gameKey = new GameKey();
+    $returnGame = new ReturnGame();
 
     $pdo = $db->createPDO();
 
@@ -50,8 +53,17 @@
         $contact->setValueContact($_POST['mail'], $_POST['issue'], $_POST['description-issue']);
         if($contact->validateFormContact()) {
             header('Location: ?account=kontakt');
-        }
-            
+        }   
+    }
+
+    //Zwrot gry
+    if(isset($_POST['return-game-id'])) {
+        $returnGame->returnKey($db, $pdo, $_POST['return-game-id'], $_POST['transaction-number'], $_SESSION['login']);
+    }
+
+    //Klucz gry
+    if(isset($_POST['show-game-id'])) {
+        $gameKey->showGameKey($pdo, $db, $_POST['show-game-id'], $_POST['transaction-number']);
     }
 
 ?>
@@ -102,11 +114,11 @@
                             $account->drawAccountSettings($countries);
                         break;
                         case "klucze":
-                            $gameKey = new GameKey();
                             $gameKey->drawGameKey($db, $pdo, $_SESSION['login'], $grid);
                         break;
                         case "kody":
-                            
+                            $discountCode = new DiscountCode();
+                            $discountCode->drawDiscountCode($db, $pdo, $_SESSION['login']);
                         break;
                         case "historia":
                             $order = new Order();
@@ -117,8 +129,10 @@
                             $rating->drawRating($db, $pdo, $_SESSION['login'], $rating, $grid);
                         break;
                         case "zwrot":
-                            $returnGame = new ReturnGame();
                             $returnGame->drawReturnGame($db, $pdo, $_SESSION['login'], $grid);
+                        break;
+                        case "zwroty":
+                            $returnGame->drawReturnedGames($db, $pdo, $_SESSION['login'], $grid);
                         break;
                         case "kontakt":
                             if(!isset($_POST['description-issue']))

@@ -3,3 +3,7 @@ https://www.toptal.com/designers/subtlepatterns/y-so-serious-pattern/
 https://fonts.google.com/specimen/Oswald?subset=latin-ext
 https://www.flaticon.com/free-icon/console_686589
 https://fontello.com
+https://codepen.io/himalayasingh/pen/dBJBMO
+https://www.geeksforgeeks.org/what-is-the-difference-between-word-break-break-all-versus-word-wrap-break-word-in-css/
+https://medium.com/codex/create-a-star-rating-widget-with-css-in-9-steps-fe323352dba4
+https://css-tricks.com/gradient-borders-in-css/

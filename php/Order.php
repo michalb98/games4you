@@ -7,6 +7,7 @@
         protected $ordersCount;
         protected $orderValue, $gamesValue;
     
+        //Wyświetla zamówienia użytkownika
         function drawOrders($pdo, $db, $grid) {
             $this->orders = $db->getOrdersNumbers($pdo, $_SESSION['login']);
             $this->ordersCount = sizeof($this->orders);

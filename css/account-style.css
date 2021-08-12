@@ -522,3 +522,40 @@
 .key-submit:hover {
     border: 1px solid #30cfd0 !important;
 }
+
+.game-key {
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3em;
+}
+
+.discount-code,
+.validate-account,
+.value-account {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3em;
+    flex-direction: column;
+    word-break: break-all;
+    text-align: center;
+}
+
+.discount-code {
+    width: 40%;
+}
+
+.validate-account {
+    width: 20%;
+}
+
+.value-account {
+    width: 20%;
+}
+
+.info-label {
+    font-size: 0.8em;
+    color: #30cfd0;
+}

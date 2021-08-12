@@ -1,3 +1,4 @@
+//Oblicza całkowitą kwotę koszyka oraz wyświetla ją
 function calculateTotalPriceGame(id) {
     let gp = parseFloat(document.getElementsByClassName('game-price-hidden')[id].value).toFixed(2);
     let gq = parseInt(document.getElementsByClassName('game-quantity')[id].value);
@@ -7,6 +8,7 @@ function calculateTotalPriceGame(id) {
     gtp.innerHTML = parseFloat(gp * gq).toFixed(2) + " zł";
 }
 
+//Oblicza kwotę danego produktu w koszyku oraz wyświetla ją
 function calculateTotalPrice() {
     let elements = document.getElementsByClassName('game-quantity');
     let tp = document.getElementById('total-price');
@@ -17,4 +19,5 @@ function calculateTotalPrice() {
     tp.innerHTML = parseFloat(totalPrice).toFixed(2) + " zł";
 }
 
+//Wywołuję funkcję calculateTotalPrice() podczas ładowania strony
 window.onload = calculateTotalPrice();

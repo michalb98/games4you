@@ -4,6 +4,7 @@
 
         protected $mail, $name, $surname, $selectedCountry, $city, $postalCode, $street, $streetNumber, $houseNumber, $user, $passwordNew, $password;
         
+        //Pobiera dane oraz dokonuje sanityzacji 
         function setData($mail, $name, $surname, $selectedCountry, $city, $postalCode, $street, $streetNumber, $houseNumber, $user, $passwordNew, $password) {
             $this->mail =  filter_var($mail, FILTER_SANITIZE_EMAIL);
             $this->name =  filter_var($name, FILTER_SANITIZE_STRING);
@@ -19,6 +20,7 @@
             $this->password = hash("sha512", $password);
         }
 
+        //Wyświetla tytuł strony
         function setAccountTitle($get, $login) {
             switch($get) {
                 case "ustawienia":
@@ -44,6 +46,7 @@
             }
         }
 
+        //Wyświetla nawigację konta użytkownika
         function drawAccountNav() {
             echo '<a href="?account=ustawienia" title="Ustawienia konta" class="a-account">Ustawienia konta</a>
             <a href="?account=klucze" title="Twoje klucze" class="a-account">Twoje klucze</a>
@@ -51,10 +54,13 @@
             <a href="?account=historia" title="Historia zakupów" class="a-account">Historia zakupów</a>
             <a href="?account=ocena" title="Oceny gier" class="a-account">Oceny gier</a>
             <a href="?account=zwrot" title="Zwrot gry" class="a-account">Zwrot gry</a>
+            <a href="?account=zwroty" title="Zwrot gry" class="a-account">Twoje zwroty</a>
             <a href="?account=kontakt" title="Kontakt" class="a-account">Kontakt</a>
             <a href="?account=usunkonto" title="Usuń konto" class="a-account error">Usuń konto</a>';
         }
 
+        //Wyświetla ustawienia konta
+        //Jest to domyślna funkcja na podstronie konto
         function drawAccountSettings($countries) {
             echo '<h1 class="account-text">Konto użytkownika: '.$this->user.'</h1>
             <form method="post" class="form-account">
@@ -117,6 +123,9 @@
             echo '</form>';
         }
 
+        //Pobiera, sprawdza oraz zapisuje dane z formularza ustawienia
+        //Sprawdza, które dane zostały zmienione
+        //Jeżeli dane nie zostały zmienione pozostawia chronione bez zmian
         function getValueFromAccountSettingsForm($account) {
             (strlen($_POST['email']) == 0) ? $mail = $this->mail : $mail = $_POST['email'];
             (strlen($_POST['name']) == 0) ? $name = $this->name : $name = $_POST['name'];
@@ -131,6 +140,7 @@
             $account->setData($mail, $name, $surname, $country, $city, $postalCode, $street, $streetNumber, $houseNumber, $this->user, $passwordNew, $this->password);
         }
 
+        //Sprawdza, czy podane dane w formularzu ustawienia konta są poprawne oraz dokonuje sanityzacji
         function chcekFormAccountSettings($db, $pdo, $login) {
             try {
                 !(filter_var($this->mail, FILTER_VALIDATE_EMAIL) === false || strlen($this->mail) > 250 || strlen($this->mail) < 6)  ? : throw new Exception('Popraw swój E-mail!');
@@ -152,46 +162,57 @@
              
         }
 
+        //Zwraca e-mail użytkownika
         function getMail() {
             return $this->mail;
         }
 
+        //Zwraca imie użytkownika
         function getName() {
             return $this->name;
         }
 
+        //Zwraca nazwisko użytkownika
         function getSurname() {
             return $this->surname;
         }
 
+        //Zwraca kod pocztowy użytkownika
         function getPostalCode() {
             return $this->postalCode;
         }
 
+        //Zwraca miasto użytkownika
         function getCity() {
             return $this->city;
         }
 
+        //Zwraca ulicę użytkownika
         function getStreet() {
             return $this->street;
         }
 
+        //Zwraca numer ulicy użytkownika
         function getStreetNumber() {
             return $this->streetNumber;
         }
 
+        //Zwraca numer mieszkania użytkownika
         function getHouseNumber() {
             return $this->houseNumber;
         }
 
+        //Zwraca kraj użytkownika
         function getSelectedCountry () {
             return $this->selectedCountry;
         }
 
+        //Zwraca nowe hasło użytkownika
         function getNewPassword() {
             return $this->passwordNew;
         }
 
+        //Zwraca hasło użytkownika
         function getPassword() {
             return $this->password;
         }

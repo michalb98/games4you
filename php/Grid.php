@@ -275,6 +275,7 @@
             }
         }
 
+        //Nadaje tytuł podstronie szukaj
         function getTitlePage($get) {
             if(isset($get['type'])) 
                 ($get['type'] == "%") ? $out[0] = "Dowolny typ" : $out[0] = 'Typ: '.$get['type'];
@@ -320,6 +321,7 @@
             return $out;
         }
 
+        //Wyświetla wyszukiwanie szczegółowe
         function drawNavSearchAdvance($grid, $pdo, $db) {
             $minPrice = $db->getAllFromDatabase($pdo, 'SELECT Price_brutto FROM `game` ORDER BY Price_brutto ASC LIMIT 1;');
             $maxPrice = $db->getAllFromDatabase($pdo, 'SELECT Price_brutto FROM `game` ORDER BY Price_brutto DESC LIMIT 1;');
@@ -357,6 +359,7 @@
             echo '</form>';
         }
 
+        //Wyświetla sortowanie
         function drawSort($db, $pdo) {
             $minPrice = $db->getAllFromDatabase($pdo, 'SELECT Price_brutto FROM `game` ORDER BY Price_brutto ASC LIMIT 1;');
             $maxPrice = $db->getAllFromDatabase($pdo, 'SELECT Price_brutto FROM `game` ORDER BY Price_brutto DESC LIMIT 1;');
@@ -384,6 +387,7 @@
         </div>';
         }
 
+        //Wyświetla formularz logowania
         function drawLoginForm() {
             echo '<form method="POST" class="login-form">';
             if(isset($_SESSION['register'])) {
@@ -417,6 +421,7 @@
             </form> ';
         }
 
+        //Wyświetla formularz rejestracji
         function drawRegisterForm() {
             echo '<form method="POST" class="login-form">
             <label for="login" class="label-login-form">
@@ -473,6 +478,8 @@
         </form> ';
         }
 
+        //Wyswietla okładkę gry o tytule $title
+        //Jeżeli gra nie posiada okładki zosatnie wyświetlona domyślna grafika 
         function drawCoverGame($title) {
             echo '<img class="game-cover" src="./img/covers/'.$title.'_cover.webp" alt="'.$title.'" onerror="if (this.src != `./img/error/error_cover.webp`) this.src = `./img/error/error_cover.webp`;">';
         }

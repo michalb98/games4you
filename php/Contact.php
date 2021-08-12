@@ -6,12 +6,14 @@
         protected $mail;
         protected $description;
 
+        //Pobiera dane oraz dokonuje sanityzacji
         function setValueContact($mail, $issue, $description) {
             $this->mail = filter_var($mail, FILTER_SANITIZE_EMAIL);
             $this->issue = filter_var($issue, FILTER_SANITIZE_STRING);
             $this->description = filter_var($description, FILTER_SANITIZE_STRING);
         }
 
+        //Sprawdza poprawność danych z formularza kontak
         function validateFormContact() {
             try {
                 !($this->mail == '') ? : throw new Exception('Proszę podać swój E-mail!');
@@ -24,6 +26,7 @@
             }
         }
 
+        //Wyświetla formularz kontaktowy
         function drawContactForm($db, $pdo) {
 
             $this->issueList = $db->getIssue($pdo);

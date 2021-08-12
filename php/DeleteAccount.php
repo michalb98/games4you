@@ -2,6 +2,7 @@
 
     class DeleteAccount {
 
+        //Wyświetla powiadomienia oraz formularz do usunięcia konta
         function drawDeleteAccount($login) {
             echo '<h1 class="error" style="text-align: center;">Usunięcie konta jest trwałe i nieodwracalne. Oznacza to również utratę wszystkich niezapisanych kluczy do gier, faktur itd. Jeśli chcesz dalej usunąć konto: <span style="text-decoration: underline;">'.$login.'</span> musisz wypełnić poniższy formularz.</h1>';
             echo '<form class="form-account" method="POST">

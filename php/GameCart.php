@@ -2,10 +2,12 @@
 
     class GameCart {
         
+        //Wyświetla powiadomienie o pustym koszyku
         function emptyCart() {
             echo '<h1 class="cart-text">Twój koszyk jest pusty.</h1>';
         }
 
+        //Wyśietla produkty w koszyku
         function drawGameCart($pdo, $id, $db, $classNumber, $grid) {
             $gameData = $db->getGameData($pdo, $id);
             echo '<div class="game-cart-container">

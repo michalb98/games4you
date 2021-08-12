@@ -4,6 +4,7 @@
 
         protected $games;
 
+        //Wyświetla gry do oceny
         function drawRating($db, $pdo, $login, $rating, $grid) {
             $this->games = $db->getGamesToRating($pdo, $login);
             if(sizeof($this->games) == 0) {
@@ -67,6 +68,8 @@
             }
         }
 
+        //Sprawdza, czy dana gra była oceniana
+        //Jeżeli była oceniana to zwraca wartość oceny
         private function checkRating($db, $pdo, $login, $idGame) {
             $rating = $db->checkGameToRating($pdo, $login, $idGame);
             if($rating == false) 
@@ -75,6 +78,7 @@
                 return $rating;
         }
 
+        //Zapisuje ocenę gry użytkonika oraz przekierowywuje do konto?account=ocena, aby odświeżyć stronę
         function ratingGame($pdo, $db, $idGame, $idUser, $rating) {
             $db->insertGameRating($pdo, $idGame, $idUser, $rating);
             header('Location: ?account=ocena');

@@ -71,6 +71,7 @@
             }
         }
 
+        //Dodaje e-mail do tabeli additional_data
         function createAdditionalData($pdo, $mail) {
             if ($pdo) {
                 try {
@@ -83,6 +84,7 @@
             }
         }
 
+        //Zwraca id tabeli additional_data gdzie e-mail jest zgodny z podanym w zmiennej $mail
         function getAdditionalDataId($pdo, $mail) {
             if ($pdo) {
                 try {
@@ -124,6 +126,7 @@
             }
         }
 
+        //Zwraca ilość użytkoników o loginie $data 
         function countData($pdo, $row, $data) {
             if ($pdo) {
                 $sth = $pdo->prepare('SELECT COUNT('.$row.') FROM `user` WHERE Login = "'.$data.'"');
@@ -134,6 +137,7 @@
             }
         }
 
+        //Zwraca ilość użytkoników o e-mail $mail
         function countEmail($pdo, $mail) {
             if ($pdo) {
                 $sth = $pdo->prepare('SELECT COUNT(Email) FROM `additional_data` WHERE `Email` = "'.$mail.'"');
@@ -145,6 +149,7 @@
             }
         }
 
+        //Dodaje okładke gry do folderu \img\covers
         function addGameCover($title, $target_file, $imageFileType) {
             if (move_uploaded_file($_FILES["file-upload-input"]["tmp_name"], $target_file)) {
                 $image = new Image();
@@ -154,6 +159,7 @@
             }
         }
 
+        //Zwraca e-mail użytkonika o loginie $login
         function getUserMail($pdo, $login){
             if ($pdo) {
                 $sth = $pdo->prepare('SELECT Email FROM user, additional_data WHERE user.ID_Additional_data=additional_data.ID_Additional_data AND `Login` = "'.$login.'";');
@@ -165,6 +171,7 @@
             }
         }
 
+        //Zwraca id użytkonika o loginie $login
         function getUserId($pdo, $login){
             if ($pdo) {
                 $sth = $pdo->prepare('SELECT ID_User FROM user WHERE `Login` = "'.$login.'";');
@@ -176,6 +183,7 @@
             }
         }
 
+        //Zwraca imię, nazwisko, kraj, miasto, kod pocztowy, ulicę, numer ulicy, numer mieszkania oraz e-mail użytkonika o loginie $login
         function getUserAdditionalData($pdo, $login) {
             if ($pdo) {
                 $sth = $pdo->prepare('SELECT Name, Surname, Country, City, Postal_code, Street, Street_number, House_number, Email FROM additional_data, countries, user WHERE additional_data.ID_Country=countries.ID_Country AND user.ID_Additional_data = additional_data.ID_Additional_data AND `Login` = "'.$login.'";');
@@ -186,6 +194,7 @@
             }
         }
 
+        //Zwraca hash hasła użytkonika o loginie $login
         function getUserPasswordHash($pdo, $login) {
             if ($pdo) {
                 $sth = $pdo->prepare('SELECT `Password` FROM user WHERE `Login` = "'.$login.'";');
@@ -197,6 +206,7 @@
             }
         }
 
+        //Zmienia hasło użytkonika o loginie $login
         function updateUserSettings($pdo, $login, $password) {
             if ($pdo) {
                 try {
@@ -208,6 +218,7 @@
             }
         }
 
+        //Zwraca id kraju o nazwie $country
         function getIdCountry($pdo, $country) {
             if ($pdo && $country != "Wybierz swój kraj...") {
                 $sth = $pdo->prepare('SELECT `ID_Country` FROM countries WHERE `Country` = "'.$country.'";');
@@ -219,6 +230,7 @@
             }
         }
 
+        //Zmienia imię, nazwisko, kraj, miasto, kod pocztowy, ulicę, numer ulicy, numer mieszkania oraz e-mail użytkonika o loginie $login
         function updateUserAdditionalSettings($pdo, $login, $idCountry, $name, $surname, $postalCode, $city, $street, $streetNumber, $houseNumber, $mail) {
             if ($pdo) {
                 try {
@@ -230,6 +242,7 @@
             }
         }
 
+        //Zwraca numery zamówieć użytkonika o loginie $login
         function getOrdersNumbers($pdo, $login) {
             if ($pdo) {
                 try {
@@ -242,6 +255,7 @@
             }
         }
 
+        //Zwraca wszystkie id gry, tytuł gry, cenę brutto gry, ilość oraz datę zamównienia dla użytkonika o loginie $login oraz numerowi zamówienia $orderNumber
         function getOrders($pdo, $login, $orderNumber) {
             if ($pdo) {
                 try {
@@ -254,6 +268,7 @@
             }
         }
 
+        //Zwraca wartosć zamówienie o numerze $orderNumber
         function getOrderValue($pdo, $orderNumber) {
             if ($pdo) {
                 try {
@@ -267,6 +282,7 @@
             }
         }
 
+        //Zwraca ilość produktów z zamówienia o numerze $orderNumber
         function getOrderGameValue($pdo, $orderNumber) {
             if ($pdo) {
                 try {
@@ -280,10 +296,13 @@
             }
         }
 
+        //Zwaraca gry które może ocenić użytkonik o loginie $login
+        //Użytkonik może ocenić tylko te gry które kupił oraz wyświetlił klucz produktu
+        //Grę można ocenić tylko raz niezależnie od ilość kupionych kluczy
         function getGamesToRating($pdo, $login) {
             if ($pdo) {
                 try {
-                    $sth = $pdo->prepare('SELECT DISTINCT game.ID_Game, game.Title FROM `transaction`, game, user WHERE transaction.ID_Game=game.ID_Game AND transaction.ID_User=user.ID_User AND user.Login = "'.$login.'";');
+                    $sth = $pdo->prepare('SELECT DISTINCT game.ID_Game, game.Title FROM `transaction`, game, user WHERE transaction.ID_Game=game.ID_Game AND transaction.ID_User=user.ID_User AND user.Login = "'.$login.'" AND `transaction`.ID_Return IS NULL AND `transaction`.Show_key = 1;');
                     $sth->execute(); 
                     return $sth->fetchAll(PDO::FETCH_NUM);
                 } catch(Exception $e) {
@@ -292,6 +311,7 @@
             }
         }
 
+        //Zwraca ocenę gry o id $idGame którą ocenił użytkonik o loginie $login
         function checkGameToRating($pdo, $login, $idGame) {
             if ($pdo) {
                 try {
@@ -309,6 +329,8 @@
             }
         }
 
+        //Dodaje wpis do tabeli game_rating 
+        //Jest to ocena gry przez użytkownika 
         function insertGameRating($pdo, $idGame, $idUser, $rating) {
             if ($pdo) {
                 try {
@@ -321,6 +343,7 @@
             }
         }
 
+        //Zwraca średnią ocen zaokrągloną do 2 miejsca po przecinku gry o id $idGame
         function getGameRating($pdo, $idGame) {
             if ($pdo) {
                 try {
@@ -338,10 +361,12 @@
             }
         }
 
+        //Sprawdza jakie gry użytkwonik może oddać
+        //Użytkwonik może oddać tylko te produkty u których nie wyświeltił klucza
         function checkGamesToReturn($pdo, $login) {
             if ($pdo) {
                 try {
-                    $sth = $pdo->prepare('SELECT game.ID_Game, game.Title, orders.Order_number FROM `transaction`, orders, user, game WHERE orders.ID_Transaction=`transaction`.ID_Transaction AND `transaction`.ID_User=user.ID_User AND `transaction`.ID_Game=game.ID_Game AND `transaction`.Show_key=0 AND user.Login="'.$login.'";');
+                    $sth = $pdo->prepare('SELECT game.ID_Game, game.Title, orders.Order_number, `transaction`.ID_transaction FROM `transaction`, orders, user, game WHERE orders.ID_Transaction=`transaction`.ID_Transaction AND `transaction`.ID_User=user.ID_User AND `transaction`.ID_Game=game.ID_Game AND `transaction`.ID_Return IS NULL AND `transaction`.Show_key=0 AND user.Login="'.$login.'";');
                     $sth->execute(); 
                     return $sth->fetchAll(PDO::FETCH_NUM);
                 } catch(Exception $e) {
@@ -350,10 +375,11 @@
             }
         }
 
-        function checkGameToReturn($pdo, $gameId, $orderNumber) {
+        //Zwraca, czy klucz został wyświetlony klucz gry o id $gameId w transakcji o id $idTransaction
+        function checkGameToReturn($pdo, $gameId, $idTransaction) {
             if ($pdo) {
                 try {
-                    $sth = $pdo->prepare('SELECT `transaction`.Show_key FROM `transaction`, orders WHERE orders.ID_Transaction=`transaction`.ID_Transaction AND `transaction`.ID_Game='.$gameId.' AND orders.Order_number = "'.$orderNumber.'";');
+                    $sth = $pdo->prepare('SELECT `transaction`.Show_key FROM `transaction`, orders WHERE orders.ID_Transaction=`transaction`.ID_Transaction AND  `transaction`.ID_Game='.$gameId.' AND `transaction`.ID_Return IS NULL AND `transaction`.ID_Transactionr = "'.$idTransaction.'";');
                     $sth->execute(); 
                     return $sth->fetchAll(PDO::FETCH_NUM);
                 } catch(Exception $e) {
@@ -362,6 +388,7 @@
             }
         }
 
+        //Zwraca probelmy z tabeli Issue
         function getIssue($pdo) {
             if ($pdo) {
                 try {
@@ -373,6 +400,170 @@
                 }
             }
         }
+
+        //Zwraca id gry, tytuł gry, numer zamówienia oraz id transakcji użytkonika o loginie $login
+        //Zwraca kupione gry, które nie zostały oddane
+        function boughtGames($pdo, $login) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('SELECT game.ID_Game, game.Title, orders.Order_number, `transaction`.ID_transaction FROM `transaction`, orders, user, game WHERE orders.ID_Transaction=`transaction`.ID_Transaction AND `transaction`.ID_User=user.ID_User AND `transaction`.ID_Game=game.ID_Game AND `transaction`.ID_Return IS NULL AND user.Login="'.$login.'";');
+                    $sth->execute(); 
+                    return $sth->fetchAll(PDO::FETCH_NUM);
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        //Zwraca klucz gry o id $idGame
+        function getGameKey($pdo, $idGame) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('SELECT Game_key.Game_key FROM `game_key` WHERE Game_key.ID_Game = "'.$idGame.'" AND Game_key.Key_bought = 0;');
+                    $sth->execute(); 
+                    $sum = $sth->fetchAll(PDO::FETCH_NUM);
+                    return $sum[0][0];
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        //Zmienia wartość Show_key na 1
+        //Oznacz to, że użytkownik wyświetlił klucz produktu
+        function updateTransactionShowKey($pdo, $idGame, $idTransaction) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('UPDATE `transaction` SET `Show_key`=? WHERE `transaction`.ID_Game = '.$idGame.' AND `ID_Transaction` = '.$idTransaction.';');
+                    $sth->execute([1]);
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        //Dodaje id zwrotu oraz id kodu rabatowego do tabeli transaction
+        //Oznacza to, że użytkwonik oddał produkt oraz otrzymał kod rabatowy 
+        function updateTransactionReturn($pdo, $idTransaction, $idReturn, $idDiscountCode) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('UPDATE `transaction` SET `ID_Return`=?, `ID_Discount_code`=? WHERE `ID_Transaction` = '.$idTransaction.';');
+                    $sth->execute([$idReturn, $idDiscountCode]);
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        //Zwraca klucz gry o id $idGame, który został zakupiony podczas transakcji o id $idTransaction
+        function showGameKey($pdo, $idTransaction, $idGame) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('SELECT game_key.Game_key FROM game_key, `transaction` WHERE `transaction`.ID_Game_key=game_key.ID_Game_key AND `transaction`.ID_Transaction = '.$idTransaction.' AND Game_key.ID_Game = '.$idGame.';');
+                    $sth->execute(); 
+                    $sum = $sth->fetchAll(PDO::FETCH_NUM);
+                    return $sum[0][0];
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        //Zwraca wartość brutto transakcji o id $idTransaction)
+        function getPriceBruttoFromTransaction($pdo, $idTransaction) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('SELECT `transaction`.`Price_brutto` FROM `transaction` WHERE `transaction`.ID_Transaction = '.$idTransaction.';');
+                    $sth->execute(); 
+                    $sum = $sth->fetchAll(PDO::FETCH_NUM);
+                    return $sum[0][0];
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        //Zapisuje do bazy wygenerowny kod rabatowy, ważność kodu oraz wartość kodu
+        function insertIntoDiscountCode($pdo, $discountCode, $validateFrom, $validateTo, $value) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('INSERT INTO `discount_code` VALUE (?, ?, ?, ?, ?)');
+                    $sth->execute([NULL, $discountCode, $validateFrom, $validateTo, $value]);
+                    return true;
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        //Zwraca id kodu rabatowego 
+        function getIdDiscountCode($pdo, $discountCode) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('SELECT `ID_Discount_code` FROM `discount_code` WHERE Code = "'.$discountCode.'";');
+                    $sth->execute(); 
+                    $sum = $sth->fetchAll(PDO::FETCH_NUM);
+                    return $sum[0][0];
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        //Zapisuje do bazy zwroty 
+        //Oznacz to zwrot produktu
+        function insertIntoReturns($pdo, $idTransaction, $idDiscountCode) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('INSERT INTO `returns` VALUE (?, ?, ?)');
+                    $sth->execute([NULL, $idTransaction, $idDiscountCode]);
+                    return true;
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        //Zwraca id zwrotu
+        function getIdReturn($pdo, $idTransaction, $idDiscountCode) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('SELECT `ID_Return` FROM `returns` WHERE ID_Transaction = '.$idTransaction.' AND ID_Discount_code = '.$idDiscountCode.';');
+                    $sth->execute(); 
+                    $sum = $sth->fetchAll(PDO::FETCH_NUM);
+                    return $sum[0][0];
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        //Zwraca kod rabatowy, ważność oraz jego wartość
+        function getDiscountCode($pdo, $login) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('SELECT discount_code.Code, Valid_from, Valid_to, `Value` FROM `discount_code`, `transaction`, `user` WHERE `transaction`.ID_User=user.ID_User AND `transaction`.ID_Discount_code=discount_code.ID_Discount_code AND user.Login = "'.$login.'";');
+                    $sth->execute(); 
+                    return $sth->fetchAll(PDO::FETCH_NUM);
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        //Zwraca gry zwrócone przez użytkownika o loginie $login
+        function getReturnedGames($pdo, $login) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('SELECT game.ID_Game, game.Title, discount_code.Code FROM `returns`, game, discount_code, `transaction`, `user` WHERE transaction.ID_Game=game.ID_Game AND transaction.ID_Discount_code=discount_code.ID_Discount_code AND transaction.ID_Return=returns.ID_Return AND transaction.ID_User=user.ID_User AND user.Login = "'.$login.'";');
+                    $sth->execute(); 
+                    return $sth->fetchAll(PDO::FETCH_NUM);
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
     }
 
 ?>
