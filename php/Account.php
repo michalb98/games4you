@@ -38,6 +38,15 @@
                 case "kontakt":
                     echo 'Games4You - Kontakt';
                 break;
+                case "klucze":
+                    echo 'Games4You - Twoje klucze';
+                break;
+                case "kody":
+                    echo 'Games4You - Twoje kody rabatowe';
+                break;
+                case "zwroty":
+                    echo 'Games4You - Twoje zwroty';
+                break;
                 case "usunkonto":
                     echo 'Games4You - Usuń konto '.$login;
                 break;
