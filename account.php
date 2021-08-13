@@ -22,6 +22,7 @@
     $contact = new Contact();
     $gameKey = new GameKey();
     $returnGame = new ReturnGame();
+    $deleteAccount = new DeleteAccount();
 
     $pdo = $db->createPDO();
 
@@ -66,6 +67,14 @@
         $gameKey->showGameKey($pdo, $db, $_POST['show-game-id'], $_POST['transaction-number']);
     }
 
+    //Usunięcię konta
+    if(isset($_POST['delete-login'])) {
+        (isset($_POST['statute'])) ? $deleteAccount->getValueFromDeleteForm($_POST['delete-login'], $_POST['statute'], $_POST['password-delete']) :$deleteAccount->getValueFromDeleteForm($_POST['delete-login'], NULL, $_POST['password-delete']);
+        if($deleteAccount->validateDeleteForm($db, $pdo)) {
+            $deleteAccount->deleteAccount($db, $pdo);
+        }
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -106,6 +115,7 @@
         </nav>
         <aside id="aside-account">
             <?php
+
                 $countries = $db->getAllFromTable($pdo, 'countries');
 
                 if(isset($_GET['account'])) {
@@ -140,7 +150,6 @@
                             $contact->drawContactForm($db, $pdo);
                         break;
                         case "usunkonto":
-                            $deleteAccount = new DeleteAccount();
                             $deleteAccount->drawDeleteAccount($_SESSION['login']);
                         break;
                         default:

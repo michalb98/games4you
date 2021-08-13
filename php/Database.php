@@ -255,11 +255,11 @@
             }
         }
 
-        //Zwraca wszystkie id gry, tytuł gry, cenę brutto gry, ilość oraz datę zamównienia dla użytkonika o loginie $login oraz numerowi zamówienia $orderNumber
+        //Zwraca wszystkie id gry, tytuł gry, cenę brutto gry, ilość, datę zamównienia oraz metodę płatności dla użytkonika o loginie $login oraz numerowi zamówienia $orderNumber
         function getOrders($pdo, $login, $orderNumber) {
             if ($pdo) {
                 try {
-                    $sth = $pdo->prepare('SELECT game.ID_Game, game.Title, `transaction`.`Price_brutto`, orders.Order_number, `transaction`.Quantity, `transaction`.`Data` FROM game, user, additional_data, `transaction`, orders WHERE orders.ID_Transaction=`transaction`.ID_Transaction AND `transaction`.ID_Game=game.ID_Game AND `transaction`.ID_User=user.ID_User AND user.ID_Additional_data=additional_data.ID_Additional_data AND user.Login = "'.$login.'" AND orders.Order_number = "'.$orderNumber.'";');
+                    $sth = $pdo->prepare('SELECT game.ID_Game, game.Title, `transaction`.`Price_brutto`, orders.Order_number, `transaction`.Quantity, `transaction`.`Data`, payment_method.Payment_method FROM game, user, additional_data, `transaction`, orders, payment_method WHERE `transaction`.ID_Payment_method=payment_method.ID_Payment_method AND orders.ID_Transaction=`transaction`.ID_Transaction AND `transaction`.ID_Game=game.ID_Game AND `transaction`.ID_User=user.ID_User AND user.ID_Additional_data=additional_data.ID_Additional_data AND user.Login = "'.$login.'" AND orders.Order_number = "'.$orderNumber.'";');
                     $sth->execute(); 
                     return $sth->fetchAll(PDO::FETCH_NUM);
                 } catch(Exception $e) {
@@ -560,6 +560,64 @@
                     return $sth->fetchAll(PDO::FETCH_NUM);
                 } catch(Exception $e) {
                     return $e->getMessage();
+                }
+            }
+        }
+
+        function deleteAdditionalData($pdo, $idAdditionalData) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('DELETE FROM `additional_data` WHERE ID_Additional_data=?');
+                    $sth->execute([$idAdditionalData]);
+                    return true;
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        function updateTransactionDelete($pdo, $idUser) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('UPDATE `transaction` SET `ID_User`=? WHERE `ID_User` = '.$idUser.';');
+                    $sth->execute([0]);
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        function updateGameRatingDelete($pdo, $idUser) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('UPDATE `game_rating` SET `ID_User`=? WHERE `ID_User` = '.$idUser.';');
+                    $sth->execute([0]);
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        function deleteUser($pdo, $idUser) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('DELETE FROM `user` WHERE ID_User=?');
+                    $sth->execute([$idUser]);
+                    return true;
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        function checkDiscountCode($pdo, $discountCode) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('SELECT discount_code.Code, discount_code.Valid_from, discount_code.Valid_to, discount_code.Value FROM `discount_code` WHERE discount_code.Code = "'.$discountCode.'";');
+                    $sth->execute(); 
+                    return $sth->fetchAll(PDO::FETCH_NUM);
+                } catch(Exception $e) {
+                    return false;
                 }
             }
         }

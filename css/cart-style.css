@@ -114,7 +114,7 @@
 
 #cart-payment-container {
     width: 30%;
-    height: 60vh;
+    height: 75vh;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -144,4 +144,40 @@
 .cart-payment-submit input {
     cursor: pointer;
     padding: 1vh 1vw;
+}
+
+.input-cart {
+    width: 20vw;
+    margin-top: 2vh;
+    background: transparent;
+    color: #FFF;
+    outline: none;
+    border: none;
+    border: 2px solid;
+    border-image-slice: 1;
+    border-width: 2px;
+    border-image-source: linear-gradient(to left, #30cfd0, #330867);
+    font-size: 1.4em;
+    text-align: center;
+    padding: 0.3em 0.2em;
+    appearance: none;
+    outline: none;
+    text-align-last: center;
+}
+
+.input-cart option {
+    color: #FFF;
+    background-color: #000;
+}
+
+#payment-method-cart {
+    cursor: pointer;
+}
+
+.submit-cart-discount {
+    width: 10vw !important;
+    height: 5vh !important;
+    margin-top: 1vh !important;
+    margin-bottom: 1vh !important;
+    padding: 1vh 0.5vw !important;
 }

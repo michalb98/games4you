@@ -54,6 +54,17 @@
         header('Location: koszyk');
     }
 
+    //Płatność
+    if(isset($_POST['discount-code']) && $_POST['discount-code'] != "") {
+        $gc->setDiscountCode($db, $pdo, $_POST['discount-code']);
+        !($gc->validateDiscountCode($db, $pdo, $_POST['discount-code'])) ? $gc->setDiscountCode("") : $gc->setDiscountCode($_POST['discount-code']);
+    }
+
+    if(isset($_POST['payment-method-cart'])) {
+        $gc->setGameCartForm(NULL, $_POST['payment-method-cart'], NULL);
+        $gc->validateGameCartForm();
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -85,32 +96,9 @@
                     $gc->emptyCart();
             ?>
         </div>
-        <div id="cart-payment-container">
-            <div class="cart-payment-discount-code">
-                <label for="discount-code" class="label-login-form">
-                    Kod promocyjny:
-                </label>
-                <input type="text" name="discount-code">
-                <input type="submit" value="Zastosuj">
-            </div>
-            <div class="cart-payment-total-price">
-                <label for="total-price" class="label-login-form">
-                    Do zapłaty:
-                </label>
-                <span id="total-price">99.99 zł</span>
-            </div>
-            <div class="cart-payment-method">
-                <label for="payment-method" class="label-login-form">
-                    Motoda płatnośći:
-                </label>
-                <select name="payment-method">
-                    <option>PayPal</option>
-                </select>
-            </div>
-            <div class="cart-payment-submit">
-                <input type="submit" value="Przejdź do płatności">
-            </div>
-        </div>
+        <?php
+            $gc->drawPayPanel($db, $pdo);
+        ?>
     </main>
     <?php
         $grid->drawFooter();

@@ -739,6 +739,10 @@ input:-webkit-autofill:active {
     color: #B02818;
 }
 
+.successful {
+    color: rgb(75, 181, 67);
+}
+
 .error a {
     color: rgb(204, 117, 117);
     text-shadow: 1px 1px 0px #000;
