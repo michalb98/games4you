@@ -1,10 +1,11 @@
 //Oblicza kwotę danego produktu w koszyku oraz wyświetla ją
 function calculateTotalPriceGame(id) {
-    let gp = parseFloat(document.getElementsByClassName('game-price-hidden')[id].value).toFixed(2);
-    let gq = parseInt(document.getElementsByClassName('game-quantity')[id].value);
-    let gtp = document.getElementsByClassName('game-cart-price')[id];
-    
-            
+    let gp = parseFloat(document.getElementById('game-price-hidden-'+id).value).toFixed(2);
+    let gq = parseInt(document.getElementById('game-quantity-'+id).value);
+    let gtp = document.getElementById('game-cart-price-'+id);
+    let gameIdValue = document.getElementById('game-id-quantity-'+id);
+
+    gameIdValue.value = gq;
     gtp.innerHTML = parseFloat(gp * gq).toFixed(2) + " zł";
 }
 

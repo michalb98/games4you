@@ -28,7 +28,7 @@
                         <br>Data zamówienia: '.$this->gameData[0][5].'
                         <br>Metoda płatnośći: '.$this->gameData[0][6].'
                     </div>';
-                    for($i=0; $i < count($this->gameData);$i++) {
+                    for($i = 0; $i < count($this->gameData); $i++) {
                         $this->gameData = $db->getOrders($pdo, $_SESSION['login'], $this->orders[$j][0]);
                         echo '                  
                         <div class="order-game">

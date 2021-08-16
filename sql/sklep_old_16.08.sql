@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 16 Sie 2021, 20:35
+-- Czas generowania: 12 Sie 2021, 17:41
 -- Wersja serwera: 10.4.19-MariaDB
 -- Wersja PHP: 8.0.7
 
@@ -45,7 +45,9 @@ CREATE TABLE `additional_data` (
 --
 
 INSERT INTO `additional_data` (`ID_Additional_data`, `ID_Country`, `Name`, `Surname`, `Postal_code`, `City`, `Street`, `Street_number`, `House_number`, `Email`) VALUES
-(1, 30, 'Michał', 'Błaszczyk', '99-300', 'Kutno', 'Łokietka', '6', '60', 'darx12311@gmail.com');
+(1, 30, 'Michał', 'Błaszczyk', '99-300', 'Kutno', 'Łokietka', '6', '60', 'darx12311@gmail.com'),
+(5, 0, '', '', '', '', '', '', '', 'test@test.test'),
+(6, 30, '', '', '', '', '', '', '', 'test2@test.test');
 
 -- --------------------------------------------------------
 
@@ -129,8 +131,7 @@ CREATE TABLE `discount_code` (
 --
 
 INSERT INTO `discount_code` (`ID_Discount_code`, `Code`, `Valid_from`, `Valid_to`, `Value`) VALUES
-(6, '0fb84bba0eda74aa025e16ff6af46112', '2021-08-13', '2021-11-12', 169.00),
-(7, '49d23db79f28e81e39fbb4cfef1055ba', '2021-08-13', '2021-11-13', 49.99);
+(6, '0fb84bba0eda74aa025e16ff6af46112', '2021-08-12', '2021-11-12', 169.00);
 
 -- --------------------------------------------------------
 
@@ -188,9 +189,7 @@ CREATE TABLE `game_key` (
 INSERT INTO `game_key` (`ID_Game_key`, `ID_Game`, `Game_key`, `Key_bought`) VALUES
 (1, 38, 'RTAMT-DTC65-8EA6B', 1),
 (2, 1, 'RTAMT-DTC65-8EA6C', 1),
-(3, 2, 'ATAMT-DTC65-8EA6B', 1),
-(4, 31, 'ATAMT-DTC65-8EA6D', 1),
-(5, 37, 'RTAMT-DTC65-8EA6W', 0);
+(3, 2, 'ATAMT-DTC65-8EA6B', 1);
 
 -- --------------------------------------------------------
 
@@ -265,41 +264,17 @@ INSERT INTO `issue` (`ID_Issue`, `Issue`) VALUES
 CREATE TABLE `orders` (
   `ID_Order` int(9) NOT NULL,
   `ID_Transaction` int(9) NOT NULL,
-  `ID_Order_number` int(9) NOT NULL
+  `Order_number` varchar(256) COLLATE utf8_polish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
 -- Zrzut danych tabeli `orders`
 --
 
-INSERT INTO `orders` (`ID_Order`, `ID_Transaction`, `ID_Order_number`) VALUES
-(1, 1, 1),
-(3, 2, 2),
-(4, 3, 3),
-(8, 12, 15),
-(9, 13, 16);
-
--- --------------------------------------------------------
-
---
--- Struktura tabeli dla tabeli `order_number`
---
-
-CREATE TABLE `order_number` (
-  `ID_Order_number` int(9) NOT NULL,
-  `Order_number` varchar(50) COLLATE utf8_polish_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
-
---
--- Zrzut danych tabeli `order_number`
---
-
-INSERT INTO `order_number` (`ID_Order_number`, `Order_number`) VALUES
-(1, '202108131'),
-(2, '202108132'),
-(3, '202108133'),
-(15, '2021081615'),
-(16, '2021081616');
+INSERT INTO `orders` (`ID_Order`, `ID_Transaction`, `Order_number`) VALUES
+(1, 1, '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b'),
+(3, 2, 'd4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35'),
+(4, 3, '202108123');
 
 -- --------------------------------------------------------
 
@@ -368,8 +343,7 @@ CREATE TABLE `returns` (
 --
 
 INSERT INTO `returns` (`ID_Return`, `ID_Transaction`, `ID_Discount_code`) VALUES
-(1, 2, 6),
-(2, 3, 7);
+(1, 2, 6);
 
 -- --------------------------------------------------------
 
@@ -430,7 +404,6 @@ CREATE TABLE `transaction` (
   `ID_Game` int(6) NOT NULL,
   `ID_Game_key` int(9) NOT NULL,
   `ID_User` int(7) NOT NULL,
-  `ID_Payment_method` int(2) NOT NULL,
   `ID_Return` int(9) DEFAULT NULL,
   `ID_Discount_code` int(9) DEFAULT NULL,
   `Price_netto` float(5,2) NOT NULL,
@@ -444,12 +417,10 @@ CREATE TABLE `transaction` (
 -- Zrzut danych tabeli `transaction`
 --
 
-INSERT INTO `transaction` (`ID_Transaction`, `ID_Game`, `ID_Game_key`, `ID_User`, `ID_Payment_method`, `ID_Return`, `ID_Discount_code`, `Price_netto`, `Price_brutto`, `Quantity`, `Data`, `Show_key`) VALUES
-(1, 38, 1, 1, 5, NULL, NULL, 162.59, 199.99, 1, '2021-08-09', 1),
-(2, 1, 2, 1, 3, 1, 6, 109.00, 169.00, 1, '2021-08-09', 0),
-(3, 2, 3, 1, 4, 2, 7, 40.64, 49.99, 1, '2021-08-12', 0),
-(12, 31, 4, 1, 1, NULL, NULL, 97.55, 119.99, 1, '2021-08-16', 0),
-(13, 37, 5, 1, 2, NULL, NULL, 81.29, 99.99, 1, '2021-08-16', 0);
+INSERT INTO `transaction` (`ID_Transaction`, `ID_Game`, `ID_Game_key`, `ID_User`, `ID_Return`, `ID_Discount_code`, `Price_netto`, `Price_brutto`, `Quantity`, `Data`, `Show_key`) VALUES
+(1, 38, 1, 1, NULL, NULL, 162.59, 199.99, 1, '2021-08-09', 0),
+(2, 1, 2, 1, 1, 6, 109.00, 169.00, 1, '2021-08-09', 0),
+(3, 2, 3, 1, NULL, NULL, 40.64, 49.99, 1, '2021-08-12', 1);
 
 -- --------------------------------------------------------
 
@@ -500,7 +471,9 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`ID_User`, `Login`, `Password`, `ID_Additional_data`) VALUES
 (0, 'Użytkownik usunięty', '', NULL),
-(1, 'darx12311', '84f3773a2f6d75b4f2318d4ec8c826b311ab69679f2e4aafc1e8e74593e5a734ae60248895b4891e75584e35b40d1e1eace5f284cc18bdb826b0cb43d0cfca4b', 1);
+(1, 'darx12311', '84f3773a2f6d75b4f2318d4ec8c826b311ab69679f2e4aafc1e8e74593e5a734ae60248895b4891e75584e35b40d1e1eace5f284cc18bdb826b0cb43d0cfca4b', 1),
+(6, 'test1', '84f3773a2f6d75b4f2318d4ec8c826b311ab69679f2e4aafc1e8e74593e5a734ae60248895b4891e75584e35b40d1e1eace5f284cc18bdb826b0cb43d0cfca4b', 5),
+(7, 'test2', '84f3773a2f6d75b4f2318d4ec8c826b311ab69679f2e4aafc1e8e74593e5a734ae60248895b4891e75584e35b40d1e1eace5f284cc18bdb826b0cb43d0cfca4b', 6);
 
 -- --------------------------------------------------------
 
@@ -591,14 +564,7 @@ ALTER TABLE `issue`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`ID_Order`),
-  ADD KEY `ID_Transaction` (`ID_Transaction`),
-  ADD KEY `ID_Order_number` (`ID_Order_number`);
-
---
--- Indeksy dla tabeli `order_number`
---
-ALTER TABLE `order_number`
-  ADD PRIMARY KEY (`ID_Order_number`);
+  ADD KEY `ID_Transaction` (`ID_Transaction`);
 
 --
 -- Indeksy dla tabeli `payment_method`
@@ -635,8 +601,7 @@ ALTER TABLE `transaction`
   ADD KEY `ID_User` (`ID_User`),
   ADD KEY `ID_Discount_code` (`ID_Discount_code`),
   ADD KEY `ID_Game_key` (`ID_Game_key`),
-  ADD KEY `ID_Return` (`ID_Return`),
-  ADD KEY `ID_Payment_method` (`ID_Payment_method`);
+  ADD KEY `ID_Return` (`ID_Return`);
 
 --
 -- Indeksy dla tabeli `type`
@@ -665,7 +630,7 @@ ALTER TABLE `version`
 -- AUTO_INCREMENT dla tabeli `additional_data`
 --
 ALTER TABLE `additional_data`
-  MODIFY `ID_Additional_data` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `ID_Additional_data` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT dla tabeli `countries`
@@ -677,7 +642,7 @@ ALTER TABLE `countries`
 -- AUTO_INCREMENT dla tabeli `discount_code`
 --
 ALTER TABLE `discount_code`
-  MODIFY `ID_Discount_code` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `ID_Discount_code` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT dla tabeli `game`
@@ -689,7 +654,7 @@ ALTER TABLE `game`
 -- AUTO_INCREMENT dla tabeli `game_key`
 --
 ALTER TABLE `game_key`
-  MODIFY `ID_Game_key` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ID_Game_key` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT dla tabeli `game_rating`
@@ -713,13 +678,7 @@ ALTER TABLE `issue`
 -- AUTO_INCREMENT dla tabeli `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `ID_Order` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT dla tabeli `order_number`
---
-ALTER TABLE `order_number`
-  MODIFY `ID_Order_number` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `ID_Order` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT dla tabeli `payment_method`
@@ -737,7 +696,7 @@ ALTER TABLE `platform`
 -- AUTO_INCREMENT dla tabeli `returns`
 --
 ALTER TABLE `returns`
-  MODIFY `ID_Return` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID_Return` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT dla tabeli `tag`
@@ -749,7 +708,7 @@ ALTER TABLE `tag`
 -- AUTO_INCREMENT dla tabeli `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `ID_Transaction` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `ID_Transaction` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT dla tabeli `type`
@@ -761,7 +720,7 @@ ALTER TABLE `type`
 -- AUTO_INCREMENT dla tabeli `user`
 --
 ALTER TABLE `user`
-  MODIFY `ID_User` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `ID_User` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT dla tabeli `version`
@@ -811,8 +770,7 @@ ALTER TABLE `game_tags`
 -- Ograniczenia dla tabeli `orders`
 --
 ALTER TABLE `orders`
-  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`ID_Transaction`) REFERENCES `transaction` (`ID_Transaction`),
-  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`ID_Order_number`) REFERENCES `order_number` (`ID_Order_number`);
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`ID_Transaction`) REFERENCES `transaction` (`ID_Transaction`);
 
 --
 -- Ograniczenia dla tabeli `returns`
@@ -829,8 +787,7 @@ ALTER TABLE `transaction`
   ADD CONSTRAINT `transaction_ibfk_2` FOREIGN KEY (`ID_User`) REFERENCES `user` (`ID_User`),
   ADD CONSTRAINT `transaction_ibfk_3` FOREIGN KEY (`ID_Discount_code`) REFERENCES `discount_code` (`ID_Discount_code`),
   ADD CONSTRAINT `transaction_ibfk_4` FOREIGN KEY (`ID_Game_key`) REFERENCES `game_key` (`ID_Game_key`),
-  ADD CONSTRAINT `transaction_ibfk_5` FOREIGN KEY (`ID_Return`) REFERENCES `returns` (`ID_Return`),
-  ADD CONSTRAINT `transaction_ibfk_6` FOREIGN KEY (`ID_Payment_method`) REFERENCES `payment_method` (`ID_Payment_method`);
+  ADD CONSTRAINT `transaction_ibfk_5` FOREIGN KEY (`ID_Return`) REFERENCES `returns` (`ID_Return`);
 
 --
 -- Ograniczenia dla tabeli `user`

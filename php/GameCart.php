@@ -44,11 +44,11 @@
                     <label for="game-quantity">
                         Ilość: 
                     </label>
-                    <input type="number" value="1" min="1" max="10" name="game-quantity" class="game-quantity" onchange="calculateTotalPriceGame('.$classNumber.'); calculateTotalPrice();" >
-                    <input type="hidden" value='.$this->gameData[0][1].'" class="game-price-hidden">
+                    <input type="number" value="1" min="1" max="10" id="game-quantity-'.$id.'" name="game-quantity-'.$id.'" class="game-quantity" onchange="calculateTotalPriceGame('.$classNumber.'); calculateTotalPrice();" >
+                    <input type="hidden" value='.$this->gameData[0][1].'" id="game-price-hidden-'.$id.'" class="game-price-hidden">
                 </form>
             </div>
-            <div class="game-cart-price">
+            <div id="game-cart-price-'.$id.'" class="game-cart-price">
                 '.$this->gameData[0][1].' zł
             </div>
             <div class="game-cart-remove">
@@ -93,6 +93,14 @@
                                     echo '<option>'.$paymentMethod[$i][1].'</option>';
                                 }
                             echo '</select>';
+                            if(isset($_SESSION['game-cart'])) {
+                                $idGame = explode(",", $_SESSION['game-cart']);
+                                for($i = 0; $i < sizeof($idGame); $i++) {
+                                    echo '<input type="hidden" id="game-id-'.$idGame[$i].'" name="game-id-'.$i.'" value="'.$idGame[$i].'">';
+                                    echo '<input type="hidden" id="game-id-quantity-'.$idGame[$i].'" name="game-id-quantity-'.$i.'" value="1">';
+                                }
+                                echo '<input type="hidden" name="games-count" value="'.sizeof($idGame).'">';
+                            }
                             echo '
                             <input type="submit" value="Przejdź do płatności" class="submit-login-form">';
                             if(isset($_SESSION['error-cart'])) {
@@ -118,13 +126,34 @@
             }
         }
 
-        function calculateValueCart($db, $pdo) {
-
+        function buy($db, $pdo, $gamesCount, $login) {
+            $date = date('Ymd');
+            $orderNumberId = $db->getLastOrderNumberID($pdo) + 1;
+            $orderNumber = $date.''.$orderNumberId;
+            $db->insertIntoOrderNumber($pdo, $orderNumber);
+            $idOrderNumber = $db->getLastOrderNumberID($pdo);
+            for($i = 0; $i < $gamesCount; $i++) {
+                $idGame = $_POST['game-id-'.$i];
+                $idGameKey = $db->getGameKeyId($pdo, $idGame);
+                $idUser = $db->getUserId($pdo, $login);
+                $idPayment = $db->getPaymentMethodId($pdo, $this->paymentMethod);
+                $priceBrutto = $db->getGameData($pdo, $idGame)[0][1];
+                $priceNetto = round($priceBrutto/1.23, 2);
+                $quantity = $_POST['game-id-quantity-'.$i];
+                $data = date('Y-m-d');
+                $db->insertIntoTransaction($pdo, $idGame, $idGameKey, $idUser, $idPayment, $priceNetto, $priceBrutto, $quantity, $data);
+                $idTransaction = $db->getTransactionId($pdo, $idUser);
+                $db->insertIntoOrders($pdo, $idTransaction, $idOrderNumber);
+            }
+            unset($_SESSION['discount-code']);
+            unset($_SESSION['game-cart']);
+            header('Location: koszyk');
         }
 
         function setDiscountCode($discountCode) {
             $this->discountCode = filter_var($discountCode, FILTER_SANITIZE_STRING);
-        }
+            $_SESSION['discount-code'] = $this->discountCode;
+         }
 
     }
 

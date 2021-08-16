@@ -11,7 +11,7 @@
 
     $db = new Database();
     $grid = new Grid();
-    $gc = new GameCart();
+    $gameCart = new GameCart();
 
     $pdo = $db->createPDO();
 
@@ -56,13 +56,21 @@
 
     //Płatność
     if(isset($_POST['discount-code']) && $_POST['discount-code'] != "") {
-        $gc->setDiscountCode($db, $pdo, $_POST['discount-code']);
-        !($gc->validateDiscountCode($db, $pdo, $_POST['discount-code'])) ? $gc->setDiscountCode("") : $gc->setDiscountCode($_POST['discount-code']);
+        $gameCart->setDiscountCode($db, $pdo, $_POST['discount-code']);
+        if($gameCart->validateDiscountCode($db, $pdo, $_POST['discount-code'])) {
+            $gameCart->setDiscountCode($_POST['discount-code']);
+        } 
+    } else if(isset($_SESSION['discount-code'])) {
+        if($gameCart->validateDiscountCode($db, $pdo, $_SESSION['discount-code']))
+            $gameCart->setDiscountCode($_SESSION['discount-code']);
     }
 
     if(isset($_POST['payment-method-cart'])) {
-        $gc->setGameCartForm(NULL, $_POST['payment-method-cart'], NULL);
-        $gc->validateGameCartForm();
+        $gameCart->setGameCartForm(NULL, $_POST['payment-method-cart'], NULL);
+        if($gameCart->validateGameCartForm()) {
+            $gameCart->buy($db, $pdo, $_POST['games-count'], $_SESSION['login']);            
+        }
+            
     }
 
 ?>
@@ -90,14 +98,14 @@
                 if(isset($_SESSION['game-cart']) && $_SESSION['game-cart'] != '') {
                     $id = explode(",", $_SESSION['game-cart']);
                     for($i = 0; $i < sizeof($id); $i++) {
-                        $gc->drawGameCart($pdo, $id[$i], $db, $i, $grid);
+                        $gameCart->drawGameCart($pdo, $id[$i], $db, $id[$i], $grid);
                     }
                 } else 
-                    $gc->emptyCart();
+                    $gameCart->emptyCart();
             ?>
         </div>
         <?php
-            $gc->drawPayPanel($db, $pdo);
+            $gameCart->drawPayPanel($db, $pdo);
         ?>
     </main>
     <?php

@@ -246,7 +246,7 @@
         function getOrdersNumbers($pdo, $login) {
             if ($pdo) {
                 try {
-                    $sth = $pdo->prepare('SELECT DISTINCT Order_number FROM orders, `transaction`, user WHERE orders.ID_Transaction=`transaction`.ID_Transaction AND `transaction`.ID_User=user.ID_User AND user.Login = "'.$login.'"  ORDER BY `orders`.`Order_number` ASC;');
+                    $sth = $pdo->prepare('SELECT DISTINCT order_number.Order_number FROM order_number, orders, `transaction`, user WHERE orders.ID_Transaction=`transaction`.ID_Transaction AND `transaction`.ID_User=user.ID_User AND orders.ID_Order_number=order_number.ID_Order_number AND user.Login = "'.$login.'" ORDER BY `Order_number` DESC;');
                     $sth->execute(); 
                     return $sth->fetchAll(PDO::FETCH_NUM);
                 } catch(Exception $e) {
@@ -259,7 +259,7 @@
         function getOrders($pdo, $login, $orderNumber) {
             if ($pdo) {
                 try {
-                    $sth = $pdo->prepare('SELECT game.ID_Game, game.Title, `transaction`.`Price_brutto`, orders.Order_number, `transaction`.Quantity, `transaction`.`Data`, payment_method.Payment_method FROM game, user, additional_data, `transaction`, orders, payment_method WHERE `transaction`.ID_Payment_method=payment_method.ID_Payment_method AND orders.ID_Transaction=`transaction`.ID_Transaction AND `transaction`.ID_Game=game.ID_Game AND `transaction`.ID_User=user.ID_User AND user.ID_Additional_data=additional_data.ID_Additional_data AND user.Login = "'.$login.'" AND orders.Order_number = "'.$orderNumber.'";');
+                    $sth = $pdo->prepare('SELECT game.ID_Game, game.Title, `transaction`.`Price_brutto`, order_number.Order_number, `transaction`.Quantity, `transaction`.`Data`, payment_method.Payment_method FROM game, user, additional_data, `transaction`, orders, payment_method, order_number WHERE `transaction`.ID_Payment_method=payment_method.ID_Payment_method AND orders.ID_Order_number=order_number.ID_Order_number AND orders.ID_Order_number=order_number.ID_Order_number AND orders.ID_Transaction=`transaction`.ID_Transaction AND `transaction`.ID_Game=game.ID_Game AND `transaction`.ID_User=user.ID_User AND user.ID_Additional_data=additional_data.ID_Additional_data AND order_number.Order_number = "'.$orderNumber.'" AND user.Login = "'.$login.'";');
                     $sth->execute(); 
                     return $sth->fetchAll(PDO::FETCH_NUM);
                 } catch(Exception $e) {
@@ -272,7 +272,7 @@
         function getOrderValue($pdo, $orderNumber) {
             if ($pdo) {
                 try {
-                    $sth = $pdo->prepare('SELECT SUM(`transaction`.Price_brutto) FROM `transaction`, orders WHERE orders.ID_Transaction=`transaction`.ID_Transaction AND orders.Order_number = "'.$orderNumber.'";');
+                    $sth = $pdo->prepare('SELECT SUM(`transaction`.Price_brutto) FROM `transaction`, orders, order_number WHERE orders.ID_Transaction=`transaction`.ID_Transaction AND orders.ID_Order_number=order_number.ID_Order_number AND order_number.Order_number = "'.$orderNumber.'";');
                     $sth->execute(); 
                     $sum = $sth->fetchAll(PDO::FETCH_NUM);
                     return $sum[0][0];
@@ -286,7 +286,7 @@
         function getOrderGameValue($pdo, $orderNumber) {
             if ($pdo) {
                 try {
-                    $sth = $pdo->prepare('SELECT SUM(`transaction`.Quantity) FROM `transaction`, orders WHERE orders.ID_Transaction=`transaction`.ID_Transaction AND orders.Order_number = "'.$orderNumber.'";');
+                    $sth = $pdo->prepare('SELECT SUM(`transaction`.Quantity) FROM `transaction`, orders, order_number WHERE orders.ID_Transaction=`transaction`.ID_Transaction AND orders.ID_Order_number=order_number.ID_Order_number AND order_number.Order_number = "'.$orderNumber.'";');
                     $sth->execute(); 
                     $sum = $sth->fetchAll(PDO::FETCH_NUM);
                     return $sum[0][0];
@@ -366,7 +366,7 @@
         function checkGamesToReturn($pdo, $login) {
             if ($pdo) {
                 try {
-                    $sth = $pdo->prepare('SELECT game.ID_Game, game.Title, orders.Order_number, `transaction`.ID_transaction FROM `transaction`, orders, user, game WHERE orders.ID_Transaction=`transaction`.ID_Transaction AND `transaction`.ID_User=user.ID_User AND `transaction`.ID_Game=game.ID_Game AND `transaction`.ID_Return IS NULL AND `transaction`.Show_key=0 AND user.Login="'.$login.'";');
+                    $sth = $pdo->prepare('SELECT game.ID_Game, game.Title, order_number.Order_number, `transaction`.ID_transaction FROM `transaction`, orders, user, game, order_number WHERE orders.ID_Transaction=`transaction`.ID_Transaction AND orders.ID_Order_number=order_number.ID_Order_number AND `transaction`.ID_User=user.ID_User AND `transaction`.ID_Game=game.ID_Game AND `transaction`.ID_Return IS NULL AND `transaction`.Show_key=0 AND user.Login="'.$login.'";');
                     $sth->execute(); 
                     return $sth->fetchAll(PDO::FETCH_NUM);
                 } catch(Exception $e) {
@@ -379,7 +379,7 @@
         function checkGameToReturn($pdo, $gameId, $idTransaction) {
             if ($pdo) {
                 try {
-                    $sth = $pdo->prepare('SELECT `transaction`.Show_key FROM `transaction`, orders WHERE orders.ID_Transaction=`transaction`.ID_Transaction AND  `transaction`.ID_Game='.$gameId.' AND `transaction`.ID_Return IS NULL AND `transaction`.ID_Transaction = "'.$idTransaction.'";');
+                    $sth = $pdo->prepare('SELECT `transaction`.Show_key FROM `transaction`, orders, order_number WHERE orders.ID_Transaction=`transaction`.ID_Transaction AND orders.ID_Order_number=order_number.ID_Order_number AND `transaction`.ID_Game='.$gameId.' AND `transaction`.ID_Return IS NULL AND `transaction`.ID_Transaction = "'.$idTransaction.'";');
                     $sth->execute(); 
                     return $sth->fetchAll(PDO::FETCH_NUM);
                 } catch(Exception $e) {
@@ -406,7 +406,7 @@
         function boughtGames($pdo, $login) {
             if ($pdo) {
                 try {
-                    $sth = $pdo->prepare('SELECT game.ID_Game, game.Title, orders.Order_number, `transaction`.ID_transaction FROM `transaction`, orders, user, game WHERE orders.ID_Transaction=`transaction`.ID_Transaction AND `transaction`.ID_User=user.ID_User AND `transaction`.ID_Game=game.ID_Game AND `transaction`.ID_Return IS NULL AND user.Login="'.$login.'";');
+                    $sth = $pdo->prepare('SELECT game.ID_Game, game.Title, order_number.Order_number, `transaction`.ID_transaction FROM `transaction`, orders, user, game, order_number WHERE orders.ID_Transaction=`transaction`.ID_Transaction AND orders.ID_Order_number=order_number.ID_Order_number AND `transaction`.ID_User=user.ID_User AND `transaction`.ID_Game=game.ID_Game AND `transaction`.ID_Return IS NULL AND user.Login="'.$login.'";');
                     $sth->execute(); 
                     return $sth->fetchAll(PDO::FETCH_NUM);
                 } catch(Exception $e) {
@@ -618,6 +618,94 @@
                     return $sth->fetchAll(PDO::FETCH_NUM);
                 } catch(Exception $e) {
                     return false;
+                }
+            }
+        }
+
+        function getLastOrderNumberID($pdo){
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('SELECT order_number.ID_Order_number FROM `order_number` ORDER BY order_number.ID_Order_number DESC LIMIT 1;');
+                    $sth->execute(); 
+                    $id = $sth->fetchAll(PDO::FETCH_NUM);
+                    return $id[0][0];
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        function insertIntoOrderNumber($pdo, $orderNumber) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('INSERT INTO `order_number` VALUE (?, ?)');
+                    $sth->execute([NULL, $orderNumber]);
+                    return true;
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        function insertIntoTransaction($pdo, $idGame, $idGameKey, $idUser, $idPayment, $priceNetto, $priceBrutto, $quantity, $data) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('INSERT INTO `transaction` VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+                    $sth->execute([NULL, $idGame, $idGameKey, $idUser, $idPayment, NULL, NULL, $priceNetto, $priceBrutto, $quantity, $data, 0]);
+                    return true;
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        function getPaymentMethodId($pdo, $paymentMethod) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('SELECT payment_method.ID_Payment_method FROM `payment_method` WHERE Payment_method = "'.$paymentMethod.'";');
+                    $sth->execute(); 
+                    $sum = $sth->fetchAll(PDO::FETCH_NUM);
+                    return $sum[0][0];
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        function insertIntoOrders($pdo, $idTransaction, $idOrderNumber) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('INSERT INTO `orders` VALUE (?, ?, ?)');
+                    $sth->execute([NULL, $idTransaction, $idOrderNumber]);
+                    return true;
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        function getGameKeyId($pdo, $idGame) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('SELECT Game_key.ID_Game_key FROM `game_key` WHERE Game_key.ID_Game = '.$idGame.' AND Game_key.Key_bought = 0;');
+                    $sth->execute(); 
+                    $id = $sth->fetchAll(PDO::FETCH_NUM);
+                    return $id[0][0];
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        function getTransactionId($pdo, $idUser){
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('SELECT `transaction`.ID_Transaction FROM `transaction` WHERE `transaction`.`ID_User` = '.$idUser.' ORDER BY `transaction`.`ID_Transaction` DESC LIMIT 1;');
+                    $sth->execute(); 
+                    $id = $sth->fetchAll(PDO::FETCH_NUM);
+                    return $id[0][0];
+                } catch(Exception $e) {
+                    return $e->getMessage();
                 }
             }
         }
