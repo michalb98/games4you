@@ -222,11 +222,18 @@
                 </div>
                 <div class="price-game-page">
                 '.$game[0][1].' zł
-                </div>
-                <a href="koszyk?id='.$id.'" title="Dodaj grę do koszyka" class="buy-game">
-                    <span>Dodaj grę do koszyka</span>
-                </a>
-            </div>
+                </div>';
+                if($game[0][7] > 0) {
+                    echo'<a href="koszyk?id='.$id.'" title="Dodaj grę do koszyka" class="buy-game">
+                        <span>Dodaj grę do koszyka</span>
+                    </a>';
+                } else {
+                    echo'<div class="buy-game">
+                        <span>Przepraszamy. Chwilowo niedostępne.</span>
+                    </div>';
+                }
+                
+            echo '</div>
         </div>
         <div id="desc-game-page">
         '.$game[0][3].'

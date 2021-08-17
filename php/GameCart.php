@@ -129,8 +129,9 @@
         function buy($db, $pdo, $gamesCount, $login) {
             $date = date('Ymd');
             $orderNumberId = $db->getLastOrderNumberID($pdo) + 1;
+            $idDiscountCode = $db->getIdDiscountCode($pdo, $_SESSION['discount-code']);  
             $orderNumber = $date.''.$orderNumberId;
-            $db->insertIntoOrderNumber($pdo, $orderNumber);
+            $db->insertIntoOrderNumber($pdo, $orderNumber, $idDiscountCode, 0, 0);
             $idOrderNumber = $db->getLastOrderNumberID($pdo);
             for($i = 0; $i < $gamesCount; $i++) {
                 $idGame = $_POST['game-id-'.$i];
@@ -139,12 +140,35 @@
                 $idPayment = $db->getPaymentMethodId($pdo, $this->paymentMethod);
                 $priceBrutto = $db->getGameData($pdo, $idGame)[0][1];
                 $priceNetto = round($priceBrutto/1.23, 2);
+                $orderValue =+ $priceBrutto;
                 $quantity = $_POST['game-id-quantity-'.$i];
                 $data = date('Y-m-d');
                 $db->insertIntoTransaction($pdo, $idGame, $idGameKey, $idUser, $idPayment, $priceNetto, $priceBrutto, $quantity, $data);
                 $idTransaction = $db->getTransactionId($pdo, $idUser);
                 $db->insertIntoOrders($pdo, $idTransaction, $idOrderNumber);
+                $db->updateGameKeyBought($pdo, $idGameKey, 1);
+                $gameQuantity = $db->getGameQuantity($pdo, $idGame) - 1;
+                $db->updateGameQuantity($pdo, $idGame, $gameQuantity);
+                if(strlen($_SESSION['discount-code']) > 0) {
+                    if($this->discountCodeValue > 0) {
+                        if($this->discountCodeValue > $priceBrutto) {
+                            $this->discountCodeValue -= $priceBrutto;
+                        } else {
+                            $this->discountCodeValue = 0;
+                        }
+                    }
+                }
             }
+            if(strlen($_SESSION['discount-code']) > 0) {
+                $discountValue = $db->checkDiscountCode($pdo, $_SESSION['discount-code'])[0][3];
+                if($discountValue > $orderValue) {
+                   $db->updateOrderNumberDiscountValue($pdo, $orderNumber, $orderValue);
+                } else {
+                    $db->updateOrderNumberDiscountValue($pdo, $orderNumber, $discountValue);
+                }
+            }
+            $db->updateDiscountCodeValue($pdo, $idDiscountCode, $this->discountCodeValue);
+            $db->updateOrderNumberOrderValue($pdo, $orderNumber, $orderValue);
             unset($_SESSION['discount-code']);
             unset($_SESSION['game-cart']);
             header('Location: koszyk');

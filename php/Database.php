@@ -47,7 +47,7 @@
         //Wyszukuje danych wybranej gry, następnie je zwraca
         function getGameData($pdo, $id) {
             if ($pdo) {
-                $sth = $pdo->prepare('SELECT Title, Price_brutto, Short_description, Description, type.Type, version.Version, platform.Platform FROM game, platform, version, type WHERE game.ID_Game = '.$id.' AND
+                $sth = $pdo->prepare('SELECT Title, Price_brutto, Short_description, Description, type.Type, version.Version, platform.Platform, `Quantity` FROM game, platform, version, type WHERE game.ID_Game = '.$id.' AND
                 game.ID_Platform = platform.ID_Platform AND game.ID_Version = version.ID_Version AND game.ID_Type = type.ID_Type;');
                 $sth->execute();
                 return $sth->fetchAll(PDO::FETCH_NUM);                
@@ -272,10 +272,9 @@
         function getOrderValue($pdo, $orderNumber) {
             if ($pdo) {
                 try {
-                    $sth = $pdo->prepare('SELECT SUM(`transaction`.Price_brutto) FROM `transaction`, orders, order_number WHERE orders.ID_Transaction=`transaction`.ID_Transaction AND orders.ID_Order_number=order_number.ID_Order_number AND order_number.Order_number = "'.$orderNumber.'";');
-                    $sth->execute(); 
-                    $sum = $sth->fetchAll(PDO::FETCH_NUM);
-                    return $sum[0][0];
+                    $sth = $pdo->prepare('SELECT `Order_value`, `Discount_value` FROM order_number WHERE order_number.Order_number = "'.$orderNumber.'";');
+                    $sth->execute();  
+                    return $sth->fetchAll(PDO::FETCH_NUM);
                 } catch(Exception $e) {
                     return $e->getMessage();
                 }
@@ -419,7 +418,7 @@
         function getGameKey($pdo, $idGame) {
             if ($pdo) {
                 try {
-                    $sth = $pdo->prepare('SELECT Game_key.Game_key FROM `game_key` WHERE Game_key.ID_Game = "'.$idGame.'" AND Game_key.Key_bought = 0;');
+                    $sth = $pdo->prepare('SELECT Game_key.Game_key FROM `game_key` WHERE Game_key.ID_Game = "'.$idGame.'" AND Game_key.Key_bought = 0 LIMIT 1;');
                     $sth->execute(); 
                     $sum = $sth->fetchAll(PDO::FETCH_NUM);
                     return $sum[0][0];
@@ -447,8 +446,8 @@
         function updateTransactionReturn($pdo, $idTransaction, $idReturn, $idDiscountCode) {
             if ($pdo) {
                 try {
-                    $sth = $pdo->prepare('UPDATE `transaction` SET `ID_Return`=?, `ID_Discount_code`=? WHERE `ID_Transaction` = '.$idTransaction.';');
-                    $sth->execute([$idReturn, $idDiscountCode]);
+                    $sth = $pdo->prepare('UPDATE `transaction` SET `ID_Game_key`=?, `ID_Return`=?, `ID_Discount_code`=? WHERE `ID_Transaction` = '.$idTransaction.';');
+                    $sth->execute([NULL, $idReturn, $idDiscountCode]);
                 } catch(Exception $e) {
                     return $e->getMessage();
                 }
@@ -474,6 +473,19 @@
             if ($pdo) {
                 try {
                     $sth = $pdo->prepare('SELECT `transaction`.`Price_brutto` FROM `transaction` WHERE `transaction`.ID_Transaction = '.$idTransaction.';');
+                    $sth->execute(); 
+                    $sum = $sth->fetchAll(PDO::FETCH_NUM);
+                    return $sum[0][0];
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        function getGameKeyIdFromTransaction($pdo, $idTransaction) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('SELECT `transaction`.`ID_Game_key` FROM `transaction` WHERE `transaction`.ID_Transaction = '.$idTransaction.';');
                     $sth->execute(); 
                     $sum = $sth->fetchAll(PDO::FETCH_NUM);
                     return $sum[0][0];
@@ -635,11 +647,11 @@
             }
         }
 
-        function insertIntoOrderNumber($pdo, $orderNumber) {
+        function insertIntoOrderNumber($pdo, $orderNumber, $idDiscountCode, $orderValue, $discountValue) {
             if ($pdo) {
                 try {
-                    $sth = $pdo->prepare('INSERT INTO `order_number` VALUE (?, ?)');
-                    $sth->execute([NULL, $orderNumber]);
+                    $sth = $pdo->prepare('INSERT INTO `order_number` VALUE (?, ?, ?, ?, ?)');
+                    $sth->execute([NULL, $orderNumber, $idDiscountCode, $orderValue, $discountValue]);
                     return true;
                 } catch(Exception $e) {
                     return $e->getMessage();
@@ -710,6 +722,73 @@
             }
         }
 
+        function updateGameKeyBought($pdo, $idGameKey, $value) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('UPDATE `game_key` SET `Key_bought`=? WHERE `ID_Game_key` = "'.$idGameKey.'";');
+                    $sth->execute([$value]);
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        function getGameQuantity($pdo, $idGame) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('SELECT `Quantity` FROM `game` WHERE `ID_Game` = '.$idGame.';');
+                    $sth->execute(); 
+                    $id = $sth->fetchAll(PDO::FETCH_NUM);
+                    return $id[0][0];
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        function updateGameQuantity($pdo, $idGame, $value) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('UPDATE `game` SET `Quantity`=? WHERE `ID_Game` = "'.$idGame.'";');
+                    $sth->execute([$value]);
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        function updateDiscountCodeValue($pdo, $idDiscountCode, $value) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('UPDATE `discount_code` SET `Value`=? WHERE `ID_Discount_code` = '.$idDiscountCode.';');
+                    $sth->execute([$value]);
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        function updateOrderNumberDiscountValue($pdo, $orderNumber, $value) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('UPDATE `order_number` SET `Discount_value`=? WHERE `Order_number` = "'.$orderNumber.'";');
+                    $sth->execute([$value]);
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        function updateOrderNumberOrderValue($pdo, $orderNumber, $value) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('UPDATE `order_number` SET `Order_value`=? WHERE `Order_number` = "'.$orderNumber.'";');
+                    $sth->execute([$value]);
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
     }
 
 ?>

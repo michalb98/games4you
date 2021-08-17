@@ -17,20 +17,24 @@
 
     //Dodawanie gry do koszyka
     if(isset($_GET['id'])){
-        if(isset($_SESSION['game-cart'])) {
-            $id = explode(',', $_SESSION['game-cart']);
-            for($i = 0; $i < sizeof($id); $i++){
-                if($id[$i] == $_GET['id']) {
-                    unset($_GET['id']);
-                    break;
-                }
-            }
-            if(isset($_GET['id']))
-                $_SESSION['game-cart'] .= ",".$_GET['id'];
-            
+        if($db->getGameData($pdo, $_GET['id'])[0][7] == 0) {
+            $_SESSION['error-quantity'] = "Przepraszamy. Chwilowy brak wybranego tytułu: ".$db->getGameData($pdo, $_GET['id'])[0][0];
         } else {
-            $_SESSION['game-cart'] = $_GET['id'];
-            header('Location: koszyk');
+            if(isset($_SESSION['game-cart'])) {
+                $id = explode(',', $_SESSION['game-cart']);
+                for($i = 0; $i < sizeof($id); $i++){
+                    if($id[$i] == $_GET['id']) {
+                        unset($_GET['id']);
+                        break;
+                    }
+                }
+                if(isset($_GET['id']))
+                    $_SESSION['game-cart'] .= ",".$_GET['id'];
+
+            } else {
+                $_SESSION['game-cart'] = $_GET['id'];
+                header('Location: koszyk');
+            }
         }
     } 
 
@@ -70,7 +74,6 @@
         if($gameCart->validateGameCartForm()) {
             $gameCart->buy($db, $pdo, $_POST['games-count'], $_SESSION['login']);            
         }
-            
     }
 
 ?>
@@ -102,6 +105,10 @@
                     }
                 } else 
                     $gameCart->emptyCart();
+                if(isset($_SESSION['error-quantity'])) {
+                    echo '<span class="error">'.$_SESSION['error-quantity'].'</span>';
+                    unset($_SESSION['error-quantity']);
+                }
             ?>
         </div>
         <?php

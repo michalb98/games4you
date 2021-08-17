@@ -45,7 +45,11 @@
             $idDiscountCode = $db->getIdDiscountCode($pdo, $discountCode);
             $db->insertIntoReturns($pdo, $idTransaction, $idDiscountCode);
             $idReturn = $db->getIdReturn($pdo, $idTransaction, $idDiscountCode);
+            $idGameKey = $db->getGameKeyIdFromTransaction($pdo, $idTransaction);
+            $db->updateGameKeyBought($pdo, $idGameKey, 0);
             $db->updateTransactionReturn($pdo, $idTransaction, $idReturn, $idDiscountCode);
+            $gameQuantity = $db->getGameQuantity($pdo, $idGame) + 1;
+            $db->updateGameQuantity($pdo, $idGame, $gameQuantity);
             header('Location: ?account=zwrot');
         }
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 17 Sie 2021, 19:35
+-- Czas generowania: 16 Sie 2021, 20:35
 -- Wersja serwera: 10.4.19-MariaDB
 -- Wersja PHP: 8.0.7
 
@@ -124,6 +124,14 @@ CREATE TABLE `discount_code` (
   `Value` float(5,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
+--
+-- Zrzut danych tabeli `discount_code`
+--
+
+INSERT INTO `discount_code` (`ID_Discount_code`, `Code`, `Valid_from`, `Valid_to`, `Value`) VALUES
+(6, '0fb84bba0eda74aa025e16ff6af46112', '2021-08-13', '2021-11-12', 169.00),
+(7, '49d23db79f28e81e39fbb4cfef1055ba', '2021-08-13', '2021-11-13', 49.99);
+
 -- --------------------------------------------------------
 
 --
@@ -148,17 +156,17 @@ CREATE TABLE `game` (
 --
 
 INSERT INTO `game` (`ID_Game`, `Title`, `Price_netto`, `Price_brutto`, `Short_description`, `Description`, `Quantity`, `ID_Type`, `ID_Version`, `ID_Platform`) VALUES
-(1, 'Days Gone', 130.07, 159.99, 'Jedź i walcz w zabójczej, postpandemicznej Ameryce. W tej przygodowej grze akcji z otwartym światem zagrasz jako Deacon St. John, walczący o przetrwanie włóczęga i łowca nagród, przemierzający zniszczoną drogę w poszukiwaniu powodów, by dalej żyć.', 'Days Gone  to klasyczna przygodowa gra akcji, w której kamera znajduje się stale za plecami głównego bohatera. Podczas rozgrywki eksplorujemy obszerną sandboksową mapę, wykonujemy zadania (główne i poboczne – np. czyszczenie obozów z bandytów czy polowanie na zwierzęta) i walczymy z wrogami – zarówno ludźmi, jak i z rozmaitymi rodzajami groźnych ofiar wirusa. Te ostatnie często poruszają się w hordach liczących nawet kilkaset osobników, a do tego posiadają własne potrzeby i regulujący ich zachowanie cykl dobowy. Ciekawym detalem urozmaicającym zabawę jest częściowa interaktywność otoczenia – mamy możliwość m.in. popychania przeciwników na obiekty lub przecinania lin podtrzymujących ścięte drzewa. Twórcy położyli też duży nacisk na taktykę i planowanie – szczególnie w przypadku starć z ludzkimi wrogami. Walczymy, korzystając z rozbudowanego arsenału, m.in. karabinów maszynowych, shotgunów czy snajperek. Deacon dysponuje również kilkoma specjalnymi umiejętnościami, takimi jak np. spowalnianie czasu w trakcie walki (klasyczny bullet time) czy tzw. survival vision, umożliwiające podkreślanie ważnych przedmiotów i przeciwników, dzięki czemu łatwiej jest dostrzec, co i kto nas otacza – i gdzie mogą kryć się potencjalne zagrożenia. W miarę postępów w rozgrywce bohater może uczyć się nowych rzeczy i stopniowo rozwijać statystyki (takie jak życie czy wytrzymałość). Gra posiada rozbudowany, ale relatywnie prosty w obsłudze system rzemiosła, na potrzeby którego zbieramy duże ilości przeróżnych materiałów. Duże znaczenie dla rozgrywki ma także motocykl, którym poruszamy się po mapie. Mamy możliwość dostosowywania jego wyglądu, parametrów technicznych (np. poprzez zmianę opon czy silnika), a także zdobywania innych usprawnień, takich jak torby umożliwiające przewożenie większej liczby przedmiotów. Co ciekawe, nasz stalowy rumak wymaga benzyny, o której zapas trzeba się zatroszczyć, jeśli nie chcemy utknąć na niebezpiecznym pustkowiu.', 3, 2, 1, 1),
-(2, 'Phasmophobia', 40.64, 49.99, 'Phasmophobia jest nietypowym survival horrorem, który został opracowany z myślą o 4-osobowym trybie kooperacyjnym. Tytuł oferuje też wsparcie dla wirtualnej rzeczywistości. Za jego opracowane i wydanie odpowiada niezależne studio Kinetic Games.', 'W Phasmophobia akcję obserwujemy z perspektywy pierwszoosobowej. Zabawa polega na eksplorowaniu nawiedzonych miejsc i zbieraniu dowodów na istnienie duchów. Wykorzystujemy do tego celu specjalny sprzęt, taki jak mierniki pola elektromagnetycznego, kamery CTTV czy detektory ruchu (częścią sprzętu zarządzamy z ciężarówki będącej naszą bazą – odpowiada za to jeden z członków zespołu). Warto odnotować, że czym dłużej znajdujemy się w danej lokalizacji (deweloperzy przygotowali kilka odmiennych miejsc – mamy do wyboru posiadłość, więzienie, farmę, szkołę czy szpital), tym bardziej niebezpieczna się ona staje. W grze można znaleźć przeszło dziesięć unikatowych typów duchów – każdy z nich posiada wyjątkowe cechy, dzięki czemu kolejne dochodzenia zauważalnie różnią się od siebie. Co ciekawe, gra wykorzystuje też funkcję wykrywania mowy, dzięki której czasem możemy wchodzić w interakcje z duchami używając swojego własnego głosu.', 1, 7, 1, 1),
-(30, 'The Sims 4', 81.29, 99.99, 'Poczuj moc tworzenia i kontrolowania własnych postaci w wirtualnym świecie, w którym nie ma ograniczeń. Doświadczaj wolności w zabawie, rządź i pogrywaj z życiem!', '\"Puść wodze wyobraźni i stwórz wyjątkowy świat Simów. Odkrywaj bogactwo opcji i dostosowuj najdrobniejsze szczegóły dotyczące Simów, ich domów i nie tylko. Wybierz wygląd, zachowanie i ubiór Simów. Określ, jak będą spędzać codzienne życie. Projektuj i buduj wyjątkowe domy dla każdej z rodzin, a potem wyposażaj je, dodając ulubione meble i dekoracje. Odwiedzaj różnorodne otoczenia, w których możesz poznawać innych Simów i ich historie. Odkrywaj piękne lokacje z niepowtarzalnym klimatem i funduj Simom spontaniczne przygody. Przeżywaj razem z nimi radości i smutki codzienności i rozgrywaj realistyczne lub kompletnie zakręcone scenariusze. Opowiadaj historie Simów tak, jak chcesz, buduj ich związki, rozwijaj kariery, wypełniaj życiowe aspiracje i zanurz się w świecie tej wyjątkowej gry, w której możliwości są naprawdę nieograniczone.', 1, 11, 1, 2),
-(31, 'Grand Theft Auto V', 97.55, 119.99, 'Grand Theft Auto V na PC pozwala graczom zobaczyć ogromny świat Los Santos i hrabstwa Blaine w rozdzielczości sięgającej 4K i lepszej oraz w 60 klatkach na sekundę.', 'Gdy młody opryszek, emerytowany rabuś oraz przerażający psychol wplątują się w gangsterskie porachunki i interesy świata zbrodni, rządu USA i przemysłu rozrywkowego, muszą wykonać serię niebezpiecznych napadów, aby przetrwać w bezlitosnym świecie, w którym zdrada czyha na każdym kroku.', 1, 1, 1, 7),
-(32, 'Forza Horizon 4', 162.59, 199.99, 'Dynamiczne pory roku całkowicie zmienią największy motoryzacyjny festiwal świata. Weź w niej udział samodzielnie lub stwórz drużynę wraz z innymi graczami.', 'Dynamiczne pory roku całkowicie zmienią największy motoryzacyjny festiwal świata. Weź w niej udział samodzielnie lub stwórz drużynę wraz z innymi graczami. Podziwiaj historyczne zakątki Brytanii, przemierzając wspólny otwarty świat w jednym z 450 różnych modeli samochodów do zebrania i zmodyfikowania. Wyścigi, popisy kaskaderskie, budowanie i eksploracja – wybierz swoją specjalność i zostań supergwiazdą Horizon.', 2, 5, 1, 1),
-(37, 'Wiedźmin 3 Dziki Gon', 81.29, 99.99, 'Wejdź w rolę profesjonalnego zabójcy potworów, Geralta z Rivii. Przemierzaj ogarnięte wojną Królestwa Północy idąc śladami Ciri, dziewczyny z prastarej przepowiedni, której magiczny talent może zniszczyć świat.', 'Wiedźmin: Dziki Gon to osadzona w olśniewającym uniwersum fantasy gra RPG nowej generacji, w której nacisk położono na otwarty świat, bogatą fabułę, trudne wybory i rzeczywiste konsekwencje. W grze wcielasz się w Geralta z Rivii — zawodowego łowcę potworów, któremu powierzono zadanie odszukania dziecka z prastarej przepowiedni. Czeka na ciebie ogromny, otwarty świat pełen kupieckich miast, wysp piratów, niebezpiecznych górskich przełęczy i zapomnianych jaskiń.', 1, 10, 1, 4),
-(38, 'Cyberpunk 2077', 162.59, 199.99, 'Cyberpunk 2077 to rozgrywająca się w otwartym świecie przygoda, której akcja toczy się w Night City, megalopolis rządzonym przez obsesyjną pogoń za władzą, sławą i przerabianiem własnego ciała. Nazywasz się V i musisz zdobyć implant.', 'Cyberpunk 2077 to rozgrywająca się w otwartym świecie przygoda, której akcja toczy się w Night City, megalopolis rządzonym przez obsesyjną pogoń za władzą, sławą i przerabianiem własnego ciała. Nazywasz się V i musisz zdobyć jedyny w swoim rodzaju implant — klucz do nieśmiertelności. Stwórz własny styl gry i ruszaj na podbój potężnego miasta przyszłości, którego historię kształtują twoje decyzje.', 2, 10, 1, 4),
-(39, 'This War of Mine', 48.77, 59.99, 'W grze nie wcielasz się w elitarnego żołnierza. Stajesz na czele grupki cywilów, starających się przeżyć w oblężonym mieście, zmagając się z brakiem żywności, lekarstw i ciągłym zagrożeniem ze strony snajperów i szabrowników.', 'W This War of Mine nie wcielasz się w rolę elitarnego żołnierza, lecz w grupę cywilów, którzy starają się przetrwać w oblężonym mieście, zmagając się z brakiem żywności, lekarstw i ciągłym zagrożeniem ze strony snajperów oraz szabrowników. Gra dostarcza przeżyć wojennych ukazanych z zupełnie wyjątkowej perspektywy.\r\n\r\nTempo rozgrywki jest oparte na cyklu dobowym. W ciągu dnia snajperzy uniemożliwiają ci opuszczanie schronienia, więc skupiaj się wtedy na utrzymywaniu go w jak najlepszym stanie, tworzeniu przedmiotów, wymienianiu się nimi oraz zajmowaniu się ocalałymi. Z kolei w nocy zabieraj jednego ze swoich ludzi na przeszukiwanie różnorodnych miejsc, starając się znaleźć rzeczy, które pomogą ci przetrwać.\r\n\r\nPodejmuj decyzje w sprawach życia i śmierci, kierując się własnym sumieniem. Postaraj się, by przeżyli wszyscy z twojego schronienia, lub poświęć kogoś, by mogli przetrwać inni. Podczas wojny nie ma dobrych i złych wyborów – jest tylko przetrwanie. Im szybciej to zrozumiesz, tym lepiej.', 1, 4, 1, 1),
-(40, 'Ghost of Tsushima', 243.89, 299.99, 'Odkrywaj piękno Tsushimy w tej osadzonej w otwartym świecie przygodowej grze akcji stworzonej przez Sucker Punch Productions i PlayStation Studios, dostępnej na PS5 i PS4.', 'Rok 1274. Na kontynencie azjatyckim praktycznie niepodzielnie rządzi imperium mongolskie. Jego władcy łakomym okiem spoglądają na bogactwa feudalnej Japonii. Chan Kubilaj decyduje się w końcu na dokonanie inwazji. Jej pierwszym celem jest położona dokładnie pośrodku Cieśniny Koreańskiej wyspa Cuszima. Podczas ataku wojska mongolskie masakrują większość samurajów mieszkających na wyspie. Głównemu bohaterowi gry – Jinowi Sakai – cudem udaje się przetrwać tragiczną w skutkach bitwę. Od tego momentu głównym celem protagonisty staje się powstrzymanie Mongołów. Jednak aby tego dokonać, będzie musiał zapomnieć o samurajskich tradycjach.', 2, 3, 4, 9),
-(42, 'Gears 5', 81.29, 99.99, 'Piąta część popularnego cyklu TPS-ów, w której wcielamy się w znaną z Gears of War 4 Kait Diaz. Protagonistka wyrusza w podróż do odległego zakątka planety Sera, by rozwikłać zagadkę trapiących ją koszmarów.', 'Akcja Gears 5 toczy się po wydarzeniach przedstawionych w czwartej części serii. W roli głównej obsadzono Kait Diaz, która w towarzystwie Delmonta Walkera udaje się w długą podróż przez malownicze, ale i pełne niebezpieczeństw zakątki planety Sera. Protagonistka zamierza dowiedzieć się więcej na temat pochodzenia Szarańczy (ang. Locust) i odkryć źródło trapiących ją koszmarów, w których, jak wierzy, kryje się jakaś wiadomość. Jedną z głównych osi fabularnych jest również uruchomienie Młota Świtu, czyli potężnej broni energetycznej atakującej z orbity.', 2, 2, 2, 8),
-(43, 'Resident Evil Village', 203.24, 249.99, 'Oto survival horror, jakiego jeszcze nie było — ósma odsłona legendarnej serii Resident Evil. Realistyczna grafika, pierwszoosobowa akcja i mistrzowska fabuła sprawią, że poczucie zagrożenia będzie rzeczywiste jak nigdy.', 'Rok 1274. Na kontynencie azjatyckim praktycznie niepodzielnie rządzi imperium mongolskie. Jego władcy łakomym okiem spoglądają na bogactwa feudalnej Japonii. Chan Kubilaj decyduje się w końcu na dokonanie inwazji. Jej pierwszym celem jest położona dokładnie pośrodku Cieśniny Koreańskiej wyspa Cuszima. Podczas ataku wojska mongolskie masakrują większość samurajów mieszkających na wyspie. Głównemu bohaterowi gry – Jinowi Sakai – cudem udaje się przetrwać tragiczną w skutkach bitwę. Od tego momentu głównym celem protagonisty staje się powstrzymanie Mongołów. Jednak aby tego dokonać, będzie musiał zapomnieć o samurajskich tradycjach.', 1, 7, 1, 1);
+(1, 'Days Gone', 130.07, 159.99, 'Jedź i walcz w zabójczej, postpandemicznej Ameryce. W tej przygodowej grze akcji z otwartym światem zagrasz jako Deacon St. John, walczący o przetrwanie włóczęga i łowca nagród, przemierzający zniszczoną drogę w poszukiwaniu powodów, by dalej żyć.', 'Days Gone  to klasyczna przygodowa gra akcji, w której kamera znajduje się stale za plecami głównego bohatera. Podczas rozgrywki eksplorujemy obszerną sandboksową mapę, wykonujemy zadania (główne i poboczne – np. czyszczenie obozów z bandytów czy polowanie na zwierzęta) i walczymy z wrogami – zarówno ludźmi, jak i z rozmaitymi rodzajami groźnych ofiar wirusa. Te ostatnie często poruszają się w hordach liczących nawet kilkaset osobników, a do tego posiadają własne potrzeby i regulujący ich zachowanie cykl dobowy. Ciekawym detalem urozmaicającym zabawę jest częściowa interaktywność otoczenia – mamy możliwość m.in. popychania przeciwników na obiekty lub przecinania lin podtrzymujących ścięte drzewa. Twórcy położyli też duży nacisk na taktykę i planowanie – szczególnie w przypadku starć z ludzkimi wrogami. Walczymy, korzystając z rozbudowanego arsenału, m.in. karabinów maszynowych, shotgunów czy snajperek. Deacon dysponuje również kilkoma specjalnymi umiejętnościami, takimi jak np. spowalnianie czasu w trakcie walki (klasyczny bullet time) czy tzw. survival vision, umożliwiające podkreślanie ważnych przedmiotów i przeciwników, dzięki czemu łatwiej jest dostrzec, co i kto nas otacza – i gdzie mogą kryć się potencjalne zagrożenia. W miarę postępów w rozgrywce bohater może uczyć się nowych rzeczy i stopniowo rozwijać statystyki (takie jak życie czy wytrzymałość). Gra posiada rozbudowany, ale relatywnie prosty w obsłudze system rzemiosła, na potrzeby którego zbieramy duże ilości przeróżnych materiałów. Duże znaczenie dla rozgrywki ma także motocykl, którym poruszamy się po mapie. Mamy możliwość dostosowywania jego wyglądu, parametrów technicznych (np. poprzez zmianę opon czy silnika), a także zdobywania innych usprawnień, takich jak torby umożliwiające przewożenie większej liczby przedmiotów. Co ciekawe, nasz stalowy rumak wymaga benzyny, o której zapas trzeba się zatroszczyć, jeśli nie chcemy utknąć na niebezpiecznym pustkowiu.', 50, 2, 1, 1),
+(2, 'Phasmophobia', 40.64, 49.99, 'Phasmophobia jest nietypowym survival horrorem, który został opracowany z myślą o 4-osobowym trybie kooperacyjnym. Tytuł oferuje też wsparcie dla wirtualnej rzeczywistości. Za jego opracowane i wydanie odpowiada niezależne studio Kinetic Games.', 'W Phasmophobia akcję obserwujemy z perspektywy pierwszoosobowej. Zabawa polega na eksplorowaniu nawiedzonych miejsc i zbieraniu dowodów na istnienie duchów. Wykorzystujemy do tego celu specjalny sprzęt, taki jak mierniki pola elektromagnetycznego, kamery CTTV czy detektory ruchu (częścią sprzętu zarządzamy z ciężarówki będącej naszą bazą – odpowiada za to jeden z członków zespołu). Warto odnotować, że czym dłużej znajdujemy się w danej lokalizacji (deweloperzy przygotowali kilka odmiennych miejsc – mamy do wyboru posiadłość, więzienie, farmę, szkołę czy szpital), tym bardziej niebezpieczna się ona staje. W grze można znaleźć przeszło dziesięć unikatowych typów duchów – każdy z nich posiada wyjątkowe cechy, dzięki czemu kolejne dochodzenia zauważalnie różnią się od siebie. Co ciekawe, gra wykorzystuje też funkcję wykrywania mowy, dzięki której czasem możemy wchodzić w interakcje z duchami używając swojego własnego głosu.', 20, 7, 1, 1),
+(30, 'The Sims 4', 81.29, 99.99, 'Poczuj moc tworzenia i kontrolowania własnych postaci w wirtualnym świecie, w którym nie ma ograniczeń. Doświadczaj wolności w zabawie, rządź i pogrywaj z życiem!', '\"Puść wodze wyobraźni i stwórz wyjątkowy świat Simów. Odkrywaj bogactwo opcji i dostosowuj najdrobniejsze szczegóły dotyczące Simów, ich domów i nie tylko. Wybierz wygląd, zachowanie i ubiór Simów. Określ, jak będą spędzać codzienne życie. Projektuj i buduj wyjątkowe domy dla każdej z rodzin, a potem wyposażaj je, dodając ulubione meble i dekoracje. Odwiedzaj różnorodne otoczenia, w których możesz poznawać innych Simów i ich historie. Odkrywaj piękne lokacje z niepowtarzalnym klimatem i funduj Simom spontaniczne przygody. Przeżywaj razem z nimi radości i smutki codzienności i rozgrywaj realistyczne lub kompletnie zakręcone scenariusze. Opowiadaj historie Simów tak, jak chcesz, buduj ich związki, rozwijaj kariery, wypełniaj życiowe aspiracje i zanurz się w świecie tej wyjątkowej gry, w której możliwości są naprawdę nieograniczone.', 20, 11, 1, 2),
+(31, 'Grand Theft Auto V', 97.55, 119.99, 'Grand Theft Auto V na PC pozwala graczom zobaczyć ogromny świat Los Santos i hrabstwa Blaine w rozdzielczości sięgającej 4K i lepszej oraz w 60 klatkach na sekundę.', 'Gdy młody opryszek, emerytowany rabuś oraz przerażający psychol wplątują się w gangsterskie porachunki i interesy świata zbrodni, rządu USA i przemysłu rozrywkowego, muszą wykonać serię niebezpiecznych napadów, aby przetrwać w bezlitosnym świecie, w którym zdrada czyha na każdym kroku.', 20, 1, 1, 7),
+(32, 'Forza Horizon 4', 162.59, 199.99, 'Dynamiczne pory roku całkowicie zmienią największy motoryzacyjny festiwal świata. Weź w niej udział samodzielnie lub stwórz drużynę wraz z innymi graczami.', 'Dynamiczne pory roku całkowicie zmienią największy motoryzacyjny festiwal świata. Weź w niej udział samodzielnie lub stwórz drużynę wraz z innymi graczami. Podziwiaj historyczne zakątki Brytanii, przemierzając wspólny otwarty świat w jednym z 450 różnych modeli samochodów do zebrania i zmodyfikowania. Wyścigi, popisy kaskaderskie, budowanie i eksploracja – wybierz swoją specjalność i zostań supergwiazdą Horizon.', 20, 5, 1, 1),
+(37, 'Wiedźmin 3 Dziki Gon', 81.29, 99.99, 'Wejdź w rolę profesjonalnego zabójcy potworów, Geralta z Rivii. Przemierzaj ogarnięte wojną Królestwa Północy idąc śladami Ciri, dziewczyny z prastarej przepowiedni, której magiczny talent może zniszczyć świat.', 'Wiedźmin: Dziki Gon to osadzona w olśniewającym uniwersum fantasy gra RPG nowej generacji, w której nacisk położono na otwarty świat, bogatą fabułę, trudne wybory i rzeczywiste konsekwencje. W grze wcielasz się w Geralta z Rivii — zawodowego łowcę potworów, któremu powierzono zadanie odszukania dziecka z prastarej przepowiedni. Czeka na ciebie ogromny, otwarty świat pełen kupieckich miast, wysp piratów, niebezpiecznych górskich przełęczy i zapomnianych jaskiń.', 50, 10, 1, 4),
+(38, 'Cyberpunk 2077', 162.59, 199.99, 'Cyberpunk 2077 to rozgrywająca się w otwartym świecie przygoda, której akcja toczy się w Night City, megalopolis rządzonym przez obsesyjną pogoń za władzą, sławą i przerabianiem własnego ciała. Nazywasz się V i musisz zdobyć implant.', 'Cyberpunk 2077 to rozgrywająca się w otwartym świecie przygoda, której akcja toczy się w Night City, megalopolis rządzonym przez obsesyjną pogoń za władzą, sławą i przerabianiem własnego ciała. Nazywasz się V i musisz zdobyć jedyny w swoim rodzaju implant — klucz do nieśmiertelności. Stwórz własny styl gry i ruszaj na podbój potężnego miasta przyszłości, którego historię kształtują twoje decyzje.', 50, 10, 1, 4),
+(39, 'This War of Mine', 48.77, 59.99, 'W grze nie wcielasz się w elitarnego żołnierza. Stajesz na czele grupki cywilów, starających się przeżyć w oblężonym mieście, zmagając się z brakiem żywności, lekarstw i ciągłym zagrożeniem ze strony snajperów i szabrowników.', 'W This War of Mine nie wcielasz się w rolę elitarnego żołnierza, lecz w grupę cywilów, którzy starają się przetrwać w oblężonym mieście, zmagając się z brakiem żywności, lekarstw i ciągłym zagrożeniem ze strony snajperów oraz szabrowników. Gra dostarcza przeżyć wojennych ukazanych z zupełnie wyjątkowej perspektywy.\r\n\r\nTempo rozgrywki jest oparte na cyklu dobowym. W ciągu dnia snajperzy uniemożliwiają ci opuszczanie schronienia, więc skupiaj się wtedy na utrzymywaniu go w jak najlepszym stanie, tworzeniu przedmiotów, wymienianiu się nimi oraz zajmowaniu się ocalałymi. Z kolei w nocy zabieraj jednego ze swoich ludzi na przeszukiwanie różnorodnych miejsc, starając się znaleźć rzeczy, które pomogą ci przetrwać.\r\n\r\nPodejmuj decyzje w sprawach życia i śmierci, kierując się własnym sumieniem. Postaraj się, by przeżyli wszyscy z twojego schronienia, lub poświęć kogoś, by mogli przetrwać inni. Podczas wojny nie ma dobrych i złych wyborów – jest tylko przetrwanie. Im szybciej to zrozumiesz, tym lepiej.', 25, 4, 1, 1),
+(40, 'Ghost of Tsushima', 243.89, 299.99, 'Odkrywaj piękno Tsushimy w tej osadzonej w otwartym świecie przygodowej grze akcji stworzonej przez Sucker Punch Productions i PlayStation Studios, dostępnej na PS5 i PS4.', 'Rok 1274. Na kontynencie azjatyckim praktycznie niepodzielnie rządzi imperium mongolskie. Jego władcy łakomym okiem spoglądają na bogactwa feudalnej Japonii. Chan Kubilaj decyduje się w końcu na dokonanie inwazji. Jej pierwszym celem jest położona dokładnie pośrodku Cieśniny Koreańskiej wyspa Cuszima. Podczas ataku wojska mongolskie masakrują większość samurajów mieszkających na wyspie. Głównemu bohaterowi gry – Jinowi Sakai – cudem udaje się przetrwać tragiczną w skutkach bitwę. Od tego momentu głównym celem protagonisty staje się powstrzymanie Mongołów. Jednak aby tego dokonać, będzie musiał zapomnieć o samurajskich tradycjach.', 25, 3, 4, 9),
+(42, 'Gears 5', 81.29, 99.99, 'Piąta część popularnego cyklu TPS-ów, w której wcielamy się w znaną z Gears of War 4 Kait Diaz. Protagonistka wyrusza w podróż do odległego zakątka planety Sera, by rozwikłać zagadkę trapiących ją koszmarów.', 'Akcja Gears 5 toczy się po wydarzeniach przedstawionych w czwartej części serii. W roli głównej obsadzono Kait Diaz, która w towarzystwie Delmonta Walkera udaje się w długą podróż przez malownicze, ale i pełne niebezpieczeństw zakątki planety Sera. Protagonistka zamierza dowiedzieć się więcej na temat pochodzenia Szarańczy (ang. Locust) i odkryć źródło trapiących ją koszmarów, w których, jak wierzy, kryje się jakaś wiadomość. Jedną z głównych osi fabularnych jest również uruchomienie Młota Świtu, czyli potężnej broni energetycznej atakującej z orbity.', 50, 2, 2, 8),
+(43, 'Resident Evil Village', 203.24, 249.99, 'Oto survival horror, jakiego jeszcze nie było — ósma odsłona legendarnej serii Resident Evil. Realistyczna grafika, pierwszoosobowa akcja i mistrzowska fabuła sprawią, że poczucie zagrożenia będzie rzeczywiste jak nigdy.', 'Rok 1274. Na kontynencie azjatyckim praktycznie niepodzielnie rządzi imperium mongolskie. Jego władcy łakomym okiem spoglądają na bogactwa feudalnej Japonii. Chan Kubilaj decyduje się w końcu na dokonanie inwazji. Jej pierwszym celem jest położona dokładnie pośrodku Cieśniny Koreańskiej wyspa Cuszima. Podczas ataku wojska mongolskie masakrują większość samurajów mieszkających na wyspie. Głównemu bohaterowi gry – Jinowi Sakai – cudem udaje się przetrwać tragiczną w skutkach bitwę. Od tego momentu głównym celem protagonisty staje się powstrzymanie Mongołów. Jednak aby tego dokonać, będzie musiał zapomnieć o samurajskich tradycjach.', 20, 7, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -170,7 +178,7 @@ CREATE TABLE `game_key` (
   `ID_Game_key` int(9) NOT NULL,
   `ID_Game` int(6) NOT NULL,
   `Game_key` varchar(200) COLLATE utf8_polish_ci NOT NULL,
-  `Key_bought` tinyint(1) NOT NULL DEFAULT 0
+  `Key_bought` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
@@ -179,23 +187,10 @@ CREATE TABLE `game_key` (
 
 INSERT INTO `game_key` (`ID_Game_key`, `ID_Game`, `Game_key`, `Key_bought`) VALUES
 (1, 38, 'RTAMT-DTC65-8EA6B', 1),
-(2, 1, 'RTAMT-DTC65-8EA6C', 0),
-(3, 2, 'ATAMT-DTC65-8EA6B', 0),
-(4, 31, 'ATAMT-DTC65-8EA6D', 0),
-(5, 37, 'RTAMT-DTC65-8EA6W', 0),
-(6, 39, 'RTAMT-DTC65-8EA6B', 0),
-(7, 32, 'FHAMT-DTC65-8EA6W', 0),
-(8, 43, 'REAMT-DTC65-8EA6D', 0),
-(9, 30, 'TSAMT-DTC65-8EA6D', 0),
-(10, 38, 'IPCZ6-E7DSQ-0GKS5', 0),
-(11, 38, 'DPYNO-7GLZF-7E747', 0),
-(12, 1, 'INW2T-5JR2L-3LVR7', 0),
-(13, 1, 'JEVBZ-JTIGC-YXTCS', 0),
-(14, 32, 'G7MZU-G6O8D-N3JIF', 0),
-(15, 42, 'YUU00-XPJ5I-ZU5PF', 0),
-(16, 42, 'J5RF1-JZ3J6-VAYQ8', 0),
-(17, 40, 'RJN5X-5J374-TMFN8', 0),
-(18, 40, 'GT4TS-DQDZH-SM3DG', 0);
+(2, 1, 'RTAMT-DTC65-8EA6C', 1),
+(3, 2, 'ATAMT-DTC65-8EA6B', 1),
+(4, 31, 'ATAMT-DTC65-8EA6D', 1),
+(5, 37, 'RTAMT-DTC65-8EA6W', 0);
 
 -- --------------------------------------------------------
 
@@ -215,7 +210,7 @@ CREATE TABLE `game_rating` (
 --
 
 INSERT INTO `game_rating` (`ID_Game_rating`, `ID_Game`, `ID_User`, `Rating`) VALUES
-(14, 38, 1, 5);
+(1, 38, 1, 5);
 
 -- --------------------------------------------------------
 
@@ -278,7 +273,11 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`ID_Order`, `ID_Transaction`, `ID_Order_number`) VALUES
-(1, 1, 1);
+(1, 1, 1),
+(3, 2, 2),
+(4, 3, 3),
+(8, 12, 15),
+(9, 13, 16);
 
 -- --------------------------------------------------------
 
@@ -288,18 +287,19 @@ INSERT INTO `orders` (`ID_Order`, `ID_Transaction`, `ID_Order_number`) VALUES
 
 CREATE TABLE `order_number` (
   `ID_Order_number` int(9) NOT NULL,
-  `Order_number` varchar(50) COLLATE utf8_polish_ci NOT NULL,
-  `ID_Discount_code` int(9) DEFAULT NULL,
-  `Order_value` float NOT NULL,
-  `Discount_value` float NOT NULL DEFAULT 0
+  `Order_number` varchar(50) COLLATE utf8_polish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
 -- Zrzut danych tabeli `order_number`
 --
 
-INSERT INTO `order_number` (`ID_Order_number`, `Order_number`, `ID_Discount_code`, `Order_value`, `Discount_value`) VALUES
-(1, '202108171', NULL, 199.99, 0);
+INSERT INTO `order_number` (`ID_Order_number`, `Order_number`) VALUES
+(1, '202108131'),
+(2, '202108132'),
+(3, '202108133'),
+(15, '2021081615'),
+(16, '2021081616');
 
 -- --------------------------------------------------------
 
@@ -363,6 +363,14 @@ CREATE TABLE `returns` (
   `ID_Discount_code` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
+--
+-- Zrzut danych tabeli `returns`
+--
+
+INSERT INTO `returns` (`ID_Return`, `ID_Transaction`, `ID_Discount_code`) VALUES
+(1, 2, 6),
+(2, 3, 7);
+
 -- --------------------------------------------------------
 
 --
@@ -420,7 +428,7 @@ INSERT INTO `tag` (`ID_Tag`, `Tag`) VALUES
 CREATE TABLE `transaction` (
   `ID_Transaction` int(9) NOT NULL,
   `ID_Game` int(6) NOT NULL,
-  `ID_Game_key` int(9) DEFAULT NULL,
+  `ID_Game_key` int(9) NOT NULL,
   `ID_User` int(7) NOT NULL,
   `ID_Payment_method` int(2) NOT NULL,
   `ID_Return` int(9) DEFAULT NULL,
@@ -437,7 +445,11 @@ CREATE TABLE `transaction` (
 --
 
 INSERT INTO `transaction` (`ID_Transaction`, `ID_Game`, `ID_Game_key`, `ID_User`, `ID_Payment_method`, `ID_Return`, `ID_Discount_code`, `Price_netto`, `Price_brutto`, `Quantity`, `Data`, `Show_key`) VALUES
-(1, 38, 1, 1, 4, NULL, NULL, 162.59, 199.99, 1, '2021-08-17', 1);
+(1, 38, 1, 1, 5, NULL, NULL, 162.59, 199.99, 1, '2021-08-09', 1),
+(2, 1, 2, 1, 3, 1, 6, 109.00, 169.00, 1, '2021-08-09', 0),
+(3, 2, 3, 1, 4, 2, 7, 40.64, 49.99, 1, '2021-08-12', 0),
+(12, 31, 4, 1, 1, NULL, NULL, 97.55, 119.99, 1, '2021-08-16', 0),
+(13, 37, 5, 1, 2, NULL, NULL, 81.29, 99.99, 1, '2021-08-16', 0);
 
 -- --------------------------------------------------------
 
@@ -586,8 +598,7 @@ ALTER TABLE `orders`
 -- Indeksy dla tabeli `order_number`
 --
 ALTER TABLE `order_number`
-  ADD PRIMARY KEY (`ID_Order_number`),
-  ADD KEY `ID_Discount_code` (`ID_Discount_code`);
+  ADD PRIMARY KEY (`ID_Order_number`);
 
 --
 -- Indeksy dla tabeli `payment_method`
@@ -654,7 +665,7 @@ ALTER TABLE `version`
 -- AUTO_INCREMENT dla tabeli `additional_data`
 --
 ALTER TABLE `additional_data`
-  MODIFY `ID_Additional_data` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `ID_Additional_data` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT dla tabeli `countries`
@@ -666,7 +677,7 @@ ALTER TABLE `countries`
 -- AUTO_INCREMENT dla tabeli `discount_code`
 --
 ALTER TABLE `discount_code`
-  MODIFY `ID_Discount_code` int(9) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_Discount_code` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT dla tabeli `game`
@@ -678,13 +689,13 @@ ALTER TABLE `game`
 -- AUTO_INCREMENT dla tabeli `game_key`
 --
 ALTER TABLE `game_key`
-  MODIFY `ID_Game_key` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `ID_Game_key` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT dla tabeli `game_rating`
 --
 ALTER TABLE `game_rating`
-  MODIFY `ID_Game_rating` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `ID_Game_rating` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT dla tabeli `game_tags`
@@ -702,13 +713,13 @@ ALTER TABLE `issue`
 -- AUTO_INCREMENT dla tabeli `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `ID_Order` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID_Order` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT dla tabeli `order_number`
 --
 ALTER TABLE `order_number`
-  MODIFY `ID_Order_number` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID_Order_number` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT dla tabeli `payment_method`
@@ -726,7 +737,7 @@ ALTER TABLE `platform`
 -- AUTO_INCREMENT dla tabeli `returns`
 --
 ALTER TABLE `returns`
-  MODIFY `ID_Return` int(9) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_Return` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT dla tabeli `tag`
@@ -738,7 +749,7 @@ ALTER TABLE `tag`
 -- AUTO_INCREMENT dla tabeli `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `ID_Transaction` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID_Transaction` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT dla tabeli `type`
@@ -750,7 +761,7 @@ ALTER TABLE `type`
 -- AUTO_INCREMENT dla tabeli `user`
 --
 ALTER TABLE `user`
-  MODIFY `ID_User` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `ID_User` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT dla tabeli `version`
@@ -802,12 +813,6 @@ ALTER TABLE `game_tags`
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`ID_Transaction`) REFERENCES `transaction` (`ID_Transaction`),
   ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`ID_Order_number`) REFERENCES `order_number` (`ID_Order_number`);
-
---
--- Ograniczenia dla tabeli `order_number`
---
-ALTER TABLE `order_number`
-  ADD CONSTRAINT `order_number_ibfk_1` FOREIGN KEY (`ID_Discount_code`) REFERENCES `discount_code` (`ID_Discount_code`);
 
 --
 -- Ograniczenia dla tabeli `returns`

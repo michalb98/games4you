@@ -5,7 +5,7 @@
         protected $orders;
         protected $gameData;
         protected $ordersCount;
-        protected $orderValue, $gamesValue;
+        protected $orderValue, $gamesValue, $orderDiscountValue;
     
         //Wyświetla zamówienia użytkownika
         function drawOrders($pdo, $db, $grid) {
@@ -16,7 +16,8 @@
             else {
                 for($j=0; $j < $this->ordersCount; $j++) {
                     $this->gameData = $db->getOrders($pdo, $_SESSION['login'], $this->orders[$j][0]);
-                    $this->orderValue = $db->getOrderValue($pdo, $this->orders[$j][0]);
+                    $this->orderValue = $db->getOrderValue($pdo, $this->orders[$j][0])[0][0];
+                    $this->orderDiscountValue = $db->getOrderValue($pdo, $this->orders[$j][0])[0][1];
                     $this->gamesValue = $db->getOrderGameValue($pdo, $this->orders[$j][0]);
                     echo '<div class="order-container">
                     <div class="order-number">
@@ -24,8 +25,11 @@
                     </div>
                     <div class="order-data">
                         Ilość: '.$this->gamesValue.'
-                        Wartość: '.$this->orderValue.' zł
-                        <br>Data zamówienia: '.$this->gameData[0][5].'
+                        Wartość: '.$this->orderValue.' zł';
+                        if($this->orderDiscountValue > 0) {
+                            echo ' w tym zniżka: '.$this->orderDiscountValue.' zł';
+                        } 
+                        echo '<br>Data zamówienia: '.$this->gameData[0][5].'
                         <br>Metoda płatnośći: '.$this->gameData[0][6].'
                     </div>';
                     for($i = 0; $i < count($this->gameData); $i++) {
