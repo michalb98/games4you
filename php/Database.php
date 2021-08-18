@@ -259,7 +259,7 @@
         function getOrders($pdo, $login, $orderNumber) {
             if ($pdo) {
                 try {
-                    $sth = $pdo->prepare('SELECT game.ID_Game, game.Title, `transaction`.`Price_brutto`, order_number.Order_number, `transaction`.Quantity, `transaction`.`Data`, payment_method.Payment_method FROM game, user, additional_data, `transaction`, orders, payment_method, order_number WHERE `transaction`.ID_Payment_method=payment_method.ID_Payment_method AND orders.ID_Order_number=order_number.ID_Order_number AND orders.ID_Order_number=order_number.ID_Order_number AND orders.ID_Transaction=`transaction`.ID_Transaction AND `transaction`.ID_Game=game.ID_Game AND `transaction`.ID_User=user.ID_User AND user.ID_Additional_data=additional_data.ID_Additional_data AND order_number.Order_number = "'.$orderNumber.'" AND user.Login = "'.$login.'";');
+                    $sth = $pdo->prepare('SELECT DISTINCT game.ID_Game, game.Title, `transaction`.`Price_brutto`, order_number.Order_number, `transaction`.Quantity, `transaction`.`Data`, payment_method.Payment_method FROM game, user, additional_data, `transaction`, orders, payment_method, order_number WHERE `transaction`.ID_Payment_method=payment_method.ID_Payment_method AND orders.ID_Order_number=order_number.ID_Order_number AND orders.ID_Order_number=order_number.ID_Order_number AND orders.ID_Transaction=`transaction`.ID_Transaction AND `transaction`.ID_Game=game.ID_Game AND `transaction`.ID_User=user.ID_User AND user.ID_Additional_data=additional_data.ID_Additional_data AND order_number.Order_number = "'.$orderNumber.'" AND user.Login = "'.$login.'";');
                     $sth->execute(); 
                     return $sth->fetchAll(PDO::FETCH_NUM);
                 } catch(Exception $e) {
@@ -285,10 +285,14 @@
         function getOrderGameValue($pdo, $orderNumber) {
             if ($pdo) {
                 try {
-                    $sth = $pdo->prepare('SELECT SUM(`transaction`.Quantity) FROM `transaction`, orders, order_number WHERE orders.ID_Transaction=`transaction`.ID_Transaction AND orders.ID_Order_number=order_number.ID_Order_number AND order_number.Order_number = "'.$orderNumber.'";');
+                    $sth = $pdo->prepare('SELECT SUM(DISTINCT`transaction`.Quantity) FROM `transaction`, orders, order_number WHERE orders.ID_Transaction=`transaction`.ID_Transaction AND orders.ID_Order_number=order_number.ID_Order_number AND order_number.Order_number = "'.$orderNumber.'" GROUP BY ID_Game;');
                     $sth->execute(); 
                     $sum = $sth->fetchAll(PDO::FETCH_NUM);
-                    return $sum[0][0];
+                    $value = 0;
+                    for($i = 0; $i < sizeof($sum); $i++) {
+                        $value += $sum[$i][0]; 
+                    }
+                    return $value;
                 } catch(Exception $e) {
                     return $e->getMessage();
                 }

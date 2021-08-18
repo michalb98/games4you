@@ -44,7 +44,7 @@
                     <label for="game-quantity">
                         Ilość: 
                     </label>
-                    <input type="number" value="1" min="1" max="10" id="game-quantity-'.$id.'" name="game-quantity-'.$id.'" class="game-quantity" onchange="calculateTotalPriceGame('.$classNumber.'); calculateTotalPrice();" >
+                    <input type="number" value="1" min="1" max="'.$this->gameData[0][7].'" id="game-quantity-'.$id.'" name="game-quantity-'.$id.'" class="game-quantity" onchange="calculateTotalPriceGame('.$classNumber.'); calculateTotalPrice();" >
                     <input type="hidden" value='.$this->gameData[0][1].'" id="game-price-hidden-'.$id.'" class="game-price-hidden">
                 </form>
             </div>
@@ -133,6 +133,7 @@
             $orderNumber = $date.''.$orderNumberId;
             $db->insertIntoOrderNumber($pdo, $orderNumber, $idDiscountCode, 0, 0);
             $idOrderNumber = $db->getLastOrderNumberID($pdo);
+            $orderValue = 0;
             for($i = 0; $i < $gamesCount; $i++) {
                 $idGame = $_POST['game-id-'.$i];
                 $idGameKey = $db->getGameKeyId($pdo, $idGame);
@@ -140,24 +141,26 @@
                 $idPayment = $db->getPaymentMethodId($pdo, $this->paymentMethod);
                 $priceBrutto = $db->getGameData($pdo, $idGame)[0][1];
                 $priceNetto = round($priceBrutto/1.23, 2);
-                $orderValue =+ $priceBrutto;
                 $quantity = $_POST['game-id-quantity-'.$i];
                 $data = date('Y-m-d');
-                $db->insertIntoTransaction($pdo, $idGame, $idGameKey, $idUser, $idPayment, $priceNetto, $priceBrutto, $quantity, $data);
-                $idTransaction = $db->getTransactionId($pdo, $idUser);
-                $db->insertIntoOrders($pdo, $idTransaction, $idOrderNumber);
-                $db->updateGameKeyBought($pdo, $idGameKey, 1);
-                $gameQuantity = $db->getGameQuantity($pdo, $idGame) - 1;
-                $db->updateGameQuantity($pdo, $idGame, $gameQuantity);
-                if(strlen($_SESSION['discount-code']) > 0) {
-                    if($this->discountCodeValue > 0) {
-                        if($this->discountCodeValue > $priceBrutto) {
-                            $this->discountCodeValue -= $priceBrutto;
-                        } else {
-                            $this->discountCodeValue = 0;
+                for($j = 0; $j < $quantity; $j++) {
+                    $orderValue += $priceBrutto;
+                    $db->insertIntoTransaction($pdo, $idGame, $idGameKey, $idUser, $idPayment, $priceNetto, $priceBrutto, $quantity, $data);
+                    $idTransaction = $db->getTransactionId($pdo, $idUser);
+                    $db->insertIntoOrders($pdo, $idTransaction, $idOrderNumber);
+                    $db->updateGameKeyBought($pdo, $idGameKey, 1);
+                    $gameQuantity = $db->getGameQuantity($pdo, $idGame) - 1;
+                    $db->updateGameQuantity($pdo, $idGame, $gameQuantity);
+                    if(strlen($_SESSION['discount-code']) > 0) {
+                        if($this->discountCodeValue > 0) {
+                            if($this->discountCodeValue > $priceBrutto) {
+                                $this->discountCodeValue -= $priceBrutto;
+                            } else {
+                                $this->discountCodeValue = 0;
+                            }
                         }
                     }
-                }
+                }  
             }
             if(strlen($_SESSION['discount-code']) > 0) {
                 $discountValue = $db->checkDiscountCode($pdo, $_SESSION['discount-code'])[0][3];
