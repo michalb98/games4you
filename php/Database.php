@@ -47,7 +47,7 @@
         //Wyszukuje danych wybranej gry, następnie je zwraca
         function getGameData($pdo, $id) {
             if ($pdo) {
-                $sth = $pdo->prepare('SELECT Title, Price_brutto, Short_description, Description, type.Type, version.Version, platform.Platform, `Quantity` FROM game, platform, version, type WHERE game.ID_Game = '.$id.' AND
+                $sth = $pdo->prepare('SELECT Title, Price_brutto, Short_description, Description, type.Type, version.Version, platform.Platform, `Quantity`, Price_netto FROM game, platform, version, type WHERE game.ID_Game = '.$id.' AND
                 game.ID_Platform = platform.ID_Platform AND game.ID_Version = version.ID_Version AND game.ID_Type = type.ID_Type;');
                 $sth->execute();
                 return $sth->fetchAll(PDO::FETCH_NUM);                
@@ -788,6 +788,43 @@
                 try {
                     $sth = $pdo->prepare('UPDATE `order_number` SET `Order_value`=? WHERE `Order_number` = "'.$orderNumber.'";');
                     $sth->execute([$value]);
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        
+        function insertIntoGameKey($pdo, $idGame, $gameKey) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('INSERT INTO `game_key` VALUE (?, ?, ?, ?)');
+                    $sth->execute([NULL, $idGame, $gameKey, 0]);
+                    return true;
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        function getGameId($pdo, $title) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('SELECT `ID_Game` FROM `game` WHERE `Title` = "'.$title.'" ORDER BY `game`.`ID_Game`DESC LIMIT 1;');
+                    $sth->execute(); 
+                    $id = $sth->fetchAll(PDO::FETCH_NUM);
+                    return $id[0][0];
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        function updateGame($pdo, $idGame, $title, $price_netto, $price_brutto, $short_desc, $desc, $quantity, $idType, $idVersion, $idPlatform) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('UPDATE `game` SET `Title`=?, `Price_netto`=?, `Price_brutto`=?, `Short_description`=?, `Description`=?, `Quantity`=?, `ID_Type`=?, `ID_Version`=?, `ID_Platform`=? WHERE `ID_Game` = '.$idGame.';');
+                    $sth->execute([$title, $price_netto, $price_brutto, $short_desc, $desc, $quantity, $idType, $idVersion, $idPlatform]);
                 } catch(Exception $e) {
                     return $e->getMessage();
                 }

@@ -209,7 +209,8 @@ input[type=number] {
     padding: 2vh 1vw;
 }
 
-.file-upload-image {
+.file-upload-image,
+.game-cover-form {
     max-width: 20vw;
     height: auto;
     margin-top: 2vh;

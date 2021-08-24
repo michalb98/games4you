@@ -11,6 +11,7 @@
         protected $type;
         protected $version;
         protected $platform;
+        protected $keys;
 
         //Dane z formularza Login
         protected $login;
@@ -20,6 +21,18 @@
         protected $login_register;
         protected $password_register;
         protected $email_register;
+
+        function setFormEditGameValue($title, $price_netto, $price_brutto, $short_desc, $desc, $quantity, $type, $version, $platform) {
+            $this->title = filter_var($title, FILTER_SANITIZE_STRING);
+            $this->price_netto = filter_var($price_netto, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+            $this->price_brutto = filter_var($price_brutto, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+            $this->short_desc = filter_var($short_desc, FILTER_SANITIZE_STRING);
+            $this->desc = filter_var($desc, FILTER_SANITIZE_STRING);
+            $this->quantity = filter_var($quantity, FILTER_SANITIZE_NUMBER_INT);
+            $this->type = filter_var($type, FILTER_SANITIZE_STRING);
+            $this->version = filter_var($version, FILTER_SANITIZE_STRING);
+            $this->platform = filter_var($platform, FILTER_SANITIZE_STRING);
+        }
 
         //Pobieranie danych z formularza oraz sanityzacjia
         function getFormAdminData() {
@@ -32,6 +45,7 @@
             $this->type = filter_var($_POST['type-admin-form'], FILTER_SANITIZE_NUMBER_INT);
             $this->version = filter_var($_POST['version-admin-form'], FILTER_SANITIZE_NUMBER_INT);
             $this->platform = filter_var($_POST['platform-admin-form'], FILTER_SANITIZE_NUMBER_INT);
+            $this->keys = filter_var($_POST['keys-admin-form'], FILTER_SANITIZE_STRING);
         }
 
         //Pobieranie danych z formularza logowania 
@@ -47,9 +61,9 @@
             $this->email_register = filter_var($_POST['mail'], FILTER_SANITIZE_EMAIL);
         }
 
-        //Sprawdza poprawność formularza
+        //Sprawdza poprawność formularza dodawania gry
         function validateForm() {
-            //flag
+            //flaga
             $check = true;
 
             if($this->title == '' || strlen($this->title) < 3 || strlen($this->title) > 50) {
@@ -88,6 +102,10 @@
                 $_SESSION['platform-form-error'] = 'Proszę wybrać poprawną platformę!';
                 $check = false;
             } 
+            if($this->keys == '' || strlen($this->keys) < 15) {
+                $_SESSION['keys-form-error'] = 'Proszę podać przynajmniej jeden klucz produktu!';
+                $check = false;
+            }
 
             if($check)
                 return true;
@@ -133,6 +151,7 @@
             if($uploadOk) {
                 //Jeżeli wszystko przebiegło poprawnie wgrywa zdjęcie do folderu
                 $db->addGameCover($this->title, $target_file, $imageFileType);
+                return true;
             } else {
                 return false;
             }
@@ -140,7 +159,7 @@
 
         //Sprawdza poprawność formularza logowania
         function validateFormLogin($pdo, $db) {
-            //flag
+            //flaga
             $check = true;
 
             $query = $this->login.'" AND Password = "'.hash("sha512", $this->password);         
@@ -159,7 +178,7 @@
 
         //Sprawdza poprawność formularza rejestrowania
         function validateFormRegister($pdo, $db) {
-            //flag
+            //flaga
             $check = true;
 
             $countIdUser = $db->countData($pdo, "ID_User", $this->login_register);
@@ -196,7 +215,7 @@
                 return false;
         }
 
-        //Zapamiętuje wartości formularza
+        //Zapamiętuje wartości formularza dodawania gry
         function keepFormValue() {
             $_SESSION['title-value'] = $this->title;
             $_SESSION['price-netto-value'] = $this->price_netto;
@@ -207,6 +226,7 @@
             $_SESSION['type-value'] = $this->type;
             $_SESSION['version-value'] = $this->version;
             $_SESSION['platform-value'] = $this->platform;
+            $_SESSION['keys-value'] = $this->keys;
         }
 
         //Zapamiętuje wartości formularza logowania
@@ -222,7 +242,21 @@
 
         //Funkcja wywołuję funkcję oraz podaje wymagane dane
         function initiateAddGameToTable($pdo, $db) {
-            $db->addGameToTable($pdo, $this->title, $this->price_brutto, $this->price_netto, $this->short_desc, $this->desc, $this->quantity, $this->type, $this->version, $this->platform);
+            try {
+                $db->addGameToTable($pdo, $this->title, $this->price_brutto, $this->price_netto, $this->short_desc, $this->desc, $this->quantity, $this->type, $this->version, $this->platform); 
+                $idGame = $db->getGameId($pdo, $this->title);
+                $key = explode(",", $this->keys);
+                for($i = 0; $i < sizeof($key); $i++) {
+                    $db->insertIntoGameKey($pdo, $idGame, $key[$i]);
+                }
+                return true;
+            } catch (Exception $e) {
+                return false;
+            }           
+        }
+
+        function initiateUpdateGame($pdo, $db, $idGame) {
+            $db->updateGame($pdo, $idGame, $this->title, $this->price_netto, $this->price_brutto, $this->short_desc, $this->desc, $this->quantity, $this->type, $this->version, $this->platform);
         }
 
         function initiateRegister($pdo, $db) {

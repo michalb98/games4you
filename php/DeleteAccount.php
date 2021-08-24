@@ -29,7 +29,7 @@
                     <input type="hidden" name="delete-login" value="'.$login.'">
                     <input type="submit" value="Permanentnie usuń konto" class="submit-account">';
                     if(isset($_SESSION['error-delete'])){
-                        echo $_SESSION['error-delete'];
+                        echo '<span class="error">'.$_SESSION['error-delete'].'</span>';
                         unset($_SESSION['error-delete']);
                     }
                 echo '</form>

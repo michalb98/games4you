@@ -12,7 +12,7 @@
             $type = $this->db->getAllFromTable($pdo, $table);
             for ($i = 0; $i < sizeof($type); $i++) {
                 echo '<option value="'.$type[$i][0].'" class="option-select-admin-form" ';
-                    if ($type[$i][0] == $selected) 
+                    if (($type[$i][0] == $selected) || ($type[$i][1] == $selected))
                         echo "selected>"; 
                     else 
                         echo '>';
@@ -21,10 +21,12 @@
         }
 
         //Funkcja wyświetla formularz dodawania gry
-        function drawAddGameForm() {
+        function drawAddGameForm($title, $variant) {
             $admin = new Admin();
             echo '<form method="post" class="admin-form" id="admin-form-game" enctype="multipart/form-data">
-            <h1 class="form-title-admin-form">Dodaj grę do sklepu</h1>
+            <h1 class="form-title-admin-form">';
+                echo $title;
+            echo'</h1>
             <label for="title-admin-form" class="label-admin-form">
                 Tytuł gry
             </label>
@@ -90,6 +92,39 @@
                 echo '<span class="error">'.$_SESSION['desc-form-error'].'</span>';
                 unset($_SESSION['desc-form-error']);
             }
+            switch($variant) {
+                case 0:
+                    echo '<label for="keys-admin-form" class="label-admin-form">
+                    Klucze do gry (klucze rozdziela ",")
+                    </label>
+                    <textarea name="keys-admin-form" id="keys-admin-form" class="textare-admin-form" placeholder="np. LMT45-ODI73-34582,9373J-NLCRK-7GIQL" >';
+                    if (isset($_SESSION['keys-value'])) {
+                        echo $_SESSION['keys-value'];
+                        unset($_SESSION['keys-value']);
+                    }
+                    echo'</textarea>';
+                    if (isset($_SESSION['keys-form-error'])) {
+                        echo '<span class="error">'.$_SESSION['keys-form-error'].'</span>';
+                        unset($_SESSION['keys-form-error']);
+                    }
+                break;
+                case 1:
+                    echo '<label for="keys-admin-form" class="label-admin-form">
+                    Dodaj nowe klucze do gry (klucze rozdziela ",")
+                    </label>
+                    <textarea name="keys-admin-form" id="keys-admin-form" class="textare-admin-form" placeholder="np. LMT45-ODI73-34582,9373J-NLCRK-7GIQL" >';
+                    if (isset($_SESSION['keys-value'])) {
+                        echo $_SESSION['keys-value'];
+                        unset($_SESSION['keys-value']);
+                    }
+                    echo'</textarea>';
+                    if (isset($_SESSION['keys-form-error'])) {
+                        echo '<span class="error">'.$_SESSION['keys-form-error'].'</span>';
+                        unset($_SESSION['keys-form-error']);
+                    }
+                break;
+            }
+            
             echo '<label for="quantity-admin-form" class="label-admin-form">
                 Ilość kluczy 
             </label>
@@ -160,6 +195,12 @@
                 echo '<span class="error">'.$_SESSION['platform-form-error'].'</span>';
                 unset($_SESSION['platform-form-error']);
             }
+            if (isset($_SESSION['game-cover'])) {
+                echo '<label for="game-cover" class="label-admin-form">
+                        Aktualna okładka gry
+                    </label>
+                    <img class="game-cover-form" src="'.$_SESSION['game-cover'].'" alt="Okładka gry">';
+            }
             echo '<label for="cover-admin-form" class="label-admin-form">
                 Okładka gry
             </label>
@@ -170,7 +211,14 @@
                 </div>
             </div>
             <div class="file-upload-content">
-                <img class="file-upload-image" src="#" alt="Okładka gry">
+                <img class="file-upload-image" src="';
+                if (isset($_SESSION['game-cover'])) {
+                    echo $_SESSION['game-cover'];
+                    unset($_SESSION['game-cover']);
+                } else {
+                    echo "#";
+                }
+                echo '" alt="Okładka gry">
                 <div class="image-title-wrap">
                     <button type="button" onclick="removeUpload()" class="remove-image">Usuń <span class="image-title"></span></button>
                 </div>
