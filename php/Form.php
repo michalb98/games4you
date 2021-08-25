@@ -27,11 +27,23 @@
             $this->price_netto = filter_var($price_netto, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
             $this->price_brutto = filter_var($price_brutto, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
             $this->short_desc = filter_var($short_desc, FILTER_SANITIZE_STRING);
-            $this->desc = filter_var($desc, FILTER_SANITIZE_STRING);
+            $this->desc = $desc;
             $this->quantity = filter_var($quantity, FILTER_SANITIZE_NUMBER_INT);
             $this->type = filter_var($type, FILTER_SANITIZE_STRING);
             $this->version = filter_var($version, FILTER_SANITIZE_STRING);
             $this->platform = filter_var($platform, FILTER_SANITIZE_STRING);
+        }
+
+        function setKeys($keys) {
+            $this->keys = $keys;
+        }
+
+        function setQuantity($quantity) {
+            $this->quantity = $quantity;
+        }
+
+        function setTitle($title) {
+            $this->title = $title;
         }
 
         //Pobieranie danych z formularza oraz sanityzacjia
@@ -40,7 +52,7 @@
             $this->price_netto = filter_var($_POST['netto-admin-form'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
             $this->price_brutto = filter_var($_POST['brutto-admin-form'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
             $this->short_desc = filter_var($_POST['short-desc-admin-form'], FILTER_SANITIZE_STRING);
-            $this->desc = filter_var($_POST['desc-admin-form'], FILTER_SANITIZE_STRING);
+            $this->desc = $_POST['desc-admin-form'];
             $this->quantity = filter_var($_POST['quantity-admin-form'], FILTER_SANITIZE_NUMBER_INT);
             $this->type = filter_var($_POST['type-admin-form'], FILTER_SANITIZE_NUMBER_INT);
             $this->version = filter_var($_POST['version-admin-form'], FILTER_SANITIZE_NUMBER_INT);
@@ -104,6 +116,75 @@
             } 
             if($this->keys == '' || strlen($this->keys) < 15) {
                 $_SESSION['keys-form-error'] = 'Proszę podać przynajmniej jeden klucz produktu!';
+                $check = false;
+            }
+
+            if($check)
+                return true;
+            else
+                return false;
+        }
+
+        //Sprawdza poprawność formularza edycji gry
+        function validateFormEdit() {
+            //flaga
+            $check = true;
+
+            if($this->title == '' || strlen($this->title) < 3 || strlen($this->title) > 50) {
+                $_SESSION['title-form-error'] = 'Podany tytuł jest niepoprawny! Poprawna długość to od 3 do 50 znaków.';
+                $check = false;
+            }
+            if($this->price_netto == '' || $this->price_netto < 0.01 || $this->price_netto > 999.99) {
+                $_SESSION['price-netto-form-error'] = 'Podana cena netto jest niepoprawna! Zakres cen to od 0,01 do 999,99 zł.';
+                $check = false;
+            }
+            if($this->price_brutto == '' || $this->price_brutto < 0.01 || $this->price_brutto > 999.99) {
+                $_SESSION['price-brutto-form-error'] = 'Podana cena brutto jest niepoprawna! Zakres cen to od 0,01 do 999,99 zł.';
+                $check = false;
+            }
+            if($this->short_desc == '' || strlen($this->short_desc) < 50 || strlen($this->short_desc) > 250) {
+                $_SESSION['short-desc-form-error'] = 'Podany krótki opis jest niepoprawny! Poprawna długość to od 50 do 250 znaków.';
+                $check = false;
+            }
+            if($this->desc == '' || strlen($this->desc) < 50 || strlen($this->desc) > 5000) {
+                $_SESSION['desc-form-error'] = 'Podany opis jest niepoprawny! Poprawna długość to od 50 do 5000 znaków.';
+                $check = false;
+            }
+            if($this->quantity == '' || $this->quantity < 1 || $this->quantity > 999) {
+                $_SESSION['quantity-form-error'] = 'Podana ilość kluczy jest niepoprawna! Zakres kluczy to od 1 do 999.';
+                $check = false;
+            }
+            if($this->type == 'default') {
+                $_SESSION['type-form-error'] = 'Proszę wybrać poprawny typ!';  
+                $check = false;
+            }
+            if($this->version == 'default') {
+                $_SESSION['version-form-error'] = 'Proszę wybrać poprawną wersję!'; 
+                $check = false;
+            }
+            if($this->platform == 'default') {
+                $_SESSION['platform-form-error'] = 'Proszę wybrać poprawną platformę!';
+                $check = false;
+            } 
+
+            if($check)
+                return true;
+            else
+                return false;
+        }
+
+        function validateKeys() {
+            $check = true;
+            if($this->keys == '' || strlen($this->keys) < 15) {
+                $_SESSION['keys-form-error'] = 'Proszę podać przynajmniej jeden klucz produktu!';
+                $check = false;
+            } 
+            if($this->quantity == '' || $this->quantity < 1 || $this->quantity > 999) {
+                $_SESSION['quantity-form-error'] = 'Podana ilość kluczy jest niepoprawna! Zakres kluczy to od 1 do 999.';
+                $check = false;
+            }
+            if($this->title == '' || $this->title == 'default') {
+                $_SESSION['title-form-error'] = 'Proszę wybrać grę!';
                 $check = false;
             }
 
@@ -229,6 +310,12 @@
             $_SESSION['keys-value'] = $this->keys;
         }
 
+        function keepFormKeyValue() {
+            $_SESSION['title-value'] = $this->title;
+            $_SESSION['quantity-value'] = $this->quantity;
+            $_SESSION['keys-value'] = $this->keys;
+        }
+
         //Zapamiętuje wartości formularza logowania
         function keepFormLoginValue() {
             $_SESSION['login-value'] = $this->login;
@@ -255,8 +342,22 @@
             }           
         }
 
-        function initiateUpdateGame($pdo, $db, $idGame) {
-            $db->updateGame($pdo, $idGame, $this->title, $this->price_netto, $this->price_brutto, $this->short_desc, $this->desc, $this->quantity, $this->type, $this->version, $this->platform);
+        function initiateUpdateGame($pdo, $db, $idGame, $oldTitle) {
+            try {
+                $db->updateGame($pdo, $idGame, $this->title, $this->price_netto, $this->price_brutto, $this->short_desc, $this->desc, $this->quantity, $this->type, $this->version, $this->platform);
+                if($oldTitle != $this->title)
+                    rename('./img/covers/'.$oldTitle.'_cover.webp', './img/covers/'.$this->title.'_cover.webp');
+                $key = explode(",", $this->keys);
+                if(sizeof($key) > 1) {
+                    for($i = 0; $i < sizeof($key); $i++) {
+                        $db->insertIntoGameKey($pdo, $idGame, $key[$i]);
+                    }
+                }
+                return true;
+            } catch (Exception $e) {
+                return false;
+            }
+            
         }
 
         function initiateRegister($pdo, $db) {
@@ -267,6 +368,14 @@
         function login() {
             $_SESSION['login'] = $this->login;
             header('Location: strona-glowna');
+        }
+
+        function initiateAddKey($pdo, $db, $idGame) {
+            $key = explode(',', $this->keys);
+            for($i = 0; $i < sizeof($key); $i++) {
+                $db->insertIntoGameKey($pdo, $idGame, $key[$i]);
+            }
+            $db->updateGameQuantity($pdo, $idGame, $this->quantity);
         }
 
     }

@@ -12,25 +12,23 @@
 
     $pdo = $db->createPDO();
 
-    if(isset($_POST['title-admin-form'])) {
-        $form->getFormAdminData();
-        if($form->validateForm()) {
-            if($form->validateGameCover($db)){
-                if($form->initiateAddGameToTable($pdo, $db))
-                    header('Location: admin-panel');
-            }
-            else
-                $form->keepFormValue();
+    if(isset($_POST['keys-admin-form'])) {
+        $form->setKeys($_POST['keys-admin-form']);
+        $form->setQuantity($_POST['quantity-admin-form']);
+        $form->setTitle($_POST['title-admin-form']);
+
+        if($form->validateKeys()) {
+            $form->initiateAddKey($pdo, $db, $_POST['title-admin-form']);
+        } else {
+            $form->keepFormKeyValue();
         }
-        else
-            $form->keepFormValue();
     }
 
 ?>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <title>Games4You - dodaj grę</title>
+    <title>Games4You - dodaj klucze</title>
     <link rel="stylesheet" href="./css/admin-style.css">
     <?php
         $grid->drawNecesseryHead();
@@ -45,17 +43,13 @@
     </nav>
     <main>
         <?php
-            $admin->drawAddGameForm("Dodaj grę do sklepu", "Dodaj grę", 0);
+            $admin->drawAddKeysForm($db, $pdo);
         ?>
         
     </main>
     <?php
         $grid->drawFooter();
     ?>
-    
-    <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-    <script src="./js/previewCover.js"></script>
-    <script src="./js/autoNettoPrice.js"></script>
     <script src="./js/autoQuantity.js"></script>
 </body>
 </html>

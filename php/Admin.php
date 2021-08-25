@@ -21,7 +21,7 @@
         }
 
         //Funkcja wyświetla formularz dodawania gry
-        function drawAddGameForm($title, $variant) {
+        function drawAddGameForm($title, $submitValue, $variant) {
             $admin = new Admin();
             echo '<form method="post" class="admin-form" id="admin-form-game" enctype="multipart/form-data">
             <h1 class="form-title-admin-form">';
@@ -97,7 +97,7 @@
                     echo '<label for="keys-admin-form" class="label-admin-form">
                     Klucze do gry (klucze rozdziela ",")
                     </label>
-                    <textarea name="keys-admin-form" id="keys-admin-form" class="textare-admin-form" placeholder="np. LMT45-ODI73-34582,9373J-NLCRK-7GIQL" >';
+                    <textarea name="keys-admin-form" id="keys-admin-form" class="textare-admin-form" placeholder="np. LMT45-ODI73-34582,9373J-NLCRK-7GIQL" onchange="autoQuantity()">';
                     if (isset($_SESSION['keys-value'])) {
                         echo $_SESSION['keys-value'];
                         unset($_SESSION['keys-value']);
@@ -112,7 +112,7 @@
                     echo '<label for="keys-admin-form" class="label-admin-form">
                     Dodaj nowe klucze do gry (klucze rozdziela ",")
                     </label>
-                    <textarea name="keys-admin-form" id="keys-admin-form" class="textare-admin-form" placeholder="np. LMT45-ODI73-34582,9373J-NLCRK-7GIQL" >';
+                    <textarea name="keys-admin-form" id="keys-admin-form" class="textare-admin-form" placeholder="np. LMT45-ODI73-34582,9373J-NLCRK-7GIQL" onchange="autoQuantity()" >';
                     if (isset($_SESSION['keys-value'])) {
                         echo $_SESSION['keys-value'];
                         unset($_SESSION['keys-value']);
@@ -227,8 +227,69 @@
                 echo '<span class="error">'.$_SESSION['file-upload-error'].'</span>';
                 unset($_SESSION['file-upload-error']);
             }
-            echo '<input type="submit" value="Dodaj grę" class="submit-admin-form">
+            echo '<input type="submit" value="'.$submitValue.'" class="submit-admin-form">
         </form>';
+        }
+
+        function drawAddKeysForm($db, $pdo) {
+            echo '<form method="post" class="admin-form">
+            <h1 class="form-title-admin-form">';
+                if(isset($_GET['id'])) {
+                    echo 'Dodaj klucze do gry';
+                } else {
+                    echo 'Wybierz grę';
+                }
+            echo'</h1>
+            <label for="title-admin-form" class="label-admin-form">
+                Tytuł gry
+            </label>';
+            echo'
+            <div class="container-select-admin-form">
+            <select id="title-admin-form" name="title-admin-form" class="select-admin-form">
+                    <option value="default" class="option-select-admin-form">Wybierz grę ...</option>';
+                    $games = $db->getAllFromDatabase($pdo, 'SELECT `ID_Game`, Title FROM `game` ORDER BY Title;');
+                    for($i = 0; $i < sizeof($games); $i++) {
+                        if((isset($_GET['id']) && $_GET['id'] == $games[$i][0]) || (isset($_SESSION['title-value']) && $_SESSION['title-value'] == $games[$i][0]))
+                            echo '<option value="'.$games[$i][0].'" class="option-select-admin-form" selected>'.$games[$i][1].'</option>';
+                        else
+                            echo '<option value="'.$games[$i][0].'" class="option-select-admin-form">'.$games[$i][1].'</option>';
+                    }
+            echo '</select></div>';
+            if (isset($_SESSION['title-form-error'])) {
+                echo '<span class="error">'.$_SESSION['title-form-error'].'</span>';
+                unset($_SESSION['title-form-error']);
+            }
+            echo '<label for="keys-admin-form" class="label-admin-form">
+            Dodaj nowe klucze do gry (klucze rozdziela ",")
+            </label>
+            <textarea name="keys-admin-form" id="keys-admin-form" class="textare-admin-form" placeholder="np. LMT45-ODI73-34582,9373J-NLCRK-7GIQL" onchange="autoQuantity()">';
+            if (isset($_SESSION['keys-value'])) {
+                echo $_SESSION['keys-value'];
+                unset($_SESSION['keys-value']);
+            }
+            echo'</textarea>';
+            if (isset($_SESSION['keys-form-error'])) {
+                echo '<span class="error">'.$_SESSION['keys-form-error'].'</span>';
+                unset($_SESSION['keys-form-error']);
+            }
+            echo '<label for="quantity-admin-form" class="label-admin-form">
+                Ilość kluczy 
+            </label>
+            <input type="number" name="quantity-admin-form" id="quantity-admin-form" class="number-admin-form" placeholder="np. 50"  min="1" max="999"';
+            if (isset($_SESSION['quantity-value'])) {
+                echo 'value="'.$_SESSION['quantity-value'].'"';
+                unset($_SESSION['quantity-value']);
+            }
+            else if (isset($_GET['id'])) {
+                echo 'value="'.$db->getGameQuantity($pdo, $_GET['id']).'"';
+            }
+            echo'>';
+            if (isset($_SESSION['quantity-form-error'])) {
+                echo '<span class="error">'.$_SESSION['quantity-form-error'].'</span>';
+                unset($_SESSION['quantity-form-error']);
+            }
+            echo '<input type="submit" value="Dodaj klucze" class="submit-admin-form">
+            </form>';
         }
 
     }
