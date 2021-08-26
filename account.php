@@ -53,6 +53,7 @@
     if(isset($_POST['description-issue'])) {
         $contact->setValueContact($_POST['mail'], $_POST['issue'], $_POST['description-issue']);
         if($contact->validateFormContact()) {
+            $contact->addNotice($db, $pdo);
             header('Location: ?account=kontakt');
         }   
     }

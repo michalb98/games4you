@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 26 Sie 2021, 18:10
+-- Czas generowania: 24 Sie 2021, 23:20
 -- Wersja serwera: 10.4.19-MariaDB
 -- Wersja PHP: 8.0.7
 
@@ -124,13 +124,6 @@ CREATE TABLE `discount_code` (
   `Value` float(5,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
---
--- Zrzut danych tabeli `discount_code`
---
-
-INSERT INTO `discount_code` (`ID_Discount_code`, `Code`, `Valid_from`, `Valid_to`, `Value`) VALUES
-(6, '14ec40cac8f4db45f8ad91445811a3c5', '2021-08-26', '2021-11-26', 159.99);
-
 -- --------------------------------------------------------
 
 --
@@ -155,18 +148,18 @@ CREATE TABLE `game` (
 --
 
 INSERT INTO `game` (`ID_Game`, `Title`, `Price_netto`, `Price_brutto`, `Short_description`, `Description`, `Quantity`, `ID_Type`, `ID_Version`, `ID_Platform`) VALUES
-(1, 'Days Gone', 130.07, 159.99, 'Jedź i walcz w zabójczej, postpandemicznej Ameryce. W tej przygodowej grze akcji z otwartym światem zagrasz jako Deacon St. John, walczący o przetrwanie włóczęga i łowca nagród, przemierzający zniszczoną drogę w poszukiwaniu powodów, by dalej żyć.', 'Days Gone  to klasyczna przygodowa gra akcji, w której kamera znajduje się stale za plecami głównego bohatera. Podczas rozgrywki eksplorujemy obszerną sandboksową mapę, wykonujemy zadania (główne i poboczne – np. czyszczenie obozów z bandytów czy polowanie na zwierzęta) i walczymy z wrogami – zarówno ludźmi, jak i z rozmaitymi rodzajami groźnych ofiar wirusa. Te ostatnie często poruszają się w hordach liczących nawet kilkaset osobników, a do tego posiadają własne potrzeby i regulujący ich zachowanie cykl dobowy. Ciekawym detalem urozmaicającym zabawę jest częściowa interaktywność otoczenia – mamy możliwość m.in. popychania przeciwników na obiekty lub przecinania lin podtrzymujących ścięte drzewa. Twórcy położyli też duży nacisk na taktykę i planowanie – szczególnie w przypadku starć z ludzkimi wrogami. Walczymy, korzystając z rozbudowanego arsenału, m.in. karabinów maszynowych, shotgunów czy snajperek. Deacon dysponuje również kilkoma specjalnymi umiejętnościami, takimi jak np. spowalnianie czasu w trakcie walki (klasyczny bullet time) czy tzw. survival vision, umożliwiające podkreślanie ważnych przedmiotów i przeciwników, dzięki czemu łatwiej jest dostrzec, co i kto nas otacza – i gdzie mogą kryć się potencjalne zagrożenia. W miarę postępów w rozgrywce bohater może uczyć się nowych rzeczy i stopniowo rozwijać statystyki (takie jak życie czy wytrzymałość). Gra posiada rozbudowany, ale relatywnie prosty w obsłudze system rzemiosła, na potrzeby którego zbieramy duże ilości przeróżnych materiałów. Duże znaczenie dla rozgrywki ma także motocykl, którym poruszamy się po mapie. Mamy możliwość dostosowywania jego wyglądu, parametrów technicznych (np. poprzez zmianę opon czy silnika), a także zdobywania innych usprawnień, takich jak torby umożliwiające przewożenie większej liczby przedmiotów. Co ciekawe, nasz stalowy rumak wymaga benzyny, o której zapas trzeba się zatroszczyć, jeśli nie chcemy utknąć na niebezpiecznym pustkowiu.', 6, 2, 1, 1),
-(2, 'Phasmophobia', 40.64, 49.99, 'Phasmophobia jest nietypowym survival horrorem, który został opracowany z myślą o 4-osobowym trybie kooperacyjnym. Tytuł oferuje też wsparcie dla wirtualnej rzeczywistości. Za jego opracowane i wydanie odpowiada niezależne studio Kinetic Games.', 'W Phasmophobia akcję obserwujemy z perspektywy pierwszoosobowej. Zabawa polega na eksplorowaniu nawiedzonych miejsc i zbieraniu dowodów na istnienie duchów. Wykorzystujemy do tego celu specjalny sprzęt, taki jak mierniki pola elektromagnetycznego, kamery CTTV czy detektory ruchu (częścią sprzętu zarządzamy z ciężarówki będącej naszą bazą – odpowiada za to jeden z członków zespołu). Warto odnotować, że czym dłużej znajdujemy się w danej lokalizacji (deweloperzy przygotowali kilka odmiennych miejsc – mamy do wyboru posiadłość, więzienie, farmę, szkołę czy szpital), tym bardziej niebezpieczna się ona staje. W grze można znaleźć przeszło dziesięć unikatowych typów duchów – każdy z nich posiada wyjątkowe cechy, dzięki czemu kolejne dochodzenia zauważalnie różnią się od siebie. Co ciekawe, gra wykorzystuje też funkcję wykrywania mowy, dzięki której czasem możemy wchodzić w interakcje z duchami używając swojego własnego głosu.', 1, 7, 1, 1),
+(1, 'Days Gone', 130.07, 159.99, 'Jedź i walcz w zabójczej, postpandemicznej Ameryce. W tej przygodowej grze akcji z otwartym światem zagrasz jako Deacon St. John, walczący o przetrwanie włóczęga i łowca nagród, przemierzający zniszczoną drogę w poszukiwaniu powodów, by dalej żyć.', 'Days Gone  to klasyczna przygodowa gra akcji, w której kamera znajduje się stale za plecami głównego bohatera. Podczas rozgrywki eksplorujemy obszerną sandboksową mapę, wykonujemy zadania (główne i poboczne – np. czyszczenie obozów z bandytów czy polowanie na zwierzęta) i walczymy z wrogami – zarówno ludźmi, jak i z rozmaitymi rodzajami groźnych ofiar wirusa. Te ostatnie często poruszają się w hordach liczących nawet kilkaset osobników, a do tego posiadają własne potrzeby i regulujący ich zachowanie cykl dobowy. Ciekawym detalem urozmaicającym zabawę jest częściowa interaktywność otoczenia – mamy możliwość m.in. popychania przeciwników na obiekty lub przecinania lin podtrzymujących ścięte drzewa. Twórcy położyli też duży nacisk na taktykę i planowanie – szczególnie w przypadku starć z ludzkimi wrogami. Walczymy, korzystając z rozbudowanego arsenału, m.in. karabinów maszynowych, shotgunów czy snajperek. Deacon dysponuje również kilkoma specjalnymi umiejętnościami, takimi jak np. spowalnianie czasu w trakcie walki (klasyczny bullet time) czy tzw. survival vision, umożliwiające podkreślanie ważnych przedmiotów i przeciwników, dzięki czemu łatwiej jest dostrzec, co i kto nas otacza – i gdzie mogą kryć się potencjalne zagrożenia. W miarę postępów w rozgrywce bohater może uczyć się nowych rzeczy i stopniowo rozwijać statystyki (takie jak życie czy wytrzymałość). Gra posiada rozbudowany, ale relatywnie prosty w obsłudze system rzemiosła, na potrzeby którego zbieramy duże ilości przeróżnych materiałów. Duże znaczenie dla rozgrywki ma także motocykl, którym poruszamy się po mapie. Mamy możliwość dostosowywania jego wyglądu, parametrów technicznych (np. poprzez zmianę opon czy silnika), a także zdobywania innych usprawnień, takich jak torby umożliwiające przewożenie większej liczby przedmiotów. Co ciekawe, nasz stalowy rumak wymaga benzyny, o której zapas trzeba się zatroszczyć, jeśli nie chcemy utknąć na niebezpiecznym pustkowiu.', 0, 2, 1, 1),
+(2, 'Phasmophobia', 40.64, 49.99, 'Phasmophobia jest nietypowym survival horrorem, który został opracowany z myślą o 4-osobowym trybie kooperacyjnym. Tytuł oferuje też wsparcie dla wirtualnej rzeczywistości. Za jego opracowane i wydanie odpowiada niezależne studio Kinetic Games.', 'W Phasmophobia akcję obserwujemy z perspektywy pierwszoosobowej. Zabawa polega na eksplorowaniu nawiedzonych miejsc i zbieraniu dowodów na istnienie duchów. Wykorzystujemy do tego celu specjalny sprzęt, taki jak mierniki pola elektromagnetycznego, kamery CTTV czy detektory ruchu (częścią sprzętu zarządzamy z ciężarówki będącej naszą bazą – odpowiada za to jeden z członków zespołu). Warto odnotować, że czym dłużej znajdujemy się w danej lokalizacji (deweloperzy przygotowali kilka odmiennych miejsc – mamy do wyboru posiadłość, więzienie, farmę, szkołę czy szpital), tym bardziej niebezpieczna się ona staje. W grze można znaleźć przeszło dziesięć unikatowych typów duchów – każdy z nich posiada wyjątkowe cechy, dzięki czemu kolejne dochodzenia zauważalnie różnią się od siebie. Co ciekawe, gra wykorzystuje też funkcję wykrywania mowy, dzięki której czasem możemy wchodzić w interakcje z duchami używając swojego własnego głosu.', 0, 7, 1, 1),
 (30, 'The Sims 4', 81.29, 99.99, 'Poczuj moc tworzenia i kontrolowania własnych postaci w wirtualnym świecie, w którym nie ma ograniczeń. Doświadczaj wolności w zabawie, rządź i pogrywaj z życiem!', '\"Puść wodze wyobraźni i stwórz wyjątkowy świat Simów. Odkrywaj bogactwo opcji i dostosowuj najdrobniejsze szczegóły dotyczące Simów, ich domów i nie tylko. Wybierz wygląd, zachowanie i ubiór Simów. Określ, jak będą spędzać codzienne życie. Projektuj i buduj wyjątkowe domy dla każdej z rodzin, a potem wyposażaj je, dodając ulubione meble i dekoracje. Odwiedzaj różnorodne otoczenia, w których możesz poznawać innych Simów i ich historie. Odkrywaj piękne lokacje z niepowtarzalnym klimatem i funduj Simom spontaniczne przygody. Przeżywaj razem z nimi radości i smutki codzienności i rozgrywaj realistyczne lub kompletnie zakręcone scenariusze. Opowiadaj historie Simów tak, jak chcesz, buduj ich związki, rozwijaj kariery, wypełniaj życiowe aspiracje i zanurz się w świecie tej wyjątkowej gry, w której możliwości są naprawdę nieograniczone.', 1, 11, 1, 2),
 (31, 'Grand Theft Auto V', 97.55, 119.99, 'Grand Theft Auto V na PC pozwala graczom zobaczyć ogromny świat Los Santos i hrabstwa Blaine w rozdzielczości sięgającej 4K i lepszej oraz w 60 klatkach na sekundę.', 'Gdy młody opryszek, emerytowany rabuś oraz przerażający psychol wplątują się w gangsterskie porachunki i interesy świata zbrodni, rządu USA i przemysłu rozrywkowego, muszą wykonać serię niebezpiecznych napadów, aby przetrwać w bezlitosnym świecie, w którym zdrada czyha na każdym kroku.', 1, 1, 1, 7),
 (32, 'Forza Horizon 4', 162.59, 199.99, 'Dynamiczne pory roku całkowicie zmienią największy motoryzacyjny festiwal świata. Weź w niej udział samodzielnie lub stwórz drużynę wraz z innymi graczami.', 'Dynamiczne pory roku całkowicie zmienią największy motoryzacyjny festiwal świata. Weź w niej udział samodzielnie lub stwórz drużynę wraz z innymi graczami. Podziwiaj historyczne zakątki Brytanii, przemierzając wspólny otwarty świat w jednym z 450 różnych modeli samochodów do zebrania i zmodyfikowania. Wyścigi, popisy kaskaderskie, budowanie i eksploracja – wybierz swoją specjalność i zostań supergwiazdą Horizon.', 2, 5, 1, 1),
 (37, 'Wiedźmin 3 Dziki Gon', 81.29, 99.99, 'Wejdź w rolę profesjonalnego zabójcy potworów, Geralta z Rivii. Przemierzaj ogarnięte wojną Królestwa Północy idąc śladami Ciri, dziewczyny z prastarej przepowiedni, której magiczny talent może zniszczyć świat.', 'Wiedźmin: Dziki Gon to osadzona w olśniewającym uniwersum fantasy gra RPG nowej generacji, w której nacisk położono na otwarty świat, bogatą fabułę, trudne wybory i rzeczywiste konsekwencje. W grze wcielasz się w Geralta z Rivii — zawodowego łowcę potworów, któremu powierzono zadanie odszukania dziecka z prastarej przepowiedni. Czeka na ciebie ogromny, otwarty świat pełen kupieckich miast, wysp piratów, niebezpiecznych górskich przełęczy i zapomnianych jaskiń.', 1, 10, 1, 4),
-(38, 'Cyberpunk 2077', 162.59, 199.99, 'Cyberpunk 2077 to rozgrywająca się w otwartym świecie przygoda, której akcja toczy się w Night City, megalopolis rządzonym przez obsesyjną pogoń za władzą, sławą i przerabianiem własnego ciała. Nazywasz się V i musisz zdobyć implant.', 'Cyberpunk 2077 to rozgrywająca się w otwartym świecie przygoda, której akcja toczy się w Night City, megalopolis rządzonym przez obsesyjną pogoń za władzą, sławą i przerabianiem własnego ciała. Nazywasz się V i musisz zdobyć jedyny w swoim rodzaju implant — klucz do nieśmiertelności. Stwórz własny styl gry i ruszaj na podbój potężnego miasta przyszłości, którego historię kształtują twoje decyzje.', 2, 10, 1, 4),
-(39, 'This War of Mine', 48.77, 59.99, 'W grze nie wcielasz się w elitarnego żołnierza. Stajesz na czele grupki cywilów, starających się przeżyć w oblężonym mieście, zmagając się z brakiem żywności, lekarstw i ciągłym zagrożeniem ze strony snajperów i szabrowników.', 'W This War of Mine nie wcielasz się w rolę elitarnego żołnierza, lecz w grupę cywilów, którzy starają się przetrwać w oblężonym mieście, zmagając się z brakiem żywności, lekarstw i ciągłym zagrożeniem ze strony snajperów oraz szabrowników. Gra dostarcza przeżyć wojennych ukazanych z zupełnie wyjątkowej perspektywy.\r\n\r\nTempo rozgrywki jest oparte na cyklu dobowym. W ciągu dnia snajperzy uniemożliwiają ci opuszczanie schronienia, więc skupiaj się wtedy na utrzymywaniu go w jak najlepszym stanie, tworzeniu przedmiotów, wymienianiu się nimi oraz zajmowaniu się ocalałymi. Z kolei w nocy zabieraj jednego ze swoich ludzi na przeszukiwanie różnorodnych miejsc, starając się znaleźć rzeczy, które pomogą ci przetrwać.\r\n\r\nPodejmuj decyzje w sprawach życia i śmierci, kierując się własnym sumieniem. Postaraj się, by przeżyli wszyscy z twojego schronienia, lub poświęć kogoś, by mogli przetrwać inni. Podczas wojny nie ma dobrych i złych wyborów – jest tylko przetrwanie. Im szybciej to zrozumiesz, tym lepiej.', 1, 4, 1, 1),
+(38, 'Cyberpunk 2077', 162.59, 199.99, 'Cyberpunk 2077 to rozgrywająca się w otwartym świecie przygoda, której akcja toczy się w Night City, megalopolis rządzonym przez obsesyjną pogoń za władzą, sławą i przerabianiem własnego ciała. Nazywasz się V i musisz zdobyć implant.', 'Cyberpunk 2077 to rozgrywająca się w otwartym świecie przygoda, której akcja toczy się w Night City, megalopolis rządzonym przez obsesyjną pogoń za władzą, sławą i przerabianiem własnego ciała. Nazywasz się V i musisz zdobyć jedyny w swoim rodzaju implant — klucz do nieśmiertelności. Stwórz własny styl gry i ruszaj na podbój potężnego miasta przyszłości, którego historię kształtują twoje decyzje.', 3, 10, 1, 4),
+(39, 'This War of Mine', 48.77, 59.99, 'W grze nie wcielasz się w elitarnego żołnierza. Stajesz na czele grupki cywilów, starających się przeżyć w oblężonym mieście, zmagając się z brakiem żywności, lekarstw i ciągłym zagrożeniem ze strony snajperów i szabrowników.', 'W This War of Mine nie wcielasz się w rolę elitarnego żołnierza, lecz w grupę cywilów, którzy starają się przetrwać w oblężonym mieście, zmagając się z brakiem żywności, lekarstw i ciągłym zagrożeniem ze strony snajperów oraz szabrowników. Gra dostarcza przeżyć wojennych ukazanych z zupełnie wyjątkowej perspektywy.\r\n\r\nTempo rozgrywki jest oparte na cyklu dobowym. W ciągu dnia snajperzy uniemożliwiają ci opuszczanie schronienia, więc skupiaj się wtedy na utrzymywaniu go w jak najlepszym stanie, tworzeniu przedmiotów, wymienianiu się nimi oraz zajmowaniu się ocalałymi. Z kolei w nocy zabieraj jednego ze swoich ludzi na przeszukiwanie różnorodnych miejsc, starając się znaleźć rzeczy, które pomogą ci przetrwać.\r\n\r\nPodejmuj decyzje w sprawach życia i śmierci, kierując się własnym sumieniem. Postaraj się, by przeżyli wszyscy z twojego schronienia, lub poświęć kogoś, by mogli przetrwać inni. Podczas wojny nie ma dobrych i złych wyborów – jest tylko przetrwanie. Im szybciej to zrozumiesz, tym lepiej.', 0, 4, 1, 1),
 (40, 'Ghost of Tsushima', 243.89, 299.99, 'Odkrywaj piękno Tsushimy w tej osadzonej w otwartym świecie przygodowej grze akcji stworzonej przez Sucker Punch Productions i PlayStation Studios, dostępnej na PS5 i PS4.', 'Rok 1274. Na kontynencie azjatyckim praktycznie niepodzielnie rządzi imperium mongolskie. Jego władcy łakomym okiem spoglądają na bogactwa feudalnej Japonii. Chan Kubilaj decyduje się w końcu na dokonanie inwazji. Jej pierwszym celem jest położona dokładnie pośrodku Cieśniny Koreańskiej wyspa Cuszima. Podczas ataku wojska mongolskie masakrują większość samurajów mieszkających na wyspie. Głównemu bohaterowi gry – Jinowi Sakai – cudem udaje się przetrwać tragiczną w skutkach bitwę. Od tego momentu głównym celem protagonisty staje się powstrzymanie Mongołów. Jednak aby tego dokonać, będzie musiał zapomnieć o samurajskich tradycjach.', 2, 3, 4, 9),
 (42, 'Gears 5', 81.29, 99.99, 'Piąta część popularnego cyklu TPS-ów, w której wcielamy się w znaną z Gears of War 4 Kait Diaz. Protagonistka wyrusza w podróż do odległego zakątka planety Sera, by rozwikłać zagadkę trapiących ją koszmarów.', 'Akcja Gears 5 toczy się po wydarzeniach przedstawionych w czwartej części serii. W roli głównej obsadzono Kait Diaz, która w towarzystwie Delmonta Walkera udaje się w długą podróż przez malownicze, ale i pełne niebezpieczeństw zakątki planety Sera. Protagonistka zamierza dowiedzieć się więcej na temat pochodzenia Szarańczy (ang. Locust) i odkryć źródło trapiących ją koszmarów, w których, jak wierzy, kryje się jakaś wiadomość. Jedną z głównych osi fabularnych jest również uruchomienie Młota Świtu, czyli potężnej broni energetycznej atakującej z orbity.', 2, 2, 2, 8),
 (43, 'Resident Evil Village', 203.24, 249.99, 'Oto survival horror, jakiego jeszcze nie było — ósma odsłona legendarnej serii Resident Evil. Realistyczna grafika, pierwszoosobowa akcja i mistrzowska fabuła sprawią, że poczucie zagrożenia będzie rzeczywiste jak nigdy.', 'Rok 1274. Na kontynencie azjatyckim praktycznie niepodzielnie rządzi imperium mongolskie. Jego władcy łakomym okiem spoglądają na bogactwa feudalnej Japonii. Chan Kubilaj decyduje się w końcu na dokonanie inwazji. Jej pierwszym celem jest położona dokładnie pośrodku Cieśniny Koreańskiej wyspa Cuszima. Podczas ataku wojska mongolskie masakrują większość samurajów mieszkających na wyspie. Głównemu bohaterowi gry – Jinowi Sakai – cudem udaje się przetrwać tragiczną w skutkach bitwę. Od tego momentu głównym celem protagonisty staje się powstrzymanie Mongołów. Jednak aby tego dokonać, będzie musiał zapomnieć o samurajskich tradycjach.', 1, 7, 1, 1),
-(45, 'Car Mechanic Simulator 2021', 73.16, 89.99, 'Wspinaj się po drabinie kariery jako mechanik samochodowy. To realistyczny symulator mechanika samochodowego. Naprawiaj auta klientów, kupuj własne auta, naprawiaj je, sprzedawaj albo dodaj do swojej kolekcji!', 'Car Mechanic Simulator 2021 to produkcja o dobrze ugruntowanej bazie graczy. Rozpocznij jako nowy właściciel garażu I rozwijaj swoje serwisowe imperium. Ubrudź sobie ręce w pełnej detali, realistycznej symulacji. Przygotuj się na ponad 4000 unikatowych części i ponad 72 samochody. Podwijaj rękawy i zanurz się w realistycznej przestrzeni swojego garażu.\r\n<br><br>\r\nInwestuj w nowy sprzęt i rozwijaj swoją przestrzeń aby rozszerzać działalność swojego serwisu. Naprawiaj, serwisuj, testuj, lakieruj, tuninguj i odnawiaj samochody. Odwiedź aukcje samochodowe i przeglądaj pojazdy w różnorodnej kondycji. Jeżeli czujesz, że to Twój szczęśliwy dzień, odwiedź stodoły. Niektóre z nich kryją nie lada skarby – trzeba je tylko odnaleźć.', 10, 11, 1, 1),
+(45, 'Car Mechanic Simulator 2021', 73.16, 89.99, 'Wspinaj się po drabinie kariery jako mechanik samochodowy. To realistyczny symulator mechanika samochodowego. Naprawiaj auta klientów, kupuj własne auta, naprawiaj je, sprzedawaj albo dodaj do swojej kolekcji!', 'Car Mechanic Simulator 2021 to produkcja o dobrze ugruntowanej bazie graczy. Rozpocznij jako nowy właściciel garażu I rozwijaj swoje serwisowe imperium. Ubrudź sobie ręce w pełnej detali, realistycznej symulacji. Przygotuj się na ponad 4000 unikatowych części i ponad 72 samochody. Podwijaj rękawy i zanurz się w realistycznej przestrzeni swojego garażu.\r\n', 5, 11, 1, 1),
 (50, 'Assassin&#39;s Creed Odyssey', 203.24, 249.99, 'Weź los we własne ręce w Assassin&#39;s Creed Odyssey. Od wyrzutka aż po żywą legendę, wyrusz w podróż, która odkryje przed tobą tajemnice twojej przeszłości i odmieni losy starożytnej Grecji.', 'Weź los we własne ręce w Assassin&#39;s Creed® Odyssey.\r\nOd wyrzutka aż po żywą legendę, wyrusz w podróż, która odkryje przed tobą tajemnice twojej przeszłości i odmieni losy starożytnej Grecji.\r\n\r\nWYRUSZ DO STAROŻYTNEJ GRECJI\r\nOd gęstych i bujnych lasów, po wulkaniczne wyspy i zatłoczone miasta, wyrusz w pełną odkryć i potyczek podróż przez rozdarty wojną świat, stworzony przez bogów i ludzi.\r\n\r\nZAPISZ WŁASNĄ LEGENDĘ\r\nTwoje decyzje będą wpływały na przebieg odysei. Zobacz szereg możliwych zakończeń dzięki zupełnie nowemu systemowi dialogów i mechanice dokonywania wyborów. Dobieraj wyposażenie, ulepszaj statek i rozwijaj specjalne umiejętności, by stać się legendą.\r\n\r\nWALCZ NA NIESPOTYKANĄ DOTĄD SKALĘ\r\nPokaż, jaki z ciebie wojownik, biorąc udział w wielkich bitwach pomiędzy Spartą i Atenami u boku setek innych żołnierzy lub taranuj i przebijaj się przez całe floty w bitwach morskich, toczonych na całym Morzu Egejskim.\r\n\r\nONIEMIEJESZ Z WRAŻENIA\r\nZyskaj zupełnie nowe spojrzenie na przygodę dzięki Tobii Eye Tracking. Funkcja rozszerzonego widoku zapewnia szerszą perspektywę, a efekty dynamicznego oświetlenia i słońca pozwalają zatracić się w piaszczystych wydmach zgodnie z miejscem, na które patrzysz. Oznaczanie, celowanie i blokowanie celów staje się o wiele bardziej naturalne, kiedy można zrobić to samym spojrzeniem. Pozwól, by oczy zaprowadziły Cię do celu i wzbogaciły rozgrywkę.\r\nOdwiedź stronę internetową Tobii, by sprawdzić listę kompatybilnych urządzeń.', 5, 1, 1, 3);
 
 -- --------------------------------------------------------
@@ -188,8 +181,8 @@ CREATE TABLE `game_key` (
 
 INSERT INTO `game_key` (`ID_Game_key`, `ID_Game`, `Game_key`, `Key_bought`) VALUES
 (1, 38, 'RTAMT-DTC65-8EA6B', 1),
-(2, 1, 'RTAMT-DTC65-8EA6C', 0),
-(3, 2, 'ATAMT-DTC65-8EA6B', 0),
+(2, 1, 'RTAMT-DTC65-8EA6C', 1),
+(3, 2, 'ATAMT-DTC65-8EA6B', 1),
 (4, 31, 'ATAMT-DTC65-8EA6D', 0),
 (5, 37, 'RTAMT-DTC65-8EA6W', 0),
 (6, 39, 'RTAMT-DTC65-8EA6B', 0),
@@ -198,7 +191,7 @@ INSERT INTO `game_key` (`ID_Game_key`, `ID_Game`, `Game_key`, `Key_bought`) VALU
 (9, 30, 'TSAMT-DTC65-8EA6D', 0),
 (10, 38, 'IPCZ6-E7DSQ-0GKS5', 0),
 (11, 38, 'DPYNO-7GLZF-7E747', 0),
-(12, 1, 'INW2T-5JR2L-3LVR7', 0),
+(12, 1, 'INW2T-5JR2L-3LVR7', 1),
 (13, 1, 'JEVBZ-JTIGC-YXTCS', 0),
 (14, 32, 'G7MZU-G6O8D-N3JIF', 0),
 (15, 42, 'YUU00-XPJ5I-ZU5PF', 0),
@@ -215,14 +208,7 @@ INSERT INTO `game_key` (`ID_Game_key`, `ID_Game`, `Game_key`, `Key_bought`) VALU
 (46, 50, '88H22-C5F49-DIQS8', 0),
 (47, 50, 'TRH31-RE216-53S68', 0),
 (48, 50, 'NNGBM-J9TH3-P7F27', 0),
-(49, 50, 'D2Q2H-P2P1Q-O8E16', 0),
-(50, 45, '21J36-7SDAB-PSARM', 0),
-(51, 45, '73T3J-6PMPT-6L1SQ', 0),
-(53, 45, '61QQP-6J5HJ-J7K44', 0),
-(54, 45, 'EMQNG-1N35O-3DJ3H', 0),
-(55, 45, 'JDKSA-74P8F-DJ85P', 0),
-(56, 1, 'KAIM3-5798C-NQ8S4', 0),
-(57, 1, 'JB25H-LFBQF-BCO5S', 0);
+(49, 50, 'D2Q2H-P2P1Q-O8E16', 0);
 
 -- --------------------------------------------------------
 
@@ -291,26 +277,6 @@ INSERT INTO `issue` (`ID_Issue`, `Issue`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `notices`
---
-
-CREATE TABLE `notices` (
-  `ID_Notices` int(9) NOT NULL,
-  `ID_User` int(7) NOT NULL,
-  `ID_Issue` int(2) NOT NULL,
-  `Notice` varchar(2000) COLLATE utf8_polish_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
-
---
--- Zrzut danych tabeli `notices`
---
-
-INSERT INTO `notices` (`ID_Notices`, `ID_User`, `ID_Issue`, `Notice`) VALUES
-(2, 1, 7, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.');
-
--- --------------------------------------------------------
-
---
 -- Struktura tabeli dla tabeli `orders`
 --
 
@@ -326,9 +292,7 @@ CREATE TABLE `orders` (
 
 INSERT INTO `orders` (`ID_Order`, `ID_Transaction`, `ID_Order_number`) VALUES
 (1, 1, 1),
-(2, 2, 2),
-(12, 12, 9),
-(13, 13, 10);
+(2, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -349,8 +313,8 @@ CREATE TABLE `order_number` (
 --
 
 INSERT INTO `order_number` (`ID_Order_number`, `Order_number`, `ID_Discount_code`, `Order_value`, `Discount_value`) VALUES
-(9, '202108241', NULL, 199.99, 0),
-(10, '2021082610', NULL, 159.99, 0);
+(1, '202108181', NULL, 199.99, 0),
+(2, '202108182', NULL, 369.97, 0);
 
 -- --------------------------------------------------------
 
@@ -413,13 +377,6 @@ CREATE TABLE `returns` (
   `ID_Transaction` int(9) NOT NULL,
   `ID_Discount_code` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
-
---
--- Zrzut danych tabeli `returns`
---
-
-INSERT INTO `returns` (`ID_Return`, `ID_Transaction`, `ID_Discount_code`) VALUES
-(5, 13, 6);
 
 -- --------------------------------------------------------
 
@@ -495,8 +452,10 @@ CREATE TABLE `transaction` (
 --
 
 INSERT INTO `transaction` (`ID_Transaction`, `ID_Game`, `ID_Game_key`, `ID_User`, `ID_Payment_method`, `ID_Return`, `ID_Discount_code`, `Price_netto`, `Price_brutto`, `Quantity`, `Data`, `Show_key`) VALUES
-(12, 38, 1, 1, 1, NULL, NULL, 162.59, 199.99, 1, '2021-08-24', 1),
-(13, 1, NULL, 1, 2, 5, 6, 130.07, 159.99, 1, '2021-08-26', 0);
+(1, 38, 1, 1, 2, NULL, NULL, 162.59, 199.99, 1, '2021-08-18', 1),
+(2, 1, 2, 1, 4, NULL, NULL, 130.07, 159.99, 2, '2021-08-18', 0),
+(3, 1, 2, 1, 4, NULL, NULL, 130.07, 159.99, 2, '2021-08-18', 0),
+(4, 2, 3, 1, 4, NULL, NULL, 40.64, 49.99, 1, '2021-08-18', 0);
 
 -- --------------------------------------------------------
 
@@ -634,14 +593,6 @@ ALTER TABLE `issue`
   ADD PRIMARY KEY (`ID_Issue`);
 
 --
--- Indeksy dla tabeli `notices`
---
-ALTER TABLE `notices`
-  ADD PRIMARY KEY (`ID_Notices`),
-  ADD KEY `ID_Issue` (`ID_Issue`),
-  ADD KEY `ID_User` (`ID_User`);
-
---
 -- Indeksy dla tabeli `orders`
 --
 ALTER TABLE `orders`
@@ -733,7 +684,7 @@ ALTER TABLE `countries`
 -- AUTO_INCREMENT dla tabeli `discount_code`
 --
 ALTER TABLE `discount_code`
-  MODIFY `ID_Discount_code` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `ID_Discount_code` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT dla tabeli `game`
@@ -745,7 +696,7 @@ ALTER TABLE `game`
 -- AUTO_INCREMENT dla tabeli `game_key`
 --
 ALTER TABLE `game_key`
-  MODIFY `ID_Game_key` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `ID_Game_key` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT dla tabeli `game_rating`
@@ -766,22 +717,16 @@ ALTER TABLE `issue`
   MODIFY `ID_Issue` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT dla tabeli `notices`
---
-ALTER TABLE `notices`
-  MODIFY `ID_Notices` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
 -- AUTO_INCREMENT dla tabeli `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `ID_Order` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `ID_Order` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT dla tabeli `order_number`
 --
 ALTER TABLE `order_number`
-  MODIFY `ID_Order_number` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `ID_Order_number` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT dla tabeli `payment_method`
@@ -799,7 +744,7 @@ ALTER TABLE `platform`
 -- AUTO_INCREMENT dla tabeli `returns`
 --
 ALTER TABLE `returns`
-  MODIFY `ID_Return` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ID_Return` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT dla tabeli `tag`
@@ -811,7 +756,7 @@ ALTER TABLE `tag`
 -- AUTO_INCREMENT dla tabeli `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `ID_Transaction` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `ID_Transaction` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT dla tabeli `type`
@@ -868,13 +813,6 @@ ALTER TABLE `game_rating`
 ALTER TABLE `game_tags`
   ADD CONSTRAINT `game_tags_ibfk_1` FOREIGN KEY (`ID_Game`) REFERENCES `game` (`ID_Game`),
   ADD CONSTRAINT `game_tags_ibfk_2` FOREIGN KEY (`ID_Tag`) REFERENCES `tag` (`ID_Tag`);
-
---
--- Ograniczenia dla tabeli `notices`
---
-ALTER TABLE `notices`
-  ADD CONSTRAINT `notices_ibfk_1` FOREIGN KEY (`ID_Issue`) REFERENCES `issue` (`ID_Issue`),
-  ADD CONSTRAINT `notices_ibfk_2` FOREIGN KEY (`ID_User`) REFERENCES `user` (`ID_User`);
 
 --
 -- Ograniczenia dla tabeli `orders`

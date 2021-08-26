@@ -7,8 +7,11 @@ Deny from all
 RewriteEngine on
 RewriteRule strona-glowna index.php
 RewriteRule admin-panel adminPanel.php
+RewriteRule dodaj-gre addGame.php
+RewriteRule wybierz-gre editGamePanel.php
 RewriteRule edytuj editGame.php
 RewriteRule dodaj-klucze addKeys.php
+RewriteRule zgloszenia notices.php
 RewriteRule produkt product.php
 RewriteRule szukaj search.php
 RewriteRule logowanie login.php
@@ -16,3 +19,5 @@ RewriteRule logout logout.php
 RewriteRule rejestracja register.php
 RewriteRule koszyk cart.php
 RewriteRule konto account.php
+RewriteRule usun delete.php
+RewriteRule odpowiedz reply.php

@@ -59,6 +59,12 @@
                     }
                 echo '</form>';
         }
+
+        function addNotice($db, $pdo) {
+            $idUser = $db->getUserId($pdo, $_SESSION['login']);
+            $idIssue= $db->getIssueId($pdo, $this->issue);
+            $db->insertIntoNotices($pdo, $idUser, $idIssue, $this->description);
+        }
     }
 
 ?>

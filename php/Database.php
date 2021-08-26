@@ -830,6 +830,61 @@
                 }
             }
         }
+
+        function insertIntoNotices($pdo, $idUser, $idIssue, $notice) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('INSERT INTO `notices` VALUE (?, ?, ?, ?)');
+                    $sth->execute([NULL, $idUser, $idIssue, $notice]);
+                    return true;
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        function getIssueId($pdo, $issue){
+            if ($pdo) {
+                $sth = $pdo->prepare('SELECT ID_Issue FROM issue WHERE `Issue` = "'.$issue.'";');
+                $sth->execute();
+                $idUser = $sth->fetchAll(PDO::FETCH_NUM); 
+                return $idUser[0][0];            
+            } else {
+                return 'Database error';
+            }
+        }
+
+        function getNotices($pdo){
+            if ($pdo) {
+                $sth = $pdo->prepare('SELECT `notices`.`ID_Notices`, `user`.`Login`, `additional_data`.`Email`, `issue`.`Issue`, `notices`.`Notice` FROM `user`, `additional_data`, `issue`, `notices` WHERE `user`.`ID_Additional_data`=`additional_data`.`ID_Additional_data` AND `notices`.`ID_User`=`user`.`ID_User` AND `notices`.`ID_Issue` = `issue`.`ID_Issue`;');
+                $sth->execute();
+                return $sth->fetchAll(PDO::FETCH_NUM);           
+            } else {
+                return 'Database error';
+            }
+        }
+
+        function getNotice($pdo, $idNotice){
+            if ($pdo) {
+                $sth = $pdo->prepare('SELECT `notices`.`ID_Notices`, `user`.`Login`, `additional_data`.`Email`, `issue`.`Issue`, `notices`.`Notice` FROM `user`, `additional_data`, `issue`, `notices` WHERE `user`.`ID_Additional_data`=`additional_data`.`ID_Additional_data` AND `notices`.`ID_User`=`user`.`ID_User` AND `notices`.`ID_Issue` = `issue`.`ID_Issue` AND `ID_Notices` = '.$idNotice.' ;');
+                $sth->execute();
+                return $sth->fetchAll(PDO::FETCH_NUM);           
+            } else {
+                return 'Database error';
+            }
+        }
+
+        function deleteNotice($pdo, $idNotice) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('DELETE FROM `notices` WHERE ID_Notices=?');
+                    $sth->execute([$idNotice]);
+                    return true;
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
     }
 
 ?>

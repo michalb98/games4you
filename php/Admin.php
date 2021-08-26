@@ -292,6 +292,118 @@
             </form>';
         }
 
+        function drawAdminMenu() {
+
+        }
+
+        function drawGameToEdit($db, $pdo, $grid) {
+            $games = $db->getAllFromTable($pdo, 'game');
+            echo '<h1 class="h1-admin-panel">Panel edycji gier</h1>';
+            for($i = 0; $i < sizeof($games); $i++) {
+                echo '
+                <div class="game-rating-container">
+                    <div class="order-game-cover">';
+                        $grid->drawCoverGame($games[$i][1]);
+                    echo '</div>
+                    <a href="produkt?id='.$games[$i][0].'" title="Zobacz grę '.$games[$i][1].'" class="order-game-title">
+                        '.$games[$i][1].'
+                    </a>
+                    <div class="conatiner-admin-panel">
+                        <a href="edytuj?id='.$games[$i][0].'" class="edit-game-panel">Edytuj grę</a>
+                        <a href="dodaj-klucze?id='.$games[$i][0].'" class="edit-game-panel">Dodaj klucze</a>
+                    </div>
+                </div>';
+            }
+        }
+
+        function drawAllNotices($db, $pdo) {
+            $notices = $db->getNotices($pdo);
+            echo '<h1 class="h1-admin-panel">Zgłoszenia</h1>';
+            if(sizeof($notices) < 1) 
+                echo '<h1 class="h1-admin-panel">Brak zgłoszeń</h1>';
+            for($i = 0; $i < sizeof($notices); $i++) {
+                echo '
+                <div class="game-rating-container notice-container">
+                    <div class="small-notice">
+                        <span class="info-label">
+                            Użytkownik
+                        </span>
+                        '.$notices[$i][1].'
+                    </div>
+                    <div class="small-notice">
+                        <span class="info-label">
+                            E-mail
+                        </span>
+                        '.$notices[$i][2].'
+                    </div>
+                    <div class="small-notice">
+                        <span class="info-label">
+                            Problem
+                        </span>
+                        '.$notices[$i][3].'
+                    </div>
+                    <div class="large-notice">
+                        <span class="info-label">
+                            Treść
+                        </span>
+                        '.$notices[$i][4].'
+                    </div>
+                    <div class="small-notice">
+                        <a class="edit-game-panel notice-panel" href="usun?id='.$notices[$i][0].'&what=1" title="Usuń zgłoszenie">
+                            Usuń zgłoszenie
+                        </a>
+                        <a class="edit-game-panel notice-panel" href="odpowiedz?id='.$notices[$i][0].'" title="Odpowiedz na zgłoszenie">
+                            Odpowiedz na zgłoszenie
+                        </a>
+                    </div>
+                </div>';
+            }
+        }
+
+        function drawMainAdminHeader() {
+            echo '<div id="main-header">
+        <a href="admin-panel" title="Przejdź do strony głównej">
+            <div id="logo">
+                <img src="./img/web/icon.webp" alt="Games4You">
+            </div>
+        </a>
+        <div id="search">
+            <input type="search" name="search" placeholder="Wpisz tytuł gry...">
+        </div>
+        <a ';
+        if(isset($_SESSION['login'])) { 
+        echo 'href="koszyk" title="Zobacz swój koszyk" id="cart" class="icon-main-header">
+            <i class="icon-basket icon"></i>';
+            if(isset($_SESSION['game-cart'])) { 
+                $games = explode(',', $_SESSION['game-cart']);
+                $countGames = sizeof($games);
+                echo '<div id="game-in-cart">'.$countGames.'</div>';
+            }
+        } else {
+            echo 'href="logowanie" title="Zaloguj się, aby móc kupować gry" id="cart" class="icon-main-header">
+            <i class="icon-basket icon"></i>';
+        }
+        echo'</a>
+        <div id="account-container">';
+            if(isset($_SESSION['login'])) {
+                echo '<a href="konto" title="Zobacz swoje konto" id="account" class="icon-main-header">
+                        <i class="icon-adult icon"></i>
+                    </a>
+                    <a href="konto" title="Zobacz swoje konto" class="hide-icon-main-header">Moje konto</a>
+                    <a href="logout" title="Wyloguj się" class="hide-icon-main-header">Wyloguj się</a>';
+            } else {
+                echo '<a href="logowanie" title="Zaloguj się" id="account" class="icon-main-header">
+                        <i class="icon-adult icon"></i>
+                    </a>
+                    <a href="logowanie" title="Zaloguj się" class="hide-icon-main-header">Zaloguj się</a>
+                    <a href="rejestracja" title="Zarejestruj się" class="hide-icon-main-header">Zarejestruj się</a>';
+            }
+            
+        echo '</div>
+    </div>';
+        }
+
+
     }
 
 ?>

@@ -11,12 +11,14 @@
     $form = new Form();
 
     $pdo = $db->createPDO();
+
 ?>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <title>Games4You - dodaj grę</title>
+    <title>Games4You - wybierz grę</title>
     <link rel="stylesheet" href="./css/admin-style.css">
+    <link rel="stylesheet" href="./css/account-style.css">
     <?php
         $grid->drawNecesseryHead();
     ?>
@@ -30,15 +32,9 @@
     </nav>
     <main>
         <?php
-            
+            $admin->drawGameToEdit($db, $pdo, $grid);
         ?>
-        <nav class="admin-menu-nav">
-            <h1 class="h1-admin-panel">Panel Administratora Games4You</h1>
-            <a class="admin-menu-nav-a" href="dodaj-gre" title="Dodaj nową grę">Dodaj grę</a>
-            <a class="admin-menu-nav-a" href="dodaj-klucze" title="Dodaj nowe klucze do gry">Dodaj klucze</a>
-            <a class="admin-menu-nav-a" href="wybierz-gre" title="Edytuj gry">Edytuj gry</a>
-            <a class="admin-menu-nav-a" href="zgloszenia" title="Zgłoszenia użytkoników">Zobacz wysłane zgłoszenia</a>
-        </nav>
+        
     </main>
     <?php
         $grid->drawFooter();

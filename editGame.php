@@ -52,7 +52,7 @@
 </head>
 <body>
     <?php
-        $grid->drawMainHeader();
+        $admin->drawMainAdminHeader();
     ?>
     <nav id="categories-nav">
 
