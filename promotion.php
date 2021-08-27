@@ -1,7 +1,7 @@
 <?php
 
     session_start();
-
+        
     if(!isset($_SESSION['login']) || $_SESSION['rank'] != "Administrator") {
         header('Location: strona-glowna');
     }
@@ -11,24 +11,24 @@
     require_once('./php/Form.php');
     require_once('./php/Reply.php');
     require_once('./php/Admin.php');
+    require_once('./php/Rank.php');
 
     $db = new Database();
     $grid = new Grid();
     $form = new Form();
-    $reply = new Reply();
     $admin = new Admin();
+    $rank = new Rank();
 
     $pdo = $db->createPDO();
 
-    $notice = $db->getNotice($pdo, $_GET['id']);
-    $reply->setValueReply($notice[0][2], $notice[0][3], $notice[0][4], NULL);
-
-    if(isset($_POST['reply-issue'])) {
-        $reply->setValueReply($notice[0][2], $notice[0][3], $notice[0][4], $_POST['reply-issue']);
-        if($reply->validateFormReply()) {
-            $_SESSION['reply-flag'] = $grid->showAlertWithFunction("Wysłano odpowiedź!", "Poprawnie wysłano odpowiedź na zgłoszenie.", "success", "OK", "zgloszenia");
+    if(isset($_POST['user-admin-form'])) {
+        $rank->setUserAndRank($_POST['user-admin-form'], $_POST['rank-admin-form']);
+        if($rank->validateRankForm()) {
+            if($rank->addUserRank($db, $pdo)) {
+                $_SESSION['rank-flag'] = $grid->showAlertWithFunction("Nadano rangę!", "Poprawnie nadano rangę użytkownikowi.", "success", "OK", "nadaj-range");
+            } 
         } else {
-            $_SESSION['reply-flag'] = $grid->showAlert("Nie wysłano odpowiedzi!", "Proszę poprawić błędy.", "error", "OK");
+            $_SESSION['rank-flag'] = $grid->showAlert("Nie nadano rangi!", "Proszę poprawić błędy.", "error", "OK");
         }
     }
 
@@ -36,9 +36,10 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <title>Games4You - dodaj grę</title>
+    <title>Games4You - nadaj rangę</title>
     <link rel="stylesheet" href="./css/admin-style.css">
     <link rel="stylesheet" href="./css/account-style.css">
+    <link rel="stylesheet" href="sweetalert2.min.css">
     <?php
         $grid->drawNecesseryHead();
     ?>
@@ -49,7 +50,7 @@
     ?>
     <main>
         <?php
-            $reply->drawReplyForm($db, $pdo);
+            $rank->drawRankForm($db, $pdo);
         ?>
         
     </main>
@@ -59,9 +60,9 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="sweetalert2.min.js"></script>
     <?php
-        if(isset($_SESSION['reply-flag'])) {
-            echo $_SESSION['reply-flag'];
-            unset($_SESSION['reply-flag']);
+        if(isset($_SESSION['rank-flag'])) {
+            echo $_SESSION['rank-flag'];
+            unset($_SESSION['rank-flag']);
         }
     ?>
 </body>

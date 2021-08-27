@@ -20,8 +20,8 @@
     <title>Games4You - <?php echo $db->getGameTitle($pdo, $_GET['id']) ?></title>
     <link rel="stylesheet" href="./css/game-page.css">
     <link rel="stylesheet" href="./css/account-style.css">
-    <link rel="stylesheet" href="./css/fontello.css">
-    <link rel="stylesheet" href="./css/fontello-codes.css">
+    
+    
     <?php
         $grid->drawNecesseryHead();
     ?>

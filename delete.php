@@ -1,4 +1,10 @@
 <?php
+
+    session_start();
+        
+    if(!isset($_SESSION['login']) || $_SESSION['rank'] != "Administrator") {
+        header('Location: strona-glowna');
+    }
     
     if(!isset($_GET['id']) || !isset($_GET['what']))
         header('Location: admin-panel');

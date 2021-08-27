@@ -33,6 +33,7 @@
     text-decoration: none;
     font-size: 1.2em;
     box-sizing: border-box;
+    border-bottom: 0.2em solid #000;
 }
 
 .a-account:hover {
@@ -183,7 +184,7 @@
 
 .order-game-cover img {
     height: 100%;
-    width: auto;
+    width: 6vw;
 }
 
 .order-game-title,

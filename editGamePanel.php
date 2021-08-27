@@ -1,5 +1,11 @@
 <?php
 
+    session_start();
+
+    if(!isset($_SESSION['login']) || $_SESSION['rank'] != "Administrator") {
+        header('Location: strona-glowna');
+    }
+
     require_once('./php/Database.php');
     require_once('./php/Grid.php');
     require_once('./php/Admin.php');
@@ -27,9 +33,6 @@
     <?php
         $admin->drawMainAdminHeader();
     ?>
-    <nav id="categories-nav">
-
-    </nav>
     <main>
         <?php
             $admin->drawGameToEdit($db, $pdo, $grid);

@@ -16,6 +16,7 @@
         //Dane z formularza Login
         protected $login;
         protected $password;
+        protected $rank;
 
         //Dane z formularza rejestracji
         protected $login_register;
@@ -365,9 +366,14 @@
             $db->register($pdo, $this->login_register, $password_register_hash, $this->email_register, $db);
         }
 
-        function login() {
+        function login($db, $pdo) {
             $_SESSION['login'] = $this->login;
-            header('Location: strona-glowna');
+            $this->rank = $db->getUserRank($pdo, $this->login);
+            $_SESSION['rank'] = $this->rank;
+            if($this->rank == "Administrator")
+                header('Location: admin-panel');
+            else
+                header('Location: strona-glowna');
         }
 
         function initiateAddKey($pdo, $db, $idGame) {

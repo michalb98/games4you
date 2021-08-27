@@ -1,5 +1,11 @@
 <?php
 
+    session_start();
+
+    if(!isset($_SESSION['login']) || $_SESSION['rank'] != "Administrator") {
+        header('Location: strona-glowna');
+    }
+
     require_once('./php/Database.php');
     require_once('./php/Grid.php');
     require_once('./php/Admin.php');
@@ -25,19 +31,27 @@
             if(isset($_FILES['file-upload-input']) && empty($_FILES['file-upload-input'])) {
                 if($form->validateGameCover($db)){
                     if($form->initiateUpdateGame($pdo, $db, $_GET['id'], $gameData[0][0]))
-                        header('Location: edytuj?id='.$_GET["id"].'');
+                        $_SESSION['edit-game-flag'] = $grid->showAlertWithFunction("Edytowano grę!", "Poprawnie edytowano grę.", "success", "OK", 'edytuj?id='.$_GET["id"].'');
                 }
-                else
+                else {
                     $form->keepFormValue();
+                    $_SESSION['edit-game-flag'] = $grid->showAlert("Nie edytowano gry!", "Proszę poprawić błędy.", "error", "OK");
+                }
+                    
             } else {
                 if($form->initiateUpdateGame($pdo, $db, $_GET['id'], $gameData[0][0]))
-                    header('Location: edytuj?id='.$_GET["id"].'');
-                else
+                    $_SESSION['edit-game-flag'] = $grid->showAlertWithFunction("Edytowano grę!", "Poprawnie edytowano grę.", "success", "OK", 'edytuj?id='.$_GET["id"].'');
+                else {
                     $form->keepFormValue();
+                    $_SESSION['edit-game-flag'] = $grid->showAlert("Nie edytowano gry!", "Proszę poprawić błędy.", "error", "OK");
+                }
+                    
             }
         }
-        else
+        else {
             $form->keepFormValue();
+            $_SESSION['edit-game-flag'] = $grid->showAlert("Nie edytowano gry!", "Proszę poprawić błędy.", "error", "OK");
+        }  
     }
 
 ?>
@@ -54,9 +68,6 @@
     <?php
         $admin->drawMainAdminHeader();
     ?>
-    <nav id="categories-nav">
-
-    </nav>
     <main>
         <?php
             $admin->drawAddGameForm("Edytuj grę: ".$gameData[0][0], "Edytuj grę", 1);
@@ -66,7 +77,14 @@
     <?php
         $grid->drawFooter();
     ?>
-    
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="sweetalert2.min.js"></script>
+    <?php
+        if(isset($_SESSION['edit-game-flag'])) {
+            echo $_SESSION['edit-game-flag'];
+            unset($_SESSION['edit-game-flag']);
+        }
+    ?>
     <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <script src="./js/previewCover.js"></script>
     <script src="./js/autoNettoPrice.js"></script>

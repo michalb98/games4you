@@ -21,3 +21,4 @@ RewriteRule koszyk cart.php
 RewriteRule konto account.php
 RewriteRule usun delete.php
 RewriteRule odpowiedz reply.php
+RewriteRule nadaj-range promotion.php

@@ -202,7 +202,7 @@
                     <img class="game-cover-form" src="'.$_SESSION['game-cover'].'" alt="Okładka gry">';
             }
             echo '<label for="cover-admin-form" class="label-admin-form">
-                Okładka gry
+                Okładka gry (Zalecany format 4:3, np. 800x600)
             </label>
             <div id="cover-admin-form" class="image-upload-wrap">
                 <input class="file-upload-input" name="file-upload-input" type="file" onchange="readURL(this);" accept="image/*">
@@ -293,7 +293,15 @@
         }
 
         function drawAdminMenu() {
-
+            echo '<nav class="admin-menu-nav">
+                <h1 class="h1-admin-panel">Panel Administratora Games4You</h1>
+                <a class="admin-menu-nav-a" href="dodaj-gre" title="Dodaj nową grę">Dodaj grę</a>
+                <a class="admin-menu-nav-a" href="dodaj-klucze" title="Dodaj nowe klucze do gry">Dodaj klucze</a>
+                <a class="admin-menu-nav-a" href="wybierz-gre" title="Edytuj gry">Edytuj gry</a>
+                <a class="admin-menu-nav-a" href="zgloszenia" title="Zgłoszenia użytkoników">Zobacz wysłane zgłoszenia</a>
+                <a class="admin-menu-nav-a" href="nadaj-range" title="Nadaj rangę użytkownikowi">Nadaj rangę</a>
+                <a class="admin-menu-nav-a" href="strona-glowna" title="Zobacz główną stronę sklepu">Strona sklepu</a>
+            </nav>';
         }
 
         function drawGameToEdit($db, $pdo, $grid) {
@@ -390,6 +398,7 @@
                         <i class="icon-adult icon"></i>
                     </a>
                     <a href="konto" title="Zobacz swoje konto" class="hide-icon-main-header">Moje konto</a>
+                    <a href="strona-glowna" title="Przejdź do strony głównej" class="hide-icon-main-header">Strona główna</a>
                     <a href="logout" title="Wyloguj się" class="hide-icon-main-header">Wyloguj się</a>';
             } else {
                 echo '<a href="logowanie" title="Zaloguj się" id="account" class="icon-main-header">
@@ -403,6 +412,7 @@
     </div>';
         }
 
+        
 
     }
 

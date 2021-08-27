@@ -1,5 +1,11 @@
 <?php
 
+    session_start();
+        
+    if(!isset($_SESSION['login']) || $_SESSION['rank'] != "Administrator") {
+        header('Location: strona-glowna');
+    }
+
     require_once('./php/Database.php');
     require_once('./php/Grid.php');
     require_once('./php/Admin.php');
@@ -25,20 +31,11 @@
     <?php
         $admin->drawMainAdminHeader();
     ?>
-    <nav id="categories-nav">
-
-    </nav>
+    
     <main>
         <?php
-            
+            $admin->drawAdminMenu();
         ?>
-        <nav class="admin-menu-nav">
-            <h1 class="h1-admin-panel">Panel Administratora Games4You</h1>
-            <a class="admin-menu-nav-a" href="dodaj-gre" title="Dodaj nową grę">Dodaj grę</a>
-            <a class="admin-menu-nav-a" href="dodaj-klucze" title="Dodaj nowe klucze do gry">Dodaj klucze</a>
-            <a class="admin-menu-nav-a" href="wybierz-gre" title="Edytuj gry">Edytuj gry</a>
-            <a class="admin-menu-nav-a" href="zgloszenia" title="Zgłoszenia użytkoników">Zobacz wysłane zgłoszenia</a>
-        </nav>
     </main>
     <?php
         $grid->drawFooter();

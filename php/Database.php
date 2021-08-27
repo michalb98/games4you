@@ -104,8 +104,8 @@
                 try {
                     $db->createAdditionalData($pdo, $mail);
                     $id = $db->getAdditionalDataId($pdo, $mail);
-                    $sth = $pdo->prepare('INSERT INTO `user` VALUE (?, ?, ?, ?)');
-                    $sth->execute([NULL, $login, $password, $id]);
+                    $sth = $pdo->prepare('INSERT INTO `user` VALUE (?, ?, ?, ?, ?)');
+                    $sth->execute([NULL, $login, $password, $id, 1]);
                     $_SESSION['register'] = $login;
                     header('Location: logowanie');
                 } catch(Exception $e) {
@@ -883,6 +883,59 @@
                 } catch(Exception $e) {
                     return $e->getMessage();
                 }
+            }
+        }
+
+        function getUserRank($pdo, $login){
+            if ($pdo) {
+                $sth = $pdo->prepare('SELECT `rank`.`Rank` FROM `user`, `rank` WHERE `user`.`ID_Rank`=`rank`.`ID_Rank` AND `user`.`Login` = "'.$login.'"');
+                $sth->execute();
+                $rank = $sth->fetchAll(PDO::FETCH_NUM);  
+                return $rank[0][0];         
+            } else {
+                return 'Database error';
+            }
+        }
+
+        function updateUserRank($pdo, $idLogin, $idRank) {
+            if ($pdo) {
+                try {
+                    $sth = $pdo->prepare('UPDATE `user` SET `ID_Rank`=? WHERE `user`.`ID_User` = '.$idLogin.';');
+                    $sth->execute([$idRank]);
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+        }
+
+        function getIdRank($pdo, $rank){
+            if ($pdo) {
+                $sth = $pdo->prepare('SELECT `rank`.`ID_Rank` FROM `rank` WHERE `rank`.`Rank` = "'.$rank.'"');
+                $sth->execute();
+                $id = $sth->fetchAll(PDO::FETCH_NUM);  
+                return $id[0][0];         
+            } else {
+                return 'Database error';
+            }
+        }
+
+        function getUsersLogin($pdo) {
+            if ($pdo) {
+                $sth = $pdo->prepare('SELECT `user`.`ID_User`, `user`.`Login` FROM `user` ORDER BY `user`.`Login`;');
+                $sth->execute();
+                return $sth->fetchAll(PDO::FETCH_NUM);       
+            } else {
+                return 'Database error';
+            }
+        }
+
+        function getRank($pdo) {
+            if ($pdo) {
+                $sth = $pdo->prepare('SELECT `rank`.`ID_Rank`, `rank`.`Rank` FROM `rank` ORDER BY `rank`.`Rank`;');
+                $sth->execute();
+                return $sth->fetchAll(PDO::FETCH_NUM);       
+            } else {
+                return 'Database error';
             }
         }
     }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 26 Sie 2021, 18:10
+-- Czas generowania: 27 Sie 2021, 15:46
 -- Wersja serwera: 10.4.19-MariaDB
 -- Wersja PHP: 8.0.7
 
@@ -156,7 +156,7 @@ CREATE TABLE `game` (
 
 INSERT INTO `game` (`ID_Game`, `Title`, `Price_netto`, `Price_brutto`, `Short_description`, `Description`, `Quantity`, `ID_Type`, `ID_Version`, `ID_Platform`) VALUES
 (1, 'Days Gone', 130.07, 159.99, 'Jedź i walcz w zabójczej, postpandemicznej Ameryce. W tej przygodowej grze akcji z otwartym światem zagrasz jako Deacon St. John, walczący o przetrwanie włóczęga i łowca nagród, przemierzający zniszczoną drogę w poszukiwaniu powodów, by dalej żyć.', 'Days Gone  to klasyczna przygodowa gra akcji, w której kamera znajduje się stale za plecami głównego bohatera. Podczas rozgrywki eksplorujemy obszerną sandboksową mapę, wykonujemy zadania (główne i poboczne – np. czyszczenie obozów z bandytów czy polowanie na zwierzęta) i walczymy z wrogami – zarówno ludźmi, jak i z rozmaitymi rodzajami groźnych ofiar wirusa. Te ostatnie często poruszają się w hordach liczących nawet kilkaset osobników, a do tego posiadają własne potrzeby i regulujący ich zachowanie cykl dobowy. Ciekawym detalem urozmaicającym zabawę jest częściowa interaktywność otoczenia – mamy możliwość m.in. popychania przeciwników na obiekty lub przecinania lin podtrzymujących ścięte drzewa. Twórcy położyli też duży nacisk na taktykę i planowanie – szczególnie w przypadku starć z ludzkimi wrogami. Walczymy, korzystając z rozbudowanego arsenału, m.in. karabinów maszynowych, shotgunów czy snajperek. Deacon dysponuje również kilkoma specjalnymi umiejętnościami, takimi jak np. spowalnianie czasu w trakcie walki (klasyczny bullet time) czy tzw. survival vision, umożliwiające podkreślanie ważnych przedmiotów i przeciwników, dzięki czemu łatwiej jest dostrzec, co i kto nas otacza – i gdzie mogą kryć się potencjalne zagrożenia. W miarę postępów w rozgrywce bohater może uczyć się nowych rzeczy i stopniowo rozwijać statystyki (takie jak życie czy wytrzymałość). Gra posiada rozbudowany, ale relatywnie prosty w obsłudze system rzemiosła, na potrzeby którego zbieramy duże ilości przeróżnych materiałów. Duże znaczenie dla rozgrywki ma także motocykl, którym poruszamy się po mapie. Mamy możliwość dostosowywania jego wyglądu, parametrów technicznych (np. poprzez zmianę opon czy silnika), a także zdobywania innych usprawnień, takich jak torby umożliwiające przewożenie większej liczby przedmiotów. Co ciekawe, nasz stalowy rumak wymaga benzyny, o której zapas trzeba się zatroszczyć, jeśli nie chcemy utknąć na niebezpiecznym pustkowiu.', 6, 2, 1, 1),
-(2, 'Phasmophobia', 40.64, 49.99, 'Phasmophobia jest nietypowym survival horrorem, który został opracowany z myślą o 4-osobowym trybie kooperacyjnym. Tytuł oferuje też wsparcie dla wirtualnej rzeczywistości. Za jego opracowane i wydanie odpowiada niezależne studio Kinetic Games.', 'W Phasmophobia akcję obserwujemy z perspektywy pierwszoosobowej. Zabawa polega na eksplorowaniu nawiedzonych miejsc i zbieraniu dowodów na istnienie duchów. Wykorzystujemy do tego celu specjalny sprzęt, taki jak mierniki pola elektromagnetycznego, kamery CTTV czy detektory ruchu (częścią sprzętu zarządzamy z ciężarówki będącej naszą bazą – odpowiada za to jeden z członków zespołu). Warto odnotować, że czym dłużej znajdujemy się w danej lokalizacji (deweloperzy przygotowali kilka odmiennych miejsc – mamy do wyboru posiadłość, więzienie, farmę, szkołę czy szpital), tym bardziej niebezpieczna się ona staje. W grze można znaleźć przeszło dziesięć unikatowych typów duchów – każdy z nich posiada wyjątkowe cechy, dzięki czemu kolejne dochodzenia zauważalnie różnią się od siebie. Co ciekawe, gra wykorzystuje też funkcję wykrywania mowy, dzięki której czasem możemy wchodzić w interakcje z duchami używając swojego własnego głosu.', 1, 7, 1, 1),
+(2, 'Phasmophobia', 40.64, 49.99, 'Phasmophobia jest nietypowym survival horrorem, który został opracowany z myślą o 4-osobowym trybie kooperacyjnym. Tytuł oferuje też wsparcie dla wirtualnej rzeczywistości. Za jego opracowane i wydanie odpowiada niezależne studio Kinetic.', 'W Phasmophobia akcję obserwujemy z perspektywy pierwszoosobowej. Zabawa polega na eksplorowaniu nawiedzonych miejsc i zbieraniu dowodów na istnienie duchów. Wykorzystujemy do tego celu specjalny sprzęt, taki jak mierniki pola elektromagnetycznego, kamery CTTV czy detektory ruchu (częścią sprzętu zarządzamy z ciężarówki będącej naszą bazą – odpowiada za to jeden z członków zespołu). Warto odnotować, że czym dłużej znajdujemy się w danej lokalizacji (deweloperzy przygotowali kilka odmiennych miejsc – mamy do wyboru posiadłość, więzienie, farmę, szkołę czy szpital), tym bardziej niebezpieczna się ona staje. W grze można znaleźć przeszło dziesięć unikatowych typów duchów – każdy z nich posiada wyjątkowe cechy, dzięki czemu kolejne dochodzenia zauważalnie różnią się od siebie. Co ciekawe, gra wykorzystuje też funkcję wykrywania mowy, dzięki której czasem możemy wchodzić w interakcje z duchami używając swojego własnego głosu.', 1, 7, 1, 1),
 (30, 'The Sims 4', 81.29, 99.99, 'Poczuj moc tworzenia i kontrolowania własnych postaci w wirtualnym świecie, w którym nie ma ograniczeń. Doświadczaj wolności w zabawie, rządź i pogrywaj z życiem!', '\"Puść wodze wyobraźni i stwórz wyjątkowy świat Simów. Odkrywaj bogactwo opcji i dostosowuj najdrobniejsze szczegóły dotyczące Simów, ich domów i nie tylko. Wybierz wygląd, zachowanie i ubiór Simów. Określ, jak będą spędzać codzienne życie. Projektuj i buduj wyjątkowe domy dla każdej z rodzin, a potem wyposażaj je, dodając ulubione meble i dekoracje. Odwiedzaj różnorodne otoczenia, w których możesz poznawać innych Simów i ich historie. Odkrywaj piękne lokacje z niepowtarzalnym klimatem i funduj Simom spontaniczne przygody. Przeżywaj razem z nimi radości i smutki codzienności i rozgrywaj realistyczne lub kompletnie zakręcone scenariusze. Opowiadaj historie Simów tak, jak chcesz, buduj ich związki, rozwijaj kariery, wypełniaj życiowe aspiracje i zanurz się w świecie tej wyjątkowej gry, w której możliwości są naprawdę nieograniczone.', 1, 11, 1, 2),
 (31, 'Grand Theft Auto V', 97.55, 119.99, 'Grand Theft Auto V na PC pozwala graczom zobaczyć ogromny świat Los Santos i hrabstwa Blaine w rozdzielczości sięgającej 4K i lepszej oraz w 60 klatkach na sekundę.', 'Gdy młody opryszek, emerytowany rabuś oraz przerażający psychol wplątują się w gangsterskie porachunki i interesy świata zbrodni, rządu USA i przemysłu rozrywkowego, muszą wykonać serię niebezpiecznych napadów, aby przetrwać w bezlitosnym świecie, w którym zdrada czyha na każdym kroku.', 1, 1, 1, 7),
 (32, 'Forza Horizon 4', 162.59, 199.99, 'Dynamiczne pory roku całkowicie zmienią największy motoryzacyjny festiwal świata. Weź w niej udział samodzielnie lub stwórz drużynę wraz z innymi graczami.', 'Dynamiczne pory roku całkowicie zmienią największy motoryzacyjny festiwal świata. Weź w niej udział samodzielnie lub stwórz drużynę wraz z innymi graczami. Podziwiaj historyczne zakątki Brytanii, przemierzając wspólny otwarty świat w jednym z 450 różnych modeli samochodów do zebrania i zmodyfikowania. Wyścigi, popisy kaskaderskie, budowanie i eksploracja – wybierz swoją specjalność i zostań supergwiazdą Horizon.', 2, 5, 1, 1),
@@ -167,7 +167,8 @@ INSERT INTO `game` (`ID_Game`, `Title`, `Price_netto`, `Price_brutto`, `Short_de
 (42, 'Gears 5', 81.29, 99.99, 'Piąta część popularnego cyklu TPS-ów, w której wcielamy się w znaną z Gears of War 4 Kait Diaz. Protagonistka wyrusza w podróż do odległego zakątka planety Sera, by rozwikłać zagadkę trapiących ją koszmarów.', 'Akcja Gears 5 toczy się po wydarzeniach przedstawionych w czwartej części serii. W roli głównej obsadzono Kait Diaz, która w towarzystwie Delmonta Walkera udaje się w długą podróż przez malownicze, ale i pełne niebezpieczeństw zakątki planety Sera. Protagonistka zamierza dowiedzieć się więcej na temat pochodzenia Szarańczy (ang. Locust) i odkryć źródło trapiących ją koszmarów, w których, jak wierzy, kryje się jakaś wiadomość. Jedną z głównych osi fabularnych jest również uruchomienie Młota Świtu, czyli potężnej broni energetycznej atakującej z orbity.', 2, 2, 2, 8),
 (43, 'Resident Evil Village', 203.24, 249.99, 'Oto survival horror, jakiego jeszcze nie było — ósma odsłona legendarnej serii Resident Evil. Realistyczna grafika, pierwszoosobowa akcja i mistrzowska fabuła sprawią, że poczucie zagrożenia będzie rzeczywiste jak nigdy.', 'Rok 1274. Na kontynencie azjatyckim praktycznie niepodzielnie rządzi imperium mongolskie. Jego władcy łakomym okiem spoglądają na bogactwa feudalnej Japonii. Chan Kubilaj decyduje się w końcu na dokonanie inwazji. Jej pierwszym celem jest położona dokładnie pośrodku Cieśniny Koreańskiej wyspa Cuszima. Podczas ataku wojska mongolskie masakrują większość samurajów mieszkających na wyspie. Głównemu bohaterowi gry – Jinowi Sakai – cudem udaje się przetrwać tragiczną w skutkach bitwę. Od tego momentu głównym celem protagonisty staje się powstrzymanie Mongołów. Jednak aby tego dokonać, będzie musiał zapomnieć o samurajskich tradycjach.', 1, 7, 1, 1),
 (45, 'Car Mechanic Simulator 2021', 73.16, 89.99, 'Wspinaj się po drabinie kariery jako mechanik samochodowy. To realistyczny symulator mechanika samochodowego. Naprawiaj auta klientów, kupuj własne auta, naprawiaj je, sprzedawaj albo dodaj do swojej kolekcji!', 'Car Mechanic Simulator 2021 to produkcja o dobrze ugruntowanej bazie graczy. Rozpocznij jako nowy właściciel garażu I rozwijaj swoje serwisowe imperium. Ubrudź sobie ręce w pełnej detali, realistycznej symulacji. Przygotuj się na ponad 4000 unikatowych części i ponad 72 samochody. Podwijaj rękawy i zanurz się w realistycznej przestrzeni swojego garażu.\r\n<br><br>\r\nInwestuj w nowy sprzęt i rozwijaj swoją przestrzeń aby rozszerzać działalność swojego serwisu. Naprawiaj, serwisuj, testuj, lakieruj, tuninguj i odnawiaj samochody. Odwiedź aukcje samochodowe i przeglądaj pojazdy w różnorodnej kondycji. Jeżeli czujesz, że to Twój szczęśliwy dzień, odwiedź stodoły. Niektóre z nich kryją nie lada skarby – trzeba je tylko odnaleźć.', 10, 11, 1, 1),
-(50, 'Assassin&#39;s Creed Odyssey', 203.24, 249.99, 'Weź los we własne ręce w Assassin&#39;s Creed Odyssey. Od wyrzutka aż po żywą legendę, wyrusz w podróż, która odkryje przed tobą tajemnice twojej przeszłości i odmieni losy starożytnej Grecji.', 'Weź los we własne ręce w Assassin&#39;s Creed® Odyssey.\r\nOd wyrzutka aż po żywą legendę, wyrusz w podróż, która odkryje przed tobą tajemnice twojej przeszłości i odmieni losy starożytnej Grecji.\r\n\r\nWYRUSZ DO STAROŻYTNEJ GRECJI\r\nOd gęstych i bujnych lasów, po wulkaniczne wyspy i zatłoczone miasta, wyrusz w pełną odkryć i potyczek podróż przez rozdarty wojną świat, stworzony przez bogów i ludzi.\r\n\r\nZAPISZ WŁASNĄ LEGENDĘ\r\nTwoje decyzje będą wpływały na przebieg odysei. Zobacz szereg możliwych zakończeń dzięki zupełnie nowemu systemowi dialogów i mechanice dokonywania wyborów. Dobieraj wyposażenie, ulepszaj statek i rozwijaj specjalne umiejętności, by stać się legendą.\r\n\r\nWALCZ NA NIESPOTYKANĄ DOTĄD SKALĘ\r\nPokaż, jaki z ciebie wojownik, biorąc udział w wielkich bitwach pomiędzy Spartą i Atenami u boku setek innych żołnierzy lub taranuj i przebijaj się przez całe floty w bitwach morskich, toczonych na całym Morzu Egejskim.\r\n\r\nONIEMIEJESZ Z WRAŻENIA\r\nZyskaj zupełnie nowe spojrzenie na przygodę dzięki Tobii Eye Tracking. Funkcja rozszerzonego widoku zapewnia szerszą perspektywę, a efekty dynamicznego oświetlenia i słońca pozwalają zatracić się w piaszczystych wydmach zgodnie z miejscem, na które patrzysz. Oznaczanie, celowanie i blokowanie celów staje się o wiele bardziej naturalne, kiedy można zrobić to samym spojrzeniem. Pozwól, by oczy zaprowadziły Cię do celu i wzbogaciły rozgrywkę.\r\nOdwiedź stronę internetową Tobii, by sprawdzić listę kompatybilnych urządzeń.', 5, 1, 1, 3);
+(50, 'Assassin&#39;s Creed Odyssey', 203.24, 249.99, 'Weź los we własne ręce w Assassin&#39;s Creed Odyssey. Od wyrzutka aż po żywą legendę, wyrusz w podróż, która odkryje przed tobą tajemnice twojej przeszłości i odmieni losy starożytnej Grecji.', 'Weź los we własne ręce w Assassin&#39;s Creed® Odyssey.\r\nOd wyrzutka aż po żywą legendę, wyrusz w podróż, która odkryje przed tobą tajemnice twojej przeszłości i odmieni losy starożytnej Grecji.\r\n\r\nWYRUSZ DO STAROŻYTNEJ GRECJI\r\nOd gęstych i bujnych lasów, po wulkaniczne wyspy i zatłoczone miasta, wyrusz w pełną odkryć i potyczek podróż przez rozdarty wojną świat, stworzony przez bogów i ludzi.\r\n\r\nZAPISZ WŁASNĄ LEGENDĘ\r\nTwoje decyzje będą wpływały na przebieg odysei. Zobacz szereg możliwych zakończeń dzięki zupełnie nowemu systemowi dialogów i mechanice dokonywania wyborów. Dobieraj wyposażenie, ulepszaj statek i rozwijaj specjalne umiejętności, by stać się legendą.\r\n\r\nWALCZ NA NIESPOTYKANĄ DOTĄD SKALĘ\r\nPokaż, jaki z ciebie wojownik, biorąc udział w wielkich bitwach pomiędzy Spartą i Atenami u boku setek innych żołnierzy lub taranuj i przebijaj się przez całe floty w bitwach morskich, toczonych na całym Morzu Egejskim.\r\n\r\nONIEMIEJESZ Z WRAŻENIA\r\nZyskaj zupełnie nowe spojrzenie na przygodę dzięki Tobii Eye Tracking. Funkcja rozszerzonego widoku zapewnia szerszą perspektywę, a efekty dynamicznego oświetlenia i słońca pozwalają zatracić się w piaszczystych wydmach zgodnie z miejscem, na które patrzysz. Oznaczanie, celowanie i blokowanie celów staje się o wiele bardziej naturalne, kiedy można zrobić to samym spojrzeniem. Pozwól, by oczy zaprowadziły Cię do celu i wzbogaciły rozgrywkę.\r\nOdwiedź stronę internetową Tobii, by sprawdzić listę kompatybilnych urządzeń.', 5, 1, 1, 3),
+(51, 'Life is Strange', 58.53, 71.99, 'Główną bohaterką jest osiemnastoletnia Max Caulfield, która po latach powraca do rodzinnego miasteczka Arcadia Bay w Oregonie.', 'Fabuła Life is Strange przenosi nas do fikcyjnego amerykańskiego miasteczka Arcadia Bay w stanie Oregon. Po 5 latach przybywa do niego Max Caulfield, wkraczająca w dorosłość główna bohaterka gry, która wróciła w rodzinne strony, by rozpocząć naukę w Blackwell Academy, prestiżowej szkole wyższej dla pasjonatów fotografii. Na miejscu spotyka się ponownie ze swoją dawną przyjaciółką, Chloe Price. Razem z nią stara się rozwiązać zagadkę tajemniczego zaginięcia innej studentki Blackwell – Rachel Amber. Już na samym początku przygody Max odkrywa, że posiada moc manipulowania czasem, co jest jedynie początkiem dziwnych, niewytłumaczalnych zdarzeń i wydaje się w jakiś sposób powiązane z nękającymi ją wizjami gigantycznego tornada uderzającego w miasto.\r\nŹródło: https://www.gry-online.pl/gry/life-is-strange/zf3e25', 4, 6, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -222,7 +223,11 @@ INSERT INTO `game_key` (`ID_Game_key`, `ID_Game`, `Game_key`, `Key_bought`) VALU
 (54, 45, 'EMQNG-1N35O-3DJ3H', 0),
 (55, 45, 'JDKSA-74P8F-DJ85P', 0),
 (56, 1, 'KAIM3-5798C-NQ8S4', 0),
-(57, 1, 'JB25H-LFBQF-BCO5S', 0);
+(57, 1, 'JB25H-LFBQF-BCO5S', 0),
+(58, 51, '73B8F-GT8KH-43DO7', 0),
+(59, 51, '286Q3-1F2D2-76639', 0),
+(60, 51, 'TGJM7-633CF-RMC7P', 0),
+(61, 51, 'C56JK-895QM-46526', 0);
 
 -- --------------------------------------------------------
 
@@ -306,7 +311,10 @@ CREATE TABLE `notices` (
 --
 
 INSERT INTO `notices` (`ID_Notices`, `ID_User`, `ID_Issue`, `Notice`) VALUES
-(2, 1, 7, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.');
+(3, 1, 2, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris non ex non massa placerat molestie sit amet a nisl. Nulla ac nisl sit amet dolor euismod vulputate. Quisque ullamcorper nisi eros, vel faucibus odio dapibus vitae. Vestibulum semper finibus rutrum. Quisque ac suscipit justo. Quisque sed felis et mauris tincidunt elementum. Integer quis turpis non eros feugiat porta. Pellentesque non nibh tortor. Sed in nisi id risus ornare dignissim. Praesent porttitor consectetur accumsan. Vestibulum ante eros, ullamcorper ac urna eu, aliquet euismod elit. Nam mauris urna, consectetur in ipsum id, bibendum ornare dui. Vestibulum rhoncus congue nisl, sit amet euismod nisi tincidunt quis. Praesent euismod dui sapien, euismod interdum neque dapibus nec.'),
+(4, 1, 6, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris non ex non massa placerat molestie sit amet a nisl. Nulla ac nisl sit amet dolor euismod vulputate. Quisque ullamcorper nisi eros, vel faucibus odio dapibus vitae. Vestibulum semper finibus rutrum. Quisque ac suscipit justo. Quisque sed felis et mauris tincidunt elementum. Integer quis turpis non eros feugiat porta. Pellentesque non nibh tortor. Sed in nisi id risus ornare dignissim. Praesent porttitor consectetur accumsan. Vestibulum ante eros, ullamcorper ac urna eu, aliquet euismod elit. Nam mauris urna, consectetur in ipsum id, bibendum ornare dui. Vestibulum rhoncus congue nisl, sit amet euismod nisi tincidunt quis. Praesent euismod dui sapien, euismod interdum neque dapibus nec.'),
+(5, 1, 1, '$_SESSION[&#39;account-flag&#39;] = $grid->showAlert(&#34;Nie zapisano zmian!&#34;, &#34;Proszę poprawić błędy.&#34;, &#34;error&#34;, &#34;OK&#34;);'),
+(6, 1, 2, 'konto?account=kontaktkonto?account=kontakt');
 
 -- --------------------------------------------------------
 
@@ -401,6 +409,25 @@ INSERT INTO `platform` (`ID_Platform`, `Platform`) VALUES
 (9, 'PSN'),
 (10, 'Nintendo'),
 (11, 'DRM Free');
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `rank`
+--
+
+CREATE TABLE `rank` (
+  `ID_Rank` int(2) NOT NULL,
+  `Rank` varchar(250) COLLATE utf8_polish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Zrzut danych tabeli `rank`
+--
+
+INSERT INTO `rank` (`ID_Rank`, `Rank`) VALUES
+(1, 'Użytkownik'),
+(2, 'Administrator');
 
 -- --------------------------------------------------------
 
@@ -538,16 +565,17 @@ CREATE TABLE `user` (
   `ID_User` int(7) NOT NULL,
   `Login` varchar(100) COLLATE utf8_polish_ci NOT NULL,
   `Password` varchar(512) COLLATE utf8_polish_ci NOT NULL,
-  `ID_Additional_data` int(7) DEFAULT NULL
+  `ID_Additional_data` int(7) DEFAULT NULL,
+  `ID_Rank` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
 -- Zrzut danych tabeli `user`
 --
 
-INSERT INTO `user` (`ID_User`, `Login`, `Password`, `ID_Additional_data`) VALUES
-(0, 'Użytkownik usunięty', '', NULL),
-(1, 'darx12311', '84f3773a2f6d75b4f2318d4ec8c826b311ab69679f2e4aafc1e8e74593e5a734ae60248895b4891e75584e35b40d1e1eace5f284cc18bdb826b0cb43d0cfca4b', 1);
+INSERT INTO `user` (`ID_User`, `Login`, `Password`, `ID_Additional_data`, `ID_Rank`) VALUES
+(0, 'Użytkownik usunięty', '', NULL, 1),
+(1, 'darx12311', '84f3773a2f6d75b4f2318d4ec8c826b311ab69679f2e4aafc1e8e74593e5a734ae60248895b4891e75584e35b40d1e1eace5f284cc18bdb826b0cb43d0cfca4b', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -669,6 +697,12 @@ ALTER TABLE `platform`
   ADD PRIMARY KEY (`ID_Platform`);
 
 --
+-- Indeksy dla tabeli `rank`
+--
+ALTER TABLE `rank`
+  ADD PRIMARY KEY (`ID_Rank`);
+
+--
 -- Indeksy dla tabeli `returns`
 --
 ALTER TABLE `returns`
@@ -705,7 +739,8 @@ ALTER TABLE `type`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`ID_User`),
-  ADD KEY `ID_Additional_data` (`ID_Additional_data`);
+  ADD KEY `ID_Additional_data` (`ID_Additional_data`),
+  ADD KEY `ID_Rank` (`ID_Rank`);
 
 --
 -- Indeksy dla tabeli `version`
@@ -739,13 +774,13 @@ ALTER TABLE `discount_code`
 -- AUTO_INCREMENT dla tabeli `game`
 --
 ALTER TABLE `game`
-  MODIFY `ID_Game` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `ID_Game` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT dla tabeli `game_key`
 --
 ALTER TABLE `game_key`
-  MODIFY `ID_Game_key` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `ID_Game_key` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT dla tabeli `game_rating`
@@ -769,7 +804,7 @@ ALTER TABLE `issue`
 -- AUTO_INCREMENT dla tabeli `notices`
 --
 ALTER TABLE `notices`
-  MODIFY `ID_Notices` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID_Notices` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT dla tabeli `orders`
@@ -794,6 +829,12 @@ ALTER TABLE `payment_method`
 --
 ALTER TABLE `platform`
   MODIFY `ID_Platform` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT dla tabeli `rank`
+--
+ALTER TABLE `rank`
+  MODIFY `ID_Rank` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT dla tabeli `returns`
@@ -911,7 +952,8 @@ ALTER TABLE `transaction`
 -- Ograniczenia dla tabeli `user`
 --
 ALTER TABLE `user`
-  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`ID_Additional_data`) REFERENCES `additional_data` (`ID_Additional_data`);
+  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`ID_Additional_data`) REFERENCES `additional_data` (`ID_Additional_data`),
+  ADD CONSTRAINT `user_ibfk_2` FOREIGN KEY (`ID_Rank`) REFERENCES `rank` (`ID_Rank`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

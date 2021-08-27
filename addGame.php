@@ -1,5 +1,11 @@
 <?php
 
+    session_start();
+
+    if(!isset($_SESSION['login']) || $_SESSION['rank'] != "Administrator") {
+        header('Location: strona-glowna');
+    }
+
     require_once('./php/Database.php');
     require_once('./php/Grid.php');
     require_once('./php/Admin.php');
@@ -17,13 +23,18 @@
         if($form->validateForm()) {
             if($form->validateGameCover($db)){
                 if($form->initiateAddGameToTable($pdo, $db))
-                    header('Location: admin-panel');
+                    $_SESSION['add-game-flag'] = $grid->showAlertWithFunction("Dodano grę!", "Pomyślnie dodano grę.", "success", "OK", 'dodaj-gre');
             }
-            else
+            else {
                 $form->keepFormValue();
+                $_SESSION['add-game-flag'] = $grid->showAlert("Nie dodano gry!", "Proszę poprawić błędy.", "error", "OK");
+            }
+                
         }
-        else
+        else {
             $form->keepFormValue();
+            $_SESSION['add-game-flag'] = $grid->showAlert("Nie dodano gry!", "Proszę poprawić błędy.", "error", "OK");
+        }   
     }
 
 ?>
@@ -40,9 +51,6 @@
     <?php
         $admin->drawMainAdminHeader();
     ?>
-    <nav id="categories-nav">
-
-    </nav>
     <main>
         <?php
             $admin->drawAddGameForm("Dodaj grę do sklepu", "Dodaj grę", 0);
@@ -52,7 +60,14 @@
     <?php
         $grid->drawFooter();
     ?>
-    
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="sweetalert2.min.js"></script>
+    <?php
+        if(isset($_SESSION['add-game-flag'])) {
+            echo $_SESSION['add-game-flag'];
+            unset($_SESSION['add-game-flag']);
+        }
+    ?>
     <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <script src="./js/previewCover.js"></script>
     <script src="./js/autoNettoPrice.js"></script>

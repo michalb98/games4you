@@ -83,8 +83,11 @@
                 echo '<a href="konto" title="Zobacz swoje konto" id="account" class="icon-main-header">
                         <i class="icon-adult icon"></i>
                     </a>
-                    <a href="konto" title="Zobacz swoje konto" class="hide-icon-main-header">Moje konto</a>
-                    <a href="logout" title="Wyloguj się" class="hide-icon-main-header">Wyloguj się</a>';
+                    <a href="konto" title="Zobacz swoje konto" class="hide-icon-main-header">Moje konto</a>';
+                    if(isset($_SESSION['rank']) && $_SESSION['rank'] == "Administrator"){
+                        echo '<a href="admin-panel" title="Panel adminstratora" class="hide-icon-main-header">Panel admina</a>';
+                    }
+                    echo '<a href="logout" title="Wyloguj się" class="hide-icon-main-header">Wyloguj się</a>';
             } else {
                 echo '<a href="logowanie" title="Zaloguj się" id="account" class="icon-main-header">
                         <i class="icon-adult icon"></i>
@@ -143,7 +146,10 @@
     <link rel="stylesheet" href="./css/main-style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">';
+    <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/fontello.css">
+    <link rel="stylesheet" href="./css/fontello-codes.css">
+    <link rel="stylesheet" href="./css/account-style.css">';
         }
 
         //Funkcja wyświetla listę wybranych kategorii. Wymaga wszystkich wymaganych kategorii, Tytułu który ma się wyświetlać na początku listy, oraz główną nazwę kategorii
@@ -489,6 +495,32 @@
         //Jeżeli gra nie posiada okładki zosatnie wyświetlona domyślna grafika 
         function drawCoverGame($title) {
             echo '<img class="game-cover" src="./img/covers/'.$title.'_cover.webp" alt="'.$title.'" onerror="if (this.src != `./img/error/error_cover.webp`) this.src = `./img/error/error_cover.webp`;">';
+        }
+
+        function showAlert($title, $text, $icon, $button) {
+            return "<script>
+                    Swal.fire({
+                        title: '$title',
+                        text: '$text',
+                        icon: '$icon',
+                        confirmButtonText: '$button',
+                        background: 'linear-gradient(to top, #30cfd0 0%, #330867 100%)'
+                    })
+                </script>";
+        }
+
+        function showAlertWithFunction($title, $text, $icon, $button, $location) {
+            return "<script>
+                        Swal.fire({
+                            title: '$title',
+                            text: '$text',
+                            icon: '$icon',
+                            confirmButtonText: '$button',
+                            background: 'linear-gradient(to top, #30cfd0 0%, #330867 100%)'
+                        }).then(function(res) {
+                            window.location='$location';
+                        });
+                    </script>";
         }
     }
 

@@ -279,7 +279,7 @@ input[type=number] {
     text-decoration: none;
     color: #FFF;
     font-size: 1.5em;
-    border-bottom: none;
+    border-bottom: 3px solid #000;
     transition: background-color, border-bottom, border-radius 0.25s ease-in-out;
     -webkit-transition: background-color, border-bottom, border-radius 0.25s ease-in-out;
     -moz-transition: background-color, border-bottom, border-radius 0.25s ease-in-out;
@@ -355,6 +355,8 @@ input[type=number] {
     flex-direction: column;
     color: #FFF;
     font-size: 1.2em;
+    padding: 1vh 0.5vw;
+    box-sizing: border-box;
 }
 
 .large-notice {

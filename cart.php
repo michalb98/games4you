@@ -83,8 +83,8 @@
     <meta name="description" content="Sklep internetowy z grami komputerowymi">
     <title>Games4You - Koszyk</title>
     <link rel="stylesheet" href="./css/cart-style.css">
-    <link rel="stylesheet" href="./css/fontello.css">
-    <link rel="stylesheet" href="./css/fontello-codes.css">
+    
+    
     <?php
         $grid->drawNecesseryHead();
     ?>

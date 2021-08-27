@@ -290,7 +290,6 @@ a .first-list-categories-nav {
 
 main {
     width: 80%;
-    min-height: 80vh;
     height: auto;
     flex-wrap: wrap;
     background-color: rgba(0, 0, 0, 0.5);
@@ -857,4 +856,9 @@ input:-webkit-autofill:active {
 
 ::-webkit-scrollbar-thumb:hover {
     border-color: #30cfd0;
+}
+
+.swal2-title,
+.swal2-html-container {
+    color: #000 !important;
 }

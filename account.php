@@ -32,14 +32,18 @@
         $account->setData($_POST['email'], $_POST['name'], $_POST['surname'], $_POST['country'], $_POST['city'], $_POST['postal-code'], $_POST['street'], $_POST['street-number'], $_POST['house-number'], $_SESSION['login'], $_POST['new-password'], $_POST['password']);
         if($account->chcekFormAccountSettings($db, $pdo, $_SESSION['login'])) {
             $db->updateUserAdditionalSettings($pdo, $_SESSION['login'], $db->getIdCountry($pdo, $account->getSelectedCountry()), $account->getName(), $account->getSurname(), $account->getPostalCode(), $account->getCity(), $account->getStreet(), $account->getStreetNumber(), $account->getHouseNumber(), $account->getMail());
+            $_SESSION['account-flag'] = $grid->showAlert("Zapisano zmiany!", "Poprawnie zapisano zmiany.", "success", "OK");
             if($_POST['new-password'] != "" && strlen($_POST['new-password']) > 6 ) {
                 $db->updateUserSettings($pdo, $_SESSION['login'], $account->getNewPassword());
-            }
-        }       
+                $_SESSION['account-flag'] = $grid->showAlert("Zapisano zmiany!", "Poprawnie zapisano zmiany.", "success", "OK");
+            } 
+        } else {
+            $_SESSION['account-flag'] = $grid->showAlert("Nie zapisano zmian!", "Proszę poprawić błędy.", "error", "OK");
+        }     
     } else {
         $additionalData = $db->getUserAdditionalData($pdo, $_SESSION['login']);
         $mail = $db->getUserMail($pdo, $_SESSION['login']);
-                    
+                   
         $account->setData($mail, $additionalData[0][0], $additionalData[0][1], $additionalData[0][2], $additionalData[0][3], $additionalData[0][4], $additionalData[0][5], $additionalData[0][6], $additionalData[0][7], $_SESSION['login'], null, null);    
     }
 
@@ -54,8 +58,10 @@
         $contact->setValueContact($_POST['mail'], $_POST['issue'], $_POST['description-issue']);
         if($contact->validateFormContact()) {
             $contact->addNotice($db, $pdo);
-            header('Location: ?account=kontakt');
-        }   
+            $_SESSION['account-flag'] = $grid->showAlertWithFunction("Wysłano wiadomość!", "Poprawnie wysłano wiadomość.", "success", "OK", 'konto?account=kontakt');
+        } else {
+            $_SESSION['account-flag'] = $grid->showAlert("Nie wysłano wiadomości!", "Proszę poprawić błędy.", "error", "OK");
+        }  
     }
 
     //Zwrot gry
@@ -82,8 +88,8 @@
 <head>
     <meta name="description" content="Sklep internetowy z grami komputerowymi">
     <title><?php $account->setAccountTitle(isset($_GET['account']) ? $_GET['account'] : '', $_SESSION['login']) ?></title>
-    <link rel="stylesheet" href="./css/fontello.css">
-    <link rel="stylesheet" href="./css/fontello-codes.css">
+    
+    
     <link rel="stylesheet" href="./css/account-style.css">
     <?php
         $grid->drawNecesseryHead();
@@ -164,6 +170,14 @@
     </main>
     <?php
         $grid->drawFooter();
+    ?>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="sweetalert2.min.js"></script>
+    <?php
+        if(isset($_SESSION['account-flag'])) {
+            echo $_SESSION['account-flag'];
+            unset($_SESSION['account-flag']);
+        }
     ?>
 </body>
 </html>
