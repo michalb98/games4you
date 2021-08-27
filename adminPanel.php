@@ -21,7 +21,7 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <title>Games4You - dodaj grę</title>
+    <title>Games4You - panel administratora</title>
     <link rel="stylesheet" href="./css/admin-style.css">
     <?php
         $grid->drawNecesseryHead();

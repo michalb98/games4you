@@ -56,7 +56,6 @@
         $grid->drawFooter();
     ?>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="sweetalert2.min.js"></script>
     <?php
         if(isset($_SESSION['add-keys-flag'])) {
             echo $_SESSION['add-keys-flag'];

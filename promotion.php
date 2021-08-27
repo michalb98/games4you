@@ -39,7 +39,6 @@
     <title>Games4You - nadaj rangę</title>
     <link rel="stylesheet" href="./css/admin-style.css">
     <link rel="stylesheet" href="./css/account-style.css">
-    <link rel="stylesheet" href="sweetalert2.min.css">
     <?php
         $grid->drawNecesseryHead();
     ?>
@@ -58,7 +57,6 @@
         $grid->drawFooter();
     ?>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="sweetalert2.min.js"></script>
     <?php
         if(isset($_SESSION['rank-flag'])) {
             echo $_SESSION['rank-flag'];

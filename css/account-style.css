@@ -106,6 +106,7 @@
     background-color: rgba(0, 0, 0, 0.5);
     border: none;
     border: 1px solid black;
+    border-bottom: 4px solid #000;
     color: #FFF;
     transition: all 0.25s ease-in-out;
     -webkit-transition: all 0.25s ease-in-out;
