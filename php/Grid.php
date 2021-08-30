@@ -32,7 +32,10 @@
 
         //Funkcja pobiera gry z danej kategorii, a następnie wyświetla odnośnik do wybranej gry 
         function drawGamesResult($games) {
-            $rows = count($games);
+            $rows = count($games); 
+            if($rows < 1) {
+                echo '<h1 class="search-results">Przepraszamy nie znaleźliśmy gry pasującej do wybranych kryteriów.</h1>';
+            }
             for ($row = 0; $row < $rows; $row++) {
                 echo '<a class="game" href="produkt?id='.$games[$row][0].'" title="Zobacz produkt '.$games[$row][1].'">
                         <div class="game-cover-container">
@@ -61,9 +64,9 @@
                 <img src="./img/web/icon.webp" alt="Games4You">
             </div>
         </a>
-        <div id="search">
+        <form id="search" action="szukaj" method="GET">
             <input type="search" name="search" placeholder="Wpisz tytuł gry...">
-        </div>
+        </form>
         <a ';
         if(isset($_SESSION['login'])) { 
         echo 'href="koszyk" title="Zobacz swój koszyk" id="cart" class="icon-main-header">
@@ -272,7 +275,13 @@
                 }
             }
             else 
-                $out[5] = "Title";            
+                $out[5] = "Title";     
+            if(isset($get['search'])) {
+                $search = filter_var($get['search'], FILTER_SANITIZE_STRING);
+                $out[6] = $search; 
+            }
+            else 
+                $out[6] = "";       
             return $out;
         }
 
@@ -330,6 +339,11 @@
             }
             else 
                 $out[5] = "";
+
+            if(isset($get['search'])) 
+                $out[6] = 'Szukany tytuł: '.$get['search']; 
+            else 
+                $out[6] = "";
             
             return $out;
         }
@@ -376,8 +390,10 @@
         function drawSort($db, $pdo) {
             $minPrice = $db->getAllFromDatabase($pdo, 'SELECT Price_brutto FROM `game` ORDER BY Price_brutto ASC LIMIT 1;');
             $maxPrice = $db->getAllFromDatabase($pdo, 'SELECT Price_brutto FROM `game` ORDER BY Price_brutto DESC LIMIT 1;');
+            $grid = new Grid();
+            $get = $grid->getInfo($_GET);
             echo '<div id="sort">
-            <form method="GET" action="szukaj" class="sort-form">
+            <form method="GET" action="szukaj" class="sort-form"
                 <label for="price-from" class="label-sort-form">
                     Cena od:
                 </label>
@@ -395,6 +411,10 @@
                         echo '<option class="option-select-sort-form" value="'.$this->sortOption[$i][0].'">'.$this->sortOption[$i][1].'</option>';
                     }
                 echo '</select>
+                <input type="hidden" name="platform" value="'.$get[2].'">
+                <input type="hidden" name="version" value="'.$get[1].'">
+                <input type="hidden" name="type" value="'.$get[0].'">
+                <input type="hidden" name="search" value="'.$get[6].'">
                 <input type="submit" value="Sortuj" class="submit-sort-form">
             </form>
         </div>';

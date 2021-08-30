@@ -217,6 +217,10 @@ body {
     display: none;
 }
 
+.label-nav-form {
+    background-color: #330867;
+}
+
 .select-nav-form:hover {
     -webkit-appearance: none;
     -moz-appearance: none;

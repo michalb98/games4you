@@ -47,9 +47,9 @@
     <main>
         <?php
             $grid->drawSort($db, $pdo);
-            $title = $grid->getTitlePage($_GET); echo '<h1 class="search-results">'. $title[0].' '.$title[1].' '.$title[2].' '.$title[3].' '.$title[4].' '.$title[5].'</h1>';
+            $title = $grid->getTitlePage($_GET); echo '<h1 class="search-results">'. $title[0].' '.$title[1].' '.$title[2].' '.$title[3].' '.$title[4].' '.$title[5].' '.$title[6].'</h1>';
             $get = $grid->getInfo($_GET);
-            $games = $db->getAllFromDatabase($pdo, 'SELECT DISTINCT ID_Game, Title, Price_brutto, Short_description FROM game, type, version, platform WHERE game.ID_Type=type.ID_Type AND game.ID_Version=version.ID_Version AND game.ID_Platform=platform.ID_Platform AND (type.Type LIKE "'.$get[0].'" AND version.Version LIKE "'.$get[1].'" AND platform.Platform LIKE "'.$get[2].'" AND Price_brutto BETWEEN '.$get[3].' AND '.$get[4].') ORDER BY '.$get[5].';');
+            $games = $db->getAllFromDatabase($pdo, 'SELECT DISTINCT ID_Game, Title, Price_brutto, Short_description FROM game, type, version, platform WHERE game.ID_Type=type.ID_Type AND game.ID_Version=version.ID_Version AND game.ID_Platform=platform.ID_Platform AND (type.Type LIKE "'.$get[0].'" AND version.Version LIKE "'.$get[1].'" AND platform.Platform LIKE "'.$get[2].'" AND Price_brutto BETWEEN '.$get[3].' AND '.$get[4].' AND `game`.`Title` LIKE "%'.$get[6].'%") ORDER BY '.$get[5].';');
             $grid->drawGamesResult($games);
         ?>
     </main>
