@@ -13,6 +13,8 @@ require('C:\xampp\htdocs\sklep\vendor\autoload.php');
         protected $orderNumber;
         protected $orderValue, $discountValue;
         protected $paymentMethod;
+        protected $totalOrderBruttoValue, $totalOrderNettoValue, $totalVatValue;
+        protected $i = 1;
         
         function setDataToInvoice($login, $orderNumber) {
             $db = new Database();
@@ -27,15 +29,18 @@ require('C:\xampp\htdocs\sklep\vendor\autoload.php');
             $this->streetNumber = $data[0][5];
             $this->houseNumber = $data[0][6];
             $this->email = $data[0][7];
-            $this->title = $data[0][8];
-            $this->priceNetto = $data[0][9];
-            $this->priceBrutto = $data[0][10];
-            $this->quantity = $data[0][11];
             $this->data = $data[0][12];
-            $this->orderNumber = $data[0][13];
-            $this->orderValue = $data[0][14];
-            $this->discountValue = $data[0][15];
             $this->paymentMethod = $data[0][16];
+            $this->orderNumber = $data[0][13];
+
+            for($i = 0; $i < sizeof($data); $i++) {
+                $this->title[$i] = $data[$i][8];
+                $this->priceNetto[$i] = $data[$i][9];
+                $this->priceBrutto[$i] = $data[$i][10];
+                $this->quantity[$i] = $data[$i][11];
+                $this->orderValue[$i] = $data[$i][14];
+                $this->discountValue[$i] = $data[$i][15];
+            }
 
         }
 
@@ -83,29 +88,32 @@ require('C:\xampp\htdocs\sklep\vendor\autoload.php');
                 <td style=" border: 2px solid black;">Wartość VAT</td>
             </tr>
         </thead>
-        <tbody>
-            <tr>
-                <td style=" border: 2px solid black;">1</td>
-                <td style=" border: 2px solid black;">'.$this->title.'</td>
-                <td style=" border: 2px solid black;">'.$this->quantity.'</td>
-                <td style=" border: 2px solid black;">'.$this->quantity * $this->priceBrutto.' zł</td>
-                <td style=" border: 2px solid black;">'.$this->quantity * $this->priceNetto.' zł</td>
-                <td style=" border: 2px solid black;">23%</td>
-                <td style=" border: 2px solid black;">'.($this->quantity * $this->priceBrutto) - ($this->quantity * $this->priceNetto).' zł</td>
-            </tr>
-            <tr>
+        <tbody>';
+            for($i = 0; $i < sizeof($this->title); $i++) {
+                 $data .= '<tr>
+                 <td style=" border: 2px solid black;">'.$i + $this->i.'</td>
+                 <td style=" border: 2px solid black;">'.$this->title[$i].'</td>
+                 <td style=" border: 2px solid black;">'.$this->quantity[$i].'</td>
+                 <td style=" border: 2px solid black;">'.$this->quantity[$i] * $this->priceBrutto[$i].' zł</td>
+                 <td style=" border: 2px solid black;">'.$this->quantity[$i] * $this->priceNetto[$i].' zł</td>
+                 <td style=" border: 2px solid black;">23%</td>
+                 <td style=" border: 2px solid black;">'.($this->quantity[$i] * $this->priceBrutto[$i]) - ($this->quantity[$i] * $this->priceNetto[$i]).' zł</td>
+             </tr>';
+             $this->totalOrderBruttoValue += $this->quantity[$i] * $this->priceBrutto[$i];
+             $this->totalOrderNettoValue += $this->quantity[$i] * $this->priceNetto[$i];
+             $this->totalVatValue += ($this->quantity[$i] * $this->priceBrutto[$i]) - ($this->quantity[$i] * $this->priceNetto[$i]);
+            }
+            $data .='<tr>
                 <td></td>
                 <td></td>
                 <td>Razem: </td>
-                <td style=" border: 2px solid black;">'.$this->quantity * $this->priceBrutto.' zł</td>
-                <td style=" border: 2px solid black;">'.$this->quantity * $this->priceNetto.' zł</td>
+                <td style=" border: 2px solid black;">'.$this->totalOrderBruttoValue.' zł</td>
+                <td style=" border: 2px solid black;">'.$this->totalOrderNettoValue.' zł</td>
                 <td ></td>
-                <td style=" border: 2px solid black;">'.($this->quantity * $this->priceBrutto) - ($this->quantity * $this->priceNetto).' zł</td>
+                <td style=" border: 2px solid black;">'.$this->totalVatValue.' zł</td>
             </tr>
         </tbody>
     </table>';
-            //$data .= '<h1 style="width: 100%; text-align:center;">Faktura numer: '.$this->orderNumber.'</h1><br>';
-            //$data .= '<strong>Imię: </strong>'.$this->name;
 
             $mpdf->WriteHTML($data);
             $fileName = 'Faktura nr. '.$this->orderNumber.'.pdf';

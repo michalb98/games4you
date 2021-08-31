@@ -22,7 +22,7 @@
                     echo '<div class="order-container">
                     <div class="order-number">
                         Zamówienie numer: '.$this->gameData[0][3].'
-                        <a class="invoice-button" href="?account=historia&invoice-number='.$this->gameData[0][3].'" title="Pobierz fakturę" download>Pobierz fakturę</a>
+                        <a class="invoice-button" href="?account=historia&invoice-number='.$this->gameData[0][3].'" title="Pobierz fakturę" >Pobierz fakturę</a>
                     </div>
                     <div class="order-data">
                         Ilość: '.$this->gamesValue.'
