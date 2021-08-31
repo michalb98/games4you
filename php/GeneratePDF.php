@@ -12,6 +12,7 @@ require('C:\xampp\htdocs\sklep\vendor\autoload.php');
         protected $data;
         protected $orderNumber;
         protected $orderValue, $discountValue;
+        protected $paymentMethod;
         
         function setDataToInvoice($login, $orderNumber) {
             $db = new Database();
@@ -34,6 +35,7 @@ require('C:\xampp\htdocs\sklep\vendor\autoload.php');
             $this->orderNumber = $data[0][13];
             $this->orderValue = $data[0][14];
             $this->discountValue = $data[0][15];
+            $this->paymentMethod = $data[0][16];
 
         }
 
@@ -41,9 +43,69 @@ require('C:\xampp\htdocs\sklep\vendor\autoload.php');
             $mpdf = new Mpdf();
 
             $data = '';
-
-            $data .= '<h1>Faktura numer: '.$this->orderNumber.'</h1><br>';
-            $data .= '<strong>Imię: </strong>'.$this->name;
+            $data .= '<div style="width: 100%; height: auto; display: flex; justify-content: center; align-items: center; background-color: gray;">
+            <h1 style="width: 100%; text-align:center; padding: 10px 5px">Faktura numer: '.$this->orderNumber.'</h1>
+        </div>
+        <div style="width: 100%; height: auto; text-align: right;">
+            <strong>Wystawiono dnia: '.$this->data.'</strong>
+        </div>
+        <div style="width: 100%; height: auto; display: flex; justify-content: space-evenly; align-items: center;">
+            <div style="width: 35%; float: left; margin-left: 10%;">
+                <h2 style="border-bottom: 2px solid black;">
+                    Sprzedawca
+                </h2>
+                <h4 style="font-weight: normal;">Michał Błaszczyk</h4>
+                <h4 style="font-weight: normal;">99-400 Kutno</h4>
+                <h4 style="font-weight: normal;">ul. Łokietka 6/60</h4>
+            </div>
+            <div style="width: 35%; float: left; margin-left: 10%;">
+                <h2 style="border-bottom: 2px solid black;">
+                    Nabywca
+                </h2>
+                <h4 style="font-weight: normal;">'.$this->name.' '.$this->surname.'</h4>
+                <h4 style="font-weight: normal;">'.$this->postalCode.' '.$this->city.'</h4>
+                <h4 style="font-weight: normal;">ul. '.$this->street.' '.$this->streetNumber.'/'.$this->houseNumber.'</h4>
+            </div>
+        </div>
+        <div style="width: 100%; height: auto; text-align: left;">
+            <strong>Metoda płatności: </strong>'.$this->paymentMethod.'
+        </div>
+        <br>
+        <table style="border-collapse: collapse; width: 100%;">
+        <thead>
+            <tr style="background-color: lightgray;">
+                <td style=" border: 2px solid black;">Lp.</td>
+                <td style=" border: 2px solid black;">Tytuł gry</td>
+                <td style=" border: 2px solid black;">Ilość kluczy</td>
+                <td style=" border: 2px solid black;">Cena brutto</td>
+                <td style=" border: 2px solid black;">Cena netto</td>
+                <td style=" border: 2px solid black;">VAT</td>
+                <td style=" border: 2px solid black;">Wartość VAT</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style=" border: 2px solid black;">1</td>
+                <td style=" border: 2px solid black;">'.$this->title.'</td>
+                <td style=" border: 2px solid black;">'.$this->quantity.'</td>
+                <td style=" border: 2px solid black;">'.$this->quantity * $this->priceBrutto.' zł</td>
+                <td style=" border: 2px solid black;">'.$this->quantity * $this->priceNetto.' zł</td>
+                <td style=" border: 2px solid black;">23%</td>
+                <td style=" border: 2px solid black;">'.($this->quantity * $this->priceBrutto) - ($this->quantity * $this->priceNetto).' zł</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>Razem: </td>
+                <td style=" border: 2px solid black;">'.$this->quantity * $this->priceBrutto.' zł</td>
+                <td style=" border: 2px solid black;">'.$this->quantity * $this->priceNetto.' zł</td>
+                <td ></td>
+                <td style=" border: 2px solid black;">'.($this->quantity * $this->priceBrutto) - ($this->quantity * $this->priceNetto).' zł</td>
+            </tr>
+        </tbody>
+    </table>';
+            //$data .= '<h1 style="width: 100%; text-align:center;">Faktura numer: '.$this->orderNumber.'</h1><br>';
+            //$data .= '<strong>Imię: </strong>'.$this->name;
 
             $mpdf->WriteHTML($data);
             $fileName = 'Faktura nr. '.$this->orderNumber.'.pdf';

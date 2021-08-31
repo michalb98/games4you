@@ -14,6 +14,7 @@
     require_once('./php/Contact.php');
     require_once('./php/DeleteAccount.php');
     require_once('./php/GameKey.php');
+    require_once('./php/DiscountCode.php');
     require_once('./php/GeneratePDF.php');
     require __DIR__ . '/vendor/autoload.php';
 
