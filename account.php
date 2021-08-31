@@ -14,7 +14,8 @@
     require_once('./php/Contact.php');
     require_once('./php/DeleteAccount.php');
     require_once('./php/GameKey.php');
-    require_once('./php/DiscountCode.php');
+    require_once('./php/GeneratePDF.php');
+    require __DIR__ . '/vendor/autoload.php';
 
     $db = new Database();
     $grid = new Grid();
@@ -80,6 +81,13 @@
         if($deleteAccount->validateDeleteForm($db, $pdo)) {
             $deleteAccount->deleteAccount($db, $pdo);
         }
+    }
+
+    //Faktura
+    if(isset($_GET['invoice-number'])) {
+        $gpdf = new GeneratePDF();
+        $gpdf->setDataToInvoice($_SESSION['login'], $_GET['invoice-number']);
+        $gpdf->generateInvoice();
     }
 
 ?>

@@ -938,6 +938,16 @@
                 return 'Database error';
             }
         }
+
+        function getDataToInvoice($pdo, $login, $orderNumber) {
+            if ($pdo) {
+                $sth = $pdo->prepare('SELECT `additional_data`.`Name`, `additional_data`.`Surname`, `additional_data`.`Postal_code`, `additional_data`.`City`, `additional_data`.`Street`, `additional_data`.`Street_number`, `additional_data`.`House_number`, `additional_data`.`Email`, `game`.`Title`, `game`.`Price_netto`, `game`.`Price_brutto`, `transaction`.`Quantity`, `transaction`.`Data`, `order_number`.`Order_number`, `order_number`.`Order_value`, `order_number`.`Discount_value` FROM `additional_data`, `user`, `game`, `transaction`, `order_number`, `orders` WHERE `additional_data`.`ID_Additional_data`=`user`.`ID_User` AND `game`.`ID_Game`=`transaction`.`ID_Game` AND `transaction`.`ID_Transaction`=`orders`.`ID_Transaction` AND `order_number`.`ID_Order_number`=`orders`.`ID_Order_number` AND `user`.`Login` = "'.$login.'" AND `order_number`.`Order_number` = "'.$orderNumber.'" GROUP BY `game`.`Title`;');
+                $sth->execute();
+                return $sth->fetchAll(PDO::FETCH_NUM);       
+            } else {
+                return 'Database error';
+            }
+        }
     }
 
 ?>

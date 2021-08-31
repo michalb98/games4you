@@ -66,6 +66,8 @@
         </a>
         <form id="search" action="szukaj" method="GET">
             <input type="search" name="search" placeholder="Wpisz tytuł gry...">
+            <label id="label-submit-search" for="submit-search" title="Szukaj gry"></label>
+            <input type="submit" value="" id="submit-search">
         </form>
         <a ';
         if(isset($_SESSION['login'])) { 
@@ -277,8 +279,7 @@
             else 
                 $out[5] = "Title";     
             if(isset($get['search'])) {
-                $search = filter_var($get['search'], FILTER_SANITIZE_STRING);
-                $out[6] = $search; 
+                $out[6] = filter_var($get['search'], FILTER_SANITIZE_STRING); 
             }
             else 
                 $out[6] = "";       
@@ -340,8 +341,8 @@
             else 
                 $out[5] = "";
 
-            if(isset($get['search'])) 
-                $out[6] = 'Szukany tytuł: '.$get['search']; 
+            if(isset($get['search']) && $get['search'] != '') 
+                $out[6] = 'Szukany tytuł: '.filter_var($get['search'], FILTER_SANITIZE_STRING); 
             else 
                 $out[6] = "";
             

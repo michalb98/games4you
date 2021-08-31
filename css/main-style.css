@@ -30,14 +30,20 @@ body {
     height: inherit;
 }
 
-#search,
-#search  input {
+#search {
     width: 60vw;
     height: 5vh;
     font-size: 2.5vh;
+    display: flex;
+    -webkit-box-reflect: below -1.5vh linear-gradient(transparent, rgba(0,0,0,0.3));
+    box-sizing: border-box;
 }
 
-#search  input {
+#search input,
+#label-submit-search {
+    width: calc(60vw - 3rem);
+    height: 5vh;
+    font-size: 2.5vh;
     background: linear-gradient(180deg, rgba(48, 207, 208, 0.5), rgba(51, 8, 103, 0.5));
     background-color: #888;
     padding-left: 1vw;
@@ -45,15 +51,52 @@ body {
     border-image-slice: 1;
     border-width: 5px;
     border-image-source: linear-gradient(0deg, #330867, #30cfd0);
+    box-sizing: border-box;
  }
 
  #search  input::placeholder {
      color: #111;
  }
 
-#search {
-    -webkit-box-reflect: below -1.5vh linear-gradient(transparent, rgba(0,0,0,0.3));
+#submit-search {
+    display: none;
+}
+
+ #label-submit-search {
+    width: 3rem !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
  }
+
+ #label-submit-search::before {
+    content: '\1F50D';
+    display: flex;
+    position: absolute;
+    font-size: 1.2em;
+    width: 3rem;
+    height: 5vh;
+    text-align: center;
+    align-items: flex-start;
+    justify-content: center;
+    left: 0;
+    top: 0;
+    transition: transform  0.25s ease-in-out;
+    -webkit-transition: transform  0.25s ease-in-out;
+    -moz-transition: transform  0.25s ease-in-out;
+    -ms-transition: transform  0.25s ease-in-out;
+    -o-transition: transform  0.25s ease-in-out;
+}
+
+ #label-submit-search:hover::before {
+     transform: rotate(90deg);
+     -webkit-transform: rotate(90deg);
+     -moz-transform: rotate(90deg);
+     -ms-transform: rotate(90deg);
+     -o-transform: rotate(90deg);
+}
 
 .icon-main-header {
     width: 3em;

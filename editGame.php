@@ -78,7 +78,6 @@
         $grid->drawFooter();
     ?>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="sweetalert2.min.js"></script>
     <?php
         if(isset($_SESSION['edit-game-flag'])) {
             echo $_SESSION['edit-game-flag'];
