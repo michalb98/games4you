@@ -16,6 +16,27 @@ require('C:\xampp\htdocs\sklep\vendor\autoload.php');
         protected $totalOrderBruttoValue, $totalOrderNettoValue, $totalVatValue;
         protected $i = 1;
         
+        function validateDataToInvoice($login) {
+            $db = new Database();
+            $pdo = $db->createPDO();
+
+            $additionalData = $db->getUserAdditionalData($pdo, $login);
+
+            try{
+                !($additionalData[0][0] == "" || strlen($additionalData[0][0]) < 1) ? true : throw new Exception(false);
+                !($additionalData[0][1] == "" || strlen($additionalData[0][1]) < 1) ? true : throw new Exception(false);
+                !($additionalData[0][2] == "" || strlen($additionalData[0][2]) < 1) ? true : throw new Exception(false);
+                !($additionalData[0][3] == "" || strlen($additionalData[0][3]) < 1) ? true : throw new Exception(false);
+                !($additionalData[0][4] == "" || strlen($additionalData[0][4]) < 1) ? true : throw new Exception(false);
+                !($additionalData[0][5] == "" || strlen($additionalData[0][5]) < 1) ? true : throw new Exception(false);
+                !($additionalData[0][6] == "" || strlen($additionalData[0][6]) < 1) ? true : throw new Exception(false);
+                !($additionalData[0][8] == "" || strlen($additionalData[0][8]) < 1) ? true : throw new Exception(false);
+                return true;
+            } catch (Exception) {
+                return false;
+            }
+        }
+
         function setDataToInvoice($login, $orderNumber) {
             $db = new Database();
             $pdo = $db->createPDO();
@@ -60,7 +81,7 @@ require('C:\xampp\htdocs\sklep\vendor\autoload.php');
                     Sprzedawca
                 </h2>
                 <h4 style="font-weight: normal;">Michał Błaszczyk</h4>
-                <h4 style="font-weight: normal;">99-400 Kutno</h4>
+                <h4 style="font-weight: normal;">99-300 Kutno</h4>
                 <h4 style="font-weight: normal;">ul. Łokietka 6/60</h4>
             </div>
             <div style="width: 35%; float: left; margin-left: 10%;">
@@ -69,7 +90,12 @@ require('C:\xampp\htdocs\sklep\vendor\autoload.php');
                 </h2>
                 <h4 style="font-weight: normal;">'.$this->name.' '.$this->surname.'</h4>
                 <h4 style="font-weight: normal;">'.$this->postalCode.' '.$this->city.'</h4>
-                <h4 style="font-weight: normal;">ul. '.$this->street.' '.$this->streetNumber.'/'.$this->houseNumber.'</h4>
+                <h4 style="font-weight: normal;">ul. '.$this->street.' '.$this->streetNumber;
+                if($this->houseNumber != "") {
+                    $data .= '/'.$this->houseNumber;
+                }
+                
+                $data .= '</h4>
             </div>
         </div>
         <div style="width: 100%; height: auto; text-align: left;">

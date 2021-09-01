@@ -578,6 +578,7 @@
     text-align: center;
     font-size: 1.2em;
     color: #FFF;
+    margin-top: 1vh;
     border: 1px solid #330867;
     background-color: rgba(0, 0, 0, 0.25);
     transition: background-color, border, border-radius 0.25s ease-in-out;

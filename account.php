@@ -87,8 +87,13 @@
     //Faktura
     if(isset($_GET['invoice-number'])) {
         $gpdf = new GeneratePDF();
-        $gpdf->setDataToInvoice($_SESSION['login'], $_GET['invoice-number']);
-        $gpdf->generateInvoice();
+        //echo $gpdf->validateDataToInvoice($_SESSION['login']);
+        if($gpdf->validateDataToInvoice($_SESSION['login'])) {
+            $gpdf->setDataToInvoice($_SESSION['login'], $_GET['invoice-number']);
+            $gpdf->generateInvoice();
+        } else {
+            $_SESSION['account-flag'] = $grid->showAlert("Nie można wygenerować faktury!", "Proszę uzupełnić swój profil w ustawieniach konta, aby móc generować i pobierać faktury.", "error", "OK");
+        }
     }
 
 ?>
