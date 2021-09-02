@@ -164,3 +164,13 @@
     position: relative;
     flex-direction: row-reverse;
 }
+
+/* Media query */
+@media only screen and (max-width: 1200px) {
+
+    .rating-game-page {
+        width: 40%;
+    }
+}
+
+
