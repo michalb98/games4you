@@ -434,7 +434,7 @@ footer {
     margin: 0;
     padding: 0;
     height: 2.5em;
-    width: 14em;
+    width: 12vw;
     background-color: transparent;
     appearance: none;
     text-align-last: center;
@@ -912,8 +912,21 @@ input:-webkit-autofill:active {
 
 /* Media query */
 @media only screen and (max-width: 1200px) {
+    main,
+    #payment-method, 
+    #container-footer, 
+    #author, 
+    .search-results,
+    .sort-form {
+        width: 90%;
+    }
+
     #main-header {
         justify-content: space-evenly;
+    }
+
+    .game-cart-cover {
+        width: 20%;
     }
 
     .game,
@@ -921,13 +934,68 @@ input:-webkit-autofill:active {
         width: 20vw;
         height: 35vh;
     }
+
+    .label-login-form, .label-login-form::after,
+    .text-login-form,
+    .input-cart {
+        width: 25vw;
+    }
     
     #search {
         width: 50vw;
+    }
+
+    #search input {
+        width: calc(50vw - 4rem);
     }
 
     #payment-method img {
         width: 7vw;
     }
 
+    .list-categories-nav a li,
+    .header-nav-form, .select-nav-form, .label-nav-form{
+        min-height: 5vh;
+        height: auto;
+        font-size: 1.3rem;
+    }
+
+    #categories-nav {
+        min-height: 5vh;
+    }
+
+    .nav-form, 
+    .list-categories-nav {
+        height: 5vh;
+    }
+
+    .label-sort-form, .input-sort-form, .select-sort-form {
+        font-size: 1.1rem;
+    }
+}
+
+@media only screen and (max-width: 1050px) { 
+
+    .list-categories-nav a li, .header-nav-form, .select-nav-form, .label-nav-form {
+        font-size: 1.2rem;
+    }
+
+    .game-info-hover {
+        font-size: 0.9rem;
+    }
+
+    .game, .game:hover::before, .game:hover::after {
+        width: 20vw;
+        height: 30vh;
+    }
+}
+
+@media only screen and (max-width: 950px) {
+    .list-categories-nav a li, .header-nav-form, .select-nav-form, .label-nav-form {
+        font-size: 1rem;
+    }
+
+    .label-sort-form, .input-sort-form, .select-sort-form {
+        font-size: revert;
+    }
 }

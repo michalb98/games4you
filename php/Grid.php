@@ -394,7 +394,7 @@
             $grid = new Grid();
             $get = $grid->getInfo($_GET);
             echo '<div id="sort">
-            <form method="GET" action="szukaj" class="sort-form"
+            <form method="GET" action="szukaj" class="sort-form">
                 <label for="price-from" class="label-sort-form">
                     Cena od:
                 </label>

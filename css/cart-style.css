@@ -180,3 +180,11 @@
     margin-bottom: 1vh !important;
     padding: 1vh 0.5vw !important;
 }
+
+/* Media query */
+@media only screen and (max-width: 1200px) {
+
+    #cart-payment-container {
+        width: 35%;
+    }
+}

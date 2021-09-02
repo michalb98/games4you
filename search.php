@@ -16,7 +16,7 @@
 <html lang="pl">
 <head>
     <meta name="description" content="Sklep internetowy z grami komputerowymi">
-    <title>Games4You - <?php $title = $grid->getTitlePage($_GET); echo $title[0].' '.$title[1].' '.$title[2].' '.$title[3].' '.$title[4].' '.$title[5]; ?></title>
+    <title>Games4You - <?php $title = $grid->getTitlePage($_GET); echo $title[0].' '.$title[1].' '.$title[2].' '.$title[3].' '.$title[4].' '.$title[5].' '.$title[6]; ?></title>
     <link rel="stylesheet" href="./css/game-page.css">
     
     

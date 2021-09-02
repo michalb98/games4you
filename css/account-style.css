@@ -637,6 +637,14 @@
         text-align: center;
     }
 
+    #aside-account {
+        width: 74%;
+    }
+
+    .discount-code {
+        width: 60%;
+    }
+
     .game-rating {
         width: 75%;
         font-size: 1.2rem;
@@ -657,4 +665,35 @@
         width: 45vw;
     }
 
+    .invoice-button {
+        min-width: 20vw;
+        width: auto;
+    }
+}
+
+@media only screen and (max-width: 1050px) { 
+    .order-game,
+    .game-rating-container {
+        height: 12vh;
+    }
+
+    .a-account {
+        width: 90%;
+    }
+
+    .game-return-submit {
+        width: auto;
+    }
+
+    .order-game-title:hover::after {
+        bottom: 15%;
+    }
+
+    .order-game-title {
+        width: 40%;
+    }
+
+    .container {
+        margin-top: 2vh;
+    }
 }
