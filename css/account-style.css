@@ -697,3 +697,27 @@
         margin-top: 2vh;
     }
 }
+
+@media only screen and (max-width: 750px) {
+    #nav-account {
+        width: 90%;
+        height: fit-content;
+        padding: 2vh 1vw;
+        display: flex;
+        flex: auto;
+        flex-flow: wrap;
+    }
+
+    .a-account {
+        width: 49%;
+        margin-top: 1vh
+    }
+
+    #aside-account {
+        width: 100%;
+    }
+
+    .label, .label::after, .input-account {
+        width: 70vw;
+    }
+}

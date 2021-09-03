@@ -69,20 +69,6 @@
             <label id="label-submit-search" for="submit-search" title="Szukaj gry"></label>
             <input type="submit" value="" id="submit-search">
         </form>
-        <a ';
-        if(isset($_SESSION['login'])) { 
-        echo 'href="koszyk" title="Zobacz swój koszyk" id="cart" class="icon-main-header">
-            <i class="icon-basket icon"></i>';
-            if(isset($_SESSION['game-cart'])) { 
-                $games = explode(',', $_SESSION['game-cart']);
-                $countGames = sizeof($games);
-                echo '<div id="game-in-cart">'.$countGames.'</div>';
-            }
-        } else {
-            echo 'href="logowanie" title="Zaloguj się, aby móc kupować gry" id="cart" class="icon-main-header">
-            <i class="icon-basket icon"></i>';
-        }
-        echo'</a>
         <div id="account-container">';
             if(isset($_SESSION['login'])) {
                 echo '<a href="konto" title="Zobacz swoje konto" id="account" class="icon-main-header">
@@ -102,6 +88,20 @@
             }
             
         echo '</div>
+        <a ';
+        if(isset($_SESSION['login'])) { 
+        echo 'href="koszyk" title="Zobacz swój koszyk" id="cart" class="icon-main-header">
+            <i class="icon-basket icon"></i>';
+            if(isset($_SESSION['game-cart'])) { 
+                $games = explode(',', $_SESSION['game-cart']);
+                $countGames = sizeof($games);
+                echo '<div id="game-in-cart">'.$countGames.'</div>';
+            }
+        } else {
+            echo 'href="logowanie" title="Zaloguj się, aby móc kupować gry" id="cart" class="icon-main-header">
+            <i class="icon-basket icon"></i>';
+        }
+        echo'</a>
     </div>';
         }
 
@@ -184,9 +184,9 @@
                 '.$game[0][0].'
                 </div>
                 <div id="info-game-page">
-                    <div class="type-game-page">
-                        Typ: <a href="szukaj?type='.$game[0][4].'" title="Typ: '.$game[0][4].'">'.$game[0][4].'</a>
-                    </div>
+                        <div class="type-game-page">
+                            Typ: <a href="szukaj?type='.$game[0][4].'" title="Typ: '.$game[0][4].'">'.$game[0][4].'</a>
+                        </div>
                     <div class="version-game-page">
                         Wersja: <a href="szukaj?version='.$game[0][5].'" title="Wersja: '.$game[0][5].'">'.$game[0][5].'</a>
                     </div>
@@ -395,23 +395,29 @@
             $get = $grid->getInfo($_GET);
             echo '<div id="sort">
             <form method="GET" action="szukaj" class="sort-form">
-                <label for="price-from" class="label-sort-form">
-                    Cena od:
-                </label>
-                <input type="number" name="price-from" id="price-from" class="input-sort-form" value="'.$minPrice[0][0].'" step="0.01" min="0.01" max="999.99">
-                <label for="price-from" class="label-sort-form">
-                    Cena do:
-                </label>
-                <input type="number" name="price-to" id="price-to" class="input-sort-form" value="'.$maxPrice[0][0].'" step="0.01" min="0.01" max="999.99">
-                <label for="price-from" class="label-sort-form">
-                    Sortuj według:
-                </label>
-                <select name="sort-by" id="sort-by" class="select-sort-form">';
-                    $rows = sizeof($this->sortOption);
-                    for($i = 0; $i < $rows; $i++){
-                        echo '<option class="option-select-sort-form" value="'.$this->sortOption[$i][0].'">'.$this->sortOption[$i][1].'</option>';
-                    }
-                echo '</select>
+                <div class="container-sort">
+                    <label for="price-from" class="label-sort-form">
+                        Cena od:
+                    </label>
+                    <input type="number" name="price-from" id="price-from" class="input-sort-form" value="'.$minPrice[0][0].'" step="0.01" min="0.01" max="999.99">
+                </div>
+                <div class="container-sort">
+                    <label for="price-from" class="label-sort-form">
+                        Cena do:
+                    </label>
+                    <input type="number" name="price-to" id="price-to" class="input-sort-form" value="'.$maxPrice[0][0].'" step="0.01" min="0.01" max="999.99">
+                </div>
+                <div class="container-sort">
+                    <label for="price-from" class="label-sort-form">
+                        Sortuj według:
+                    </label>
+                    <select name="sort-by" id="sort-by" class="select-sort-form">';
+                        $rows = sizeof($this->sortOption);
+                        for($i = 0; $i < $rows; $i++){
+                            echo '<option class="option-select-sort-form" value="'.$this->sortOption[$i][0].'">'.$this->sortOption[$i][1].'</option>';
+                        }
+                    echo '</select>
+                </div>
                 <input type="hidden" name="platform" value="'.$get[2].'">
                 <input type="hidden" name="version" value="'.$get[1].'">
                 <input type="hidden" name="type" value="'.$get[0].'">

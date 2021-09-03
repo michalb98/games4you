@@ -173,4 +173,37 @@
     }
 }
 
+@media only screen and (max-width: 450px) {
+    .cover-game-page,
+    #container-info-game-page,
+    #desc-game-page {
+        max-width: 90%;
+        min-width: 90%;
+        width: 90%;
+    }
 
+    #desc-game-page,
+    .short-desc-game-page {
+        padding: 1vh 2vw;
+    }
+
+    .cover-game-page img {
+        width: 100%;
+    }
+
+    .rating-game-page {
+        width: 100%;
+        margin-top: 2vh !important;
+    }
+
+    #info-game-page {
+        display: block;
+        text-align: center;
+        padding: 1vh 2vw;
+        font-size: 1.2rem;
+    }
+
+    #info-game-page * {
+        margin-top: 1vh;
+    }
+}

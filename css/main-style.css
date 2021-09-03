@@ -388,6 +388,10 @@ footer {
     margin-right: auto;
 }
 
+.container-sort {
+    display: contents;
+}
+
 .label-sort-form {
     font-size: 1.2em;
 }
@@ -911,6 +915,30 @@ input:-webkit-autofill:active {
 }
 
 /* Media query */
+@media only screen and (max-width: 1600px) { 
+    .game,
+    .game:hover::before, .game:hover::after {
+        width: 16vw;
+        height: 40vh;
+    }
+}
+
+@media only screen and (max-width: 1450px) { 
+    .game,
+    .game:hover::before, .game:hover::after {
+        width: 17vw;
+        height: 37vh;
+    }
+}
+
+@media only screen and (max-width: 1300px) { 
+    .game,
+    .game:hover::before, .game:hover::after {
+        width: 22vw;
+        height: 40vh;
+    }
+}
+
 @media only screen and (max-width: 1200px) {
     main,
     #payment-method, 
@@ -954,19 +982,20 @@ input:-webkit-autofill:active {
     }
 
     .list-categories-nav a li,
-    .header-nav-form, .select-nav-form, .label-nav-form{
-        min-height: 5vh;
+    .header-nav-form, .select-nav-form, .label-nav-form {
+        min-height: 6vh;
         height: auto;
         font-size: 1.3rem;
+        width: 21vw;
     }
 
     #categories-nav {
-        min-height: 5vh;
+        min-height: 6vh;
     }
 
     .nav-form, 
     .list-categories-nav {
-        height: 5vh;
+        height: 6vh;
     }
 
     .label-sort-form, .input-sort-form, .select-sort-form {
@@ -997,5 +1026,103 @@ input:-webkit-autofill:active {
 
     .label-sort-form, .input-sort-form, .select-sort-form {
         font-size: revert;
+    }
+}
+
+@media only screen and (max-width: 850px) {
+    .game, .game:hover::before, .game:hover::after {
+        width: 26vw;
+        height: 33vh;
+    }
+}
+
+@media only screen and (max-width: 750px) {
+    .label-sort-form, .input-sort-form, .select-sort-form {
+        width: initial;
+    }
+
+    .game, .game:hover::before, .game:hover::after {
+        width: 27vw;
+        height: 31vh;
+    }
+
+    .game-info-hover {
+        font-size: 0.85rem;
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    main {
+        width: 100%;
+    }
+
+    .game, .game:hover::before, .game:hover::after {
+        width: 30vw;
+        height: 30vh;
+    }
+
+    .container-sort {
+        display: grid;
+        text-align: center;
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    #logo {
+        height: 9vh;
+        -webkit-box-reflect: below -7vh linear-gradient(transparent, rgba(0,0,0,0.3));
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .game, .game:hover::before, .game:hover::after {
+        width: 47vw;
+        height: 40vh;
+        font-size: 0.85rem;
+    }
+
+    .list-categories-nav a li, .header-nav-form, .select-nav-form, .label-nav-form {
+        font-size: 0.75rem;
+    }
+
+    .list-categories-nav a li,
+    .header-nav-form, .select-nav-form, .label-nav-form {
+        width: 24vw;
+    }
+    
+    #categories-nav {
+        min-height: calc(6vh + 1px);
+    }
+
+    #sort,
+    .sort-form {
+        height: 11vh;
+    }
+
+    .input-sort-form, .select-sort-form {
+        font-size: 1rem;
+    }
+
+    .submit-sort-form {
+        height: 8vh;
+    }
+
+    #search,
+    #search input,
+    #label-submit-search {
+        height: 3rem;
+    }
+
+    #search {
+        width: 46vw;
+    }
+
+    #label-submit-search::before {
+        /* top: -5px; */
+        left: -5px; 
+    }
+
+    .search-results {
+        font-size: 1rem;
     }
 }
