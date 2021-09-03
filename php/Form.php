@@ -143,8 +143,8 @@
                 $_SESSION['price-brutto-form-error'] = 'Podana cena brutto jest niepoprawna! Zakres cen to od 0,01 do 999,99 zł.';
                 $check = false;
             }
-            if($this->short_desc == '' || strlen($this->short_desc) < 50 || strlen($this->short_desc) > 250) {
-                $_SESSION['short-desc-form-error'] = 'Podany krótki opis jest niepoprawny! Poprawna długość to od 50 do 250 znaków.';
+            if($this->short_desc == '' || strlen($this->short_desc) < 50 || strlen($this->short_desc) > 260) {
+                $_SESSION['short-desc-form-error'] = 'Podany krótki opis jest niepoprawny! Poprawna długość to od 50 do 250 znaków. Użyta ilość znaków to: '.strlen($this->short_desc);
                 $check = false;
             }
             if($this->desc == '' || strlen($this->desc) < 50 || strlen($this->desc) > 5000) {

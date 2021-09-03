@@ -46,6 +46,37 @@
     <?php
         $grid->drawNecesseryHead();
     ?>
+    <script src="https://cdn.tiny.cloud/1/gl0iw36po2pouh4j1jkpo39vyh7c853p825csnkwk8oinjm8/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+          tinymce.init({
+            selector: 'textarea#desc-admin-form',
+            plugins: 'a11ychecker advcode casechange export formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinymcespellchecker wordcount',
+            toolbar: 'undo redo | formatselect | ' +
+                'bold italic backcolor | alignleft aligncenter ' +
+                'alignright alignjustify | bullist numlist outdent indent | ' +
+                'removeformat | wordcount',
+            toolbar_mode: 'floating',
+            skin: "oxide-dark",
+            content_css: "dark",
+            width : "60vw",
+            height: "80vh"
+         });
+
+         tinymce.init({
+            selector: 'textarea#short-desc-admin-form',
+            plugins: 'a11ychecker advcode casechange export formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinymcespellchecker wordcount',
+            toolbar: 'undo redo | formatselect | ' +
+                'bold italic backcolor | alignleft aligncenter ' +
+                'alignright alignjustify | bullist numlist outdent indent | ' +
+                'removeformat | wordcount',
+            toolbar_mode: 'floating',
+            menubar : false, 
+            skin: "oxide-dark",
+            content_css: "dark",
+            width : "40vw",
+            height: "30vh"
+        });
+   </script>
 </head>
 <body>
     <?php
