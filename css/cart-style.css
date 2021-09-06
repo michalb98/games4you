@@ -188,3 +188,49 @@
         width: 35%;
     }
 }
+
+@media only screen and (max-width: 450px) {
+    #main-cart {
+        flex-direction: column;
+    }
+
+    #cart-container,
+    #cart-payment-container {
+        width: 98%;
+    }
+
+    #cart-payment-container {
+        height: auto;
+    }
+
+    .game-cart-container {
+        height: auto;
+        flex-wrap: wrap;
+    }
+
+    .game-cart-title {
+        width: 80%;
+    }
+
+    .game-cart-quantity,
+    .game-cart-price,
+    .game-cart-remove {
+        width: 33%;
+        margin: 2vh 0;
+        text-align: center;
+    }
+
+    .game-cart-cover img {
+        width: -webkit-fill-available;
+        height: auto;
+        max-height: 16vh;
+    }
+
+    .submit-login-form {
+        width: auto !important;
+        border: 1px solid #30cfd0 !important;
+        height: auto !important;
+        padding: 1vh 0 !important;
+    }
+}
+

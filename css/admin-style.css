@@ -399,3 +399,16 @@ input[type=number] {
         width: 45vw;
     }
 }
+
+@media only screen and (max-width: 450px) {
+
+    .label-admin-form, .label-admin-form::after, .text-admin-form, .number-admin-form, .textare-admin-form, 
+    .admin-menu-nav-a,
+    .container-select-admin-form {
+        min-width: 70vw;
+    }
+
+    .submit-admin-form {
+        min-width: 50vw;
+    }
+}

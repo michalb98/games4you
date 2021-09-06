@@ -157,6 +157,10 @@
     flex-direction: column;
 }
 
+#desc-game-page img {
+    max-width: 90%;
+}
+
 .rating-game-page {
     width: 30%;
     display: flex;

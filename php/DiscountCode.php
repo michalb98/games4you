@@ -12,7 +12,7 @@
             } else {
                 echo '<h1 class="text-alert">Twoje kody rabatowe.</h1>';
                 for($i=0; $i < sizeof($this->discountCode); $i++) {
-                    echo '<div class="game-rating-container">
+                    echo '<div class="game-rating-container discount-code-container">
                             <div class="discount-code">
                                 <span class="info-label">Kod rabatowy:</span>'.$this->discountCode[$i][0].'
                             </div>

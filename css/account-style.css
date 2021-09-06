@@ -721,3 +721,66 @@
         width: 70vw;
     }
 }
+
+@media only screen and (max-width: 450px) {
+
+    .game-rating-container {
+        width: 95%;
+    }
+
+    .edit-game-panel {
+        width: max-content;
+    }
+
+    .order-game-cover {
+        display: none;
+    }
+
+    .conatiner-admin-panel,
+    .order-game-title,
+    .game-key,
+    .form-return {
+        width: 50%;
+    }
+
+    .edit-game-panel {
+        width: auto;
+        padding: 0 1vw;
+    }
+
+    .game-rating {
+        font-size: 0.8rem;
+    }
+
+    .discount-code-container {
+        flex-direction: column;
+        height: auto;
+        padding: 1vh 0;
+    }
+
+    .discount-code-container * {
+        width: 100%;
+    }
+
+    .invoice-button {
+        min-width: 40vw;
+        min-height: 7vh;
+    }
+
+    .order-game-quantity,
+    .order-game-price {
+        width: 25%;
+    }
+
+    .order-number {
+        font-size: 1.5rem;
+    }
+
+    .container {
+        width: 40vw;
+    }
+
+    .label-mark {
+        left: 0;
+    }
+}   

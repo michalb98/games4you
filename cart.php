@@ -95,7 +95,7 @@
         $grid->drawMainHeader();
     ?>
 
-    <main>
+    <main id="main-cart">
         <div id="cart-container">
             <?php
                 if(isset($_SESSION['game-cart']) && $_SESSION['game-cart'] != '') {
