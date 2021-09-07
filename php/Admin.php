@@ -378,20 +378,6 @@
         <div id="search">
             <input type="search" name="search" placeholder="Wpisz tytuł gry...">
         </div>
-        <a ';
-        if(isset($_SESSION['login'])) { 
-        echo 'href="koszyk" title="Zobacz swój koszyk" id="cart" class="icon-main-header">
-            <i class="icon-basket icon"></i>';
-            if(isset($_SESSION['game-cart'])) { 
-                $games = explode(',', $_SESSION['game-cart']);
-                $countGames = sizeof($games);
-                echo '<div id="game-in-cart">'.$countGames.'</div>';
-            }
-        } else {
-            echo 'href="logowanie" title="Zaloguj się, aby móc kupować gry" id="cart" class="icon-main-header">
-            <i class="icon-basket icon"></i>';
-        }
-        echo'</a>
         <div id="account-container">';
             if(isset($_SESSION['login'])) {
                 echo '<a href="konto" title="Zobacz swoje konto" id="account" class="icon-main-header">
@@ -409,6 +395,20 @@
             }
             
         echo '</div>
+        <a ';
+        if(isset($_SESSION['login'])) { 
+        echo 'href="koszyk" title="Zobacz swój koszyk" id="cart" class="icon-main-header">
+            <i class="icon-basket icon"></i>';
+            if(isset($_SESSION['game-cart'])) { 
+                $games = explode(',', $_SESSION['game-cart']);
+                $countGames = sizeof($games);
+                echo '<div id="game-in-cart">'.$countGames.'</div>';
+            }
+        } else {
+            echo 'href="logowanie" title="Zaloguj się, aby móc kupować gry" id="cart" class="icon-main-header">
+            <i class="icon-basket icon"></i>';
+        }
+        echo'</a>
     </div>';
         }
 

@@ -210,7 +210,8 @@ body {
 .select-nav-form,
 .submit-nav-form,
 .label-nav-form {
-    width: -webkit-fill-available;
+    min-width: -webkit-fill-available;
+    width: 20vw;
     height: 7vh;
     font-size: 1.4em;
     color: #FFF;

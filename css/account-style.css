@@ -603,6 +603,12 @@
 }
 
 /* Media query */
+@media only screen and (max-width: 1550px) {
+    .discount-code {
+        width: 60%;
+    }
+}
+
 @media only screen and (max-width: 1200px) {
 
     .invoice-button {
@@ -672,11 +678,6 @@
 }
 
 @media only screen and (max-width: 1050px) { 
-    .order-game,
-    .game-rating-container {
-        height: 12vh;
-    }
-
     .a-account {
         width: 90%;
     }
@@ -695,6 +696,24 @@
 
     .container {
         margin-top: 2vh;
+    }
+
+    .discount-code-container {
+        flex-direction: column;
+        height: auto;
+        padding: 1vh 0;
+    }
+
+    .discount-code-container * {
+        width: 100%;
+    }
+
+    .order-game, .game-rating-container {
+        height: 13vh;
+    }
+
+    .order-game-cover img {
+        width: 9.5vw;
     }
 }
 
@@ -750,16 +769,6 @@
 
     .game-rating {
         font-size: 0.8rem;
-    }
-
-    .discount-code-container {
-        flex-direction: column;
-        height: auto;
-        padding: 1vh 0;
-    }
-
-    .discount-code-container * {
-        width: 100%;
     }
 
     .invoice-button {
