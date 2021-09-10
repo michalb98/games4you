@@ -120,10 +120,10 @@ require('C:\xampp\htdocs\sklep\vendor\autoload.php');
                  <td style=" border: 2px solid black;">'.$i + $this->i.'</td>
                  <td style=" border: 2px solid black;">'.$this->title[$i].'</td>
                  <td style=" border: 2px solid black;">'.$this->quantity[$i].'</td>
-                 <td style=" border: 2px solid black;">'.$this->quantity[$i] * $this->priceBrutto[$i].' zł</td>
-                 <td style=" border: 2px solid black;">'.$this->quantity[$i] * $this->priceNetto[$i].' zł</td>
+                 <td style=" border: 2px solid black;">'.number_format($this->quantity[$i] * $this->priceBrutto[$i], 2).' zł</td>
+                 <td style=" border: 2px solid black;">'.number_format($this->quantity[$i] * $this->priceNetto[$i], 2).' zł</td>
                  <td style=" border: 2px solid black;">23%</td>
-                 <td style=" border: 2px solid black;">'.($this->quantity[$i] * $this->priceBrutto[$i]) - ($this->quantity[$i] * $this->priceNetto[$i]).' zł</td>
+                 <td style=" border: 2px solid black;">'.number_format(($this->quantity[$i] * $this->priceBrutto[$i]) - ($this->quantity[$i] * $this->priceNetto[$i]), 2).' zł</td>
              </tr>';
              $this->totalOrderBruttoValue += $this->quantity[$i] * $this->priceBrutto[$i];
              $this->totalOrderNettoValue += $this->quantity[$i] * $this->priceNetto[$i];
@@ -133,10 +133,10 @@ require('C:\xampp\htdocs\sklep\vendor\autoload.php');
                 <td></td>
                 <td></td>
                 <td>Razem: </td>
-                <td style=" border: 2px solid black;">'.$this->totalOrderBruttoValue.' zł</td>
-                <td style=" border: 2px solid black;">'.$this->totalOrderNettoValue.' zł</td>
+                <td style=" border: 2px solid black;">'.number_format($this->totalOrderBruttoValue, 2).' zł</td>
+                <td style=" border: 2px solid black;">'.number_format($this->totalOrderNettoValue, 2).' zł</td>
                 <td ></td>
-                <td style=" border: 2px solid black;">'.$this->totalVatValue.' zł</td>
+                <td style=" border: 2px solid black;">'.number_format($this->totalVatValue, 2).' zł</td>
             </tr>
         </tbody>
     </table>';
