@@ -137,7 +137,7 @@
                     <a href="" title="">Linkedin</a>      
                 </div>
             </div>
-            <div id="author">Michał Błaszczyk &copy; 2021</div>
+            <div id="author">Michał Błaszczyk &copy; 2021-2022</div>
         </footer>'; 
         }
 
